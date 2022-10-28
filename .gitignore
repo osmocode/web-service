@@ -23,6 +23,5 @@
 hs_err_pid*
 
 #Intellij
-rmi/.idea/shelf/
-rmi/.idea/workspace.xml
+rmi/.idea
 rmi/target
