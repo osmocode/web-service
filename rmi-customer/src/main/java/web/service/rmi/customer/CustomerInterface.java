@@ -1,10 +1,10 @@
-package web.api;
+package web.service.rmi.customer;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 public interface CustomerInterface extends Remote {
 
-    String getTest() throws RemoteException;
+    String getName() throws RemoteException;
 
 }

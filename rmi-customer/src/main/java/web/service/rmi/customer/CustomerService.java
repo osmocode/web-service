@@ -1,7 +1,4 @@
-package web.services;
-
-import web.api.CustomerInterface;
-import web.models.Customer;
+package web.service.rmi.customer;
 
 import java.rmi.Naming;
 import java.rmi.registry.LocateRegistry;

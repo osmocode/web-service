@@ -1,8 +1,10 @@
-package web.api;
+package web.service.rmi.bike;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 public interface BikeInterface extends Remote {
-    String getTest() throws RemoteException;
+
+    String getName() throws RemoteException;
+
 }

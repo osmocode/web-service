@@ -1,6 +1,4 @@
-package web.models;
-
-import web.api.BikeInterface;
+package web.service.rmi.bike;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -12,7 +10,7 @@ public class Bike extends UnicastRemoteObject implements BikeInterface {
     }
 
     @Override
-    public String getTest() throws RemoteException {
-        return "Hello World";
+    public String getName() throws RemoteException {
+        return "Hello World from Bike";
     }
 }

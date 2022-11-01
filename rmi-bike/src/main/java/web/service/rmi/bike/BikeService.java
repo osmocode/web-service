@@ -1,14 +1,10 @@
-package web.services;
-
-import web.api.BikeInterface;
-import web.models.Bike;
+package web.service.rmi.bike;
 
 import java.rmi.Naming;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
 public class BikeService {
-
     public static void main(String[] args) {
         try{
             Registry registry = LocateRegistry.createRegistry(1010);
