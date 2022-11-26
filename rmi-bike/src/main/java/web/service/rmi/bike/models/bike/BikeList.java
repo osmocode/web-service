@@ -16,6 +16,9 @@ public class BikeList extends UnicastRemoteObject implements BikeListInterface {
 
     public BikeList() throws RemoteException {
         super();
+        this.bikeMap.put(1L, new Bike("Toto", null, null, null));
+        this.bikeMap.put(2L, new Bike("Titi", null, null, null));
+        this.bikeMap.put(3L, new Bike("Tata", null, null, null));
     }
 
     @Override

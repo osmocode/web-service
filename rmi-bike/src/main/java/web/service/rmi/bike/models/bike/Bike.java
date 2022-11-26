@@ -18,14 +18,14 @@ public class Bike extends UnicastRemoteObject implements BikeInterface {
     private ArrayBlockingQueue<Location> locationQueue;
     private String name;
 
-    public Bike(String name, Image image, long ownerId, List locationHistory, ArrayBlockingQueue<Location> locationQueue) throws RemoteException {
+    public Bike(String name, Image image, List locationHistory, ArrayBlockingQueue<Location> locationQueue) throws RemoteException {
         //Objects.requireNonNull(image);
 
         this.name = Objects.requireNonNull(name);
 
-        this.id = image.hashCode();
+        //this.id = image.hashCode();
         this.image = image;
-        this.ownerId = ownerId;
+        //this.ownerId = ownerId;
         this.locationHistory = locationHistory;
         this.locationQueue = locationQueue;
     }
