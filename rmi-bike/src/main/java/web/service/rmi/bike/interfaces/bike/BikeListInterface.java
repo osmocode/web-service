@@ -8,8 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface BikeListInterface extends Remote {
-    Optional<Bike> getBikeById(long id) throws RemoteException;
-
-    Optional<List<BikeInterface>> getBikeByOwner(long id) throws RemoteException;
     List<BikeInterface> getBikesList() throws RemoteException;
+    Optional<Bike> getBikeById(String uuid) throws RemoteException;
+    Optional<List<BikeInterface>> getBikeByOwner(String uuid) throws RemoteException;
 }
