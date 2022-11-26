@@ -1,12 +1,12 @@
 package web.service.rmi.bike;
 
-import web.service.rmi.bike.interfaces.BikeInterface;
-import web.service.rmi.bike.interfaces.BikeListInterface;
-import web.service.rmi.bike.models.BikeList;
+import web.service.rmi.bike.interfaces.bike.BikeListInterface;
+import web.service.rmi.bike.models.bike.BikeList;
 
 import java.rmi.Naming;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.HashMap;
 
 public class BikeService {
     public static void main(String[] args) {
