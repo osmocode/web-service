@@ -11,7 +11,9 @@
 
     <modelVersion>4.0.0</modelVersion>
 
+    <groupId>web.service</groupId>
     <artifactId>rest-api</artifactId>
+    <version>1.0</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
