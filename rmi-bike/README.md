@@ -19,12 +19,12 @@ All services is binded on port `1099`.
 
 - List of all bikes owned by owner
 ```java
-getBikeList(String owner)
+  getBikeList(String owner)
 ```
 
 - Retrieve the bike with the `uuid`
 ```java
-getBikeByUUID(String uuid)
+  getBikeByUUID(String uuid)
 ```
 
 ## `/LocationListService`
