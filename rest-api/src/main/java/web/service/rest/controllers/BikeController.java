@@ -16,12 +16,13 @@ public class BikeController {
     @Autowired
     BikeListInterface service;
 
+
     @GetMapping("/bike")
     public Map<String, BikeProvider> getBike() throws RemoteException {
         var lst = service.getBikesList();
         var map = new HashMap<String, BikeProvider>();
         for (int i = 0; i < lst.size(); i ++) {
-            map.put(String.valueOf(i), new BikeProvider(lst.get(i)));
+            map.put(String.valueOf(i), new BikeProvider(String.valueOf(i), lst.get(i)));
         }
         return map;
     }
