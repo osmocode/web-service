@@ -34,7 +34,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>web.service.rmi.bike.BikeService</mainClass>
+                            <mainClass>BikeService</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
