@@ -45,9 +45,9 @@ All services is binded on port `1099`.
   getBikeState()
 ```
 
-- Get bike `rentHistory`. The return value will be a `List<FeedbackService>`.
+- Get bike `feedbackHistory`. The return value will be a `List<FeedbackService>`.
 ```java
-  getRentHistory()
+  getFeedbackHistory()
 ```
 
 - Get bike `rentQueue`. The return value will be a `List<RentService>`.

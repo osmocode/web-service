@@ -5,10 +5,7 @@ import rmi.customer.interfaces.CustomerService;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class CustomerList extends UnicastRemoteObject implements CustomerListService {
@@ -20,17 +17,17 @@ public class CustomerList extends UnicastRemoteObject implements CustomerListSer
     }
 
     @Override
+    public Map<UUID, ? extends CustomerService> getAll() throws RemoteException {
+        return customerMap;
+    }
+
+    @Override
     public void add(String firstName, String lastName, CustomerType customerType) throws RemoteException {
         Objects.requireNonNull(firstName);
         Objects.requireNonNull(lastName);
         Objects.requireNonNull(customerType);
 
-        boolean create;
-
-        do {
-            var uuid = UUID.randomUUID();
-            create = customerMap.putIfAbsent(uuid, new Customer(uuid, firstName, lastName, customerType)) == null;
-        } while (!create);
+        while (customerMap.putIfAbsent(UUID.randomUUID(), new Customer(firstName, lastName, customerType)) != null) {}
     }
 
     @Override
