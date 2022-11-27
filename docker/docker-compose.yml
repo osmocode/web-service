@@ -9,7 +9,7 @@ services:
     command: "java -jar rmi-bike.jar"
     working_dir: /app
     volumes:
-      - ../rmi-bike/target/rmi-bike.jar:/app/rmi-bike.jar
+      - ../rmi-bike/target/rmi-bike-jar-with-dependencies.jar:/app/rmi-bike.jar
     networks:
       - web-service-networks
     ports:
@@ -22,7 +22,7 @@ services:
     command: "java -jar rmi-customer.jar"
     working_dir: /app
     volumes:
-      - ../rmi-customer/target/rmi-customer.jar:/app/rmi-customer.jar
+      - ../rmi-customer/target/rmi-customer-jar-with-dependencies.jar:/app/rmi-customer.jar
     networks:
       - web-service-networks
     ports:

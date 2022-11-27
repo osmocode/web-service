@@ -1,4 +1,4 @@
-import models.customer.CustomerList;
+import rmi.customer.models.CustomerList;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;
