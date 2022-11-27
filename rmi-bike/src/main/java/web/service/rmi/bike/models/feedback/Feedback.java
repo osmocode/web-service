@@ -10,23 +10,15 @@ import java.util.Date;
 import java.util.Objects;
 
 public class Feedback extends UnicastRemoteObject implements FeedbackInterface {
-    private Date date;
-    private int note;
-    private String comment;
-    private BikeState bikeState;
+    private final Date date;
+    private final int note;
+    private final String comment;
+    private final BikeState bikeState;
     private Location location;
 
-    public Feedback(Date date, String comment, BikeState bikeState, Location location) throws RemoteException {
-        this.date = Objects.requireNonNull(date);
-        this.note = -1;
-        this.comment = comment;
-        this.bikeState = bikeState == null ? BikeState.BAD : bikeState;
-        this.location = Objects.requireNonNull(location);
-    }
-
     public Feedback(Date date, int note, String comment, BikeState bikeState, Location location) throws RemoteException {
-        if (note > 5 || note < 0) {
-            throw new IllegalArgumentException("0 <= note <= 5");
+        if (note > 5 || note < -1) {
+            throw new IllegalArgumentException("-1 <= note <= 5");
         }
 
         this.date = Objects.requireNonNull(date);
@@ -34,6 +26,26 @@ public class Feedback extends UnicastRemoteObject implements FeedbackInterface {
         this.comment = comment;
         this.bikeState = bikeState == null ? BikeState.BAD : bikeState;
         this.location = Objects.requireNonNull(location);
+    }
+
+    @Override
+    public Date getDate() throws RuntimeException {
+        return date;
+    }
+
+    @Override
+    public int getNote() throws RuntimeException {
+        return note;
+    }
+
+    @Override
+    public String getComment() throws RuntimeException {
+        return comment;
+    }
+
+    @Override
+    public BikeState getBikeState() throws RuntimeException {
+        return bikeState;
     }
 
     @Override

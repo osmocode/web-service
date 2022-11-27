@@ -1,0 +1,65 @@
+version: '3.7'
+
+services:
+
+  rmi-bike:
+    restart: on-failure
+    image: openjdk:17-slim
+    container_name: rmi-bike
+    command: "java -jar rmi-bike.jar"
+    working_dir: /app
+    volumes:
+      - ../rmi-bike/target/rmi-bike.jar:/app/rmi-bike.jar
+    networks:
+      - web-service-networks
+    ports:
+      - 1099
+
+  rmi-customer:
+    restart: on-failure
+    image: openjdk:17-slim
+    container_name: rmi-customer
+    command: "java -jar rmi-customer.jar"
+    working_dir: /app
+    volumes:
+      - ../rmi-customer/target/rmi-customer.jar:/app/rmi-customer.jar
+    networks:
+      - web-service-networks
+    ports:
+      - 1099
+
+  rest-api:
+    restart: on-failure
+    image: openjdk:17-slim
+    container_name: rest-api
+    command: "java -jar rest-api.jar"
+    working_dir: /app
+    volumes:
+      - ../rest-api/target/rest-api.jar:/app/rest-api.jar
+    networks:
+      - web-service-networks
+    ports:
+      - 8080
+
+  web-api:
+    restart: on-failure
+    build:
+      context: ../
+      dockerfile: docker/web-app/Dockerfile
+    image: web-service/web-app
+    container_name: web-app
+    command: npm start -- --host 0.0.0.0 --disable-host-check
+    ports:
+      - 80:4200
+    volumes:
+      - ../web-app/:/web-app
+      - node_modules:/web-app/node_modules
+    networks:
+      - web-service-networks
+
+volumes:
+  node_modules:
+
+networks:
+  web-service-networks:
+    driver: bridge
