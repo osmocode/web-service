@@ -63,3 +63,9 @@ echo "rest-api:$Green BUILD !$Reset"
 
 echo -e "$Purple\nBuilding docker images...\n$Reset"
 
+./bin/docker-build.sh
+if [ $? -ne 0 ]; then
+    echo -e "\ndocker-build:$Red ERROR - Build failed please contact admin system...$Reset\n" >&2
+    exit 1
+fi
+echo -e "\ndocker-build:$Green SUCCED !$Reset\n"
