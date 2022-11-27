@@ -16,7 +16,6 @@ public class BikeController {
     @Autowired
     BikeListService service;
 
-
     @GetMapping("/bike")
     public Map<String, BikeProvider> getBike() throws RemoteException {
         var lst = service.getBikesList();

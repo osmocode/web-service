@@ -13,7 +13,7 @@ import java.util.concurrent.BlockingQueue;
 
 public class BikeProvider {
 
-    @JsonProperty("uuid")
+    @JsonProperty("id")
     public final String uuid;
 
     @JsonProperty("name")
@@ -25,19 +25,18 @@ public class BikeProvider {
     @JsonProperty("image")
     public final Image image;
 
-    /*
-    @JsonProperty("locationHistory")
-    public final List<BikeService> locationHistory;
+    @JsonProperty("rent_history")
+    public List<RentService> locationHistory;
 
-    @JsonProperty("locationQueue")
-    public final BlockingQueue<BikeService> locationQueue;
-     */
+    @JsonProperty("rent_queue")
+    public List<RentService> locationQueue;
 
-    public BikeProvider(String uuid, BikeService bikeInterface) throws RemoteException {
+
+    public BikeProvider(String uuid, BikeService bikeService) throws RemoteException {
         this.uuid = uuid;
-        this.name = bikeInterface.getName();
-        this.owner = bikeInterface.getOwnerId();
-        this.image = bikeInterface.getImage();
+        this.name = bikeService.getName();
+        this.owner = bikeService.getOwnerId();
+        this.image = bikeService.getImage();
         //this.locationHistory = bikeInterface.getLocationHistory();
         //this.locationQueue = bikeInterface.getLocationQueue();
     }
