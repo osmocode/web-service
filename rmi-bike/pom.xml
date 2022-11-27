@@ -12,7 +12,13 @@
     <dependencies>
         <dependency>
             <groupId>web.service</groupId>
-            <artifactId>rmi-customer</artifactId>
+            <artifactId>rmi-bike-interfaces</artifactId>
+            <version>1.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>web.service</groupId>
+            <artifactId>rmi-customer-interfaces</artifactId>
             <version>1.0</version>
             <scope>compile</scope>
         </dependency>
@@ -37,6 +43,28 @@
                             <mainClass>BikeService</mainClass>
                         </manifest>
                     </archive>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>BikeService</mainClass>
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
                 </configuration>
             </plugin>
         </plugins>

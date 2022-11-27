@@ -1,8 +1,9 @@
 package web.service.rest.providers;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import web.service.rmi.bike.interfaces.bike.BikeInterface;
-import web.service.rmi.bike.models.location.Location;
+import rmi.bike.interfaces.bike.BikeService;
+import rmi.bike.interfaces.rent.RentListService;
+import rmi.bike.interfaces.rent.RentService;
 
 import java.awt.*;
 import java.rmi.RemoteException;
@@ -24,19 +25,21 @@ public class BikeProvider {
     @JsonProperty("image")
     public final Image image;
 
+    /*
     @JsonProperty("locationHistory")
-    public final List<Location> locationHistory;
+    public final List<BikeService> locationHistory;
 
     @JsonProperty("locationQueue")
-    public final BlockingQueue<Location> locationQueue;
+    public final BlockingQueue<BikeService> locationQueue;
+     */
 
-    public BikeProvider(String uuid, BikeInterface bikeInterface) throws RemoteException {
+    public BikeProvider(String uuid, BikeService bikeInterface) throws RemoteException {
         this.uuid = uuid;
         this.name = bikeInterface.getName();
         this.owner = bikeInterface.getOwnerId();
         this.image = bikeInterface.getImage();
-        this.locationHistory = bikeInterface.getLocationHistory();
-        this.locationQueue = bikeInterface.getLocationQueue();
+        //this.locationHistory = bikeInterface.getLocationHistory();
+        //this.locationQueue = bikeInterface.getLocationQueue();
     }
 
 }

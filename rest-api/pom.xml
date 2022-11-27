@@ -52,7 +52,13 @@
         </dependency>
         <dependency>
             <groupId>web.service</groupId>
-            <artifactId>rmi-bike</artifactId>
+            <artifactId>rmi-bike-interfaces</artifactId>
+            <version>1.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>web.service</groupId>
+            <artifactId>rmi-customer-interfaces</artifactId>
             <version>1.0</version>
             <scope>compile</scope>
         </dependency>

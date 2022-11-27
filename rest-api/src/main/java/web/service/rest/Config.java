@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import web.service.rmi.bike.interfaces.bike.BikeListInterface;
+import rmi.bike.interfaces.bike.BikeListService;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -17,8 +17,8 @@ import java.rmi.RemoteException;
 public class Config {
 
     @Bean
-    BikeListInterface getBikeService(@Value("#{environment.BIKE_SERVICE_HOST}") String bikeServiceHost) throws RemoteException, MalformedURLException, NotBoundException {
-        return (BikeListInterface) Naming.lookup("rmi://"+bikeServiceHost);
+    BikeListService getBikeService(@Value("#{environment.BIKE_SERVICE_HOST}") String bikeServiceHost) throws RemoteException, MalformedURLException, NotBoundException {
+        return (BikeListService) Naming.lookup("rmi://"+bikeServiceHost);
     }
 
 }
