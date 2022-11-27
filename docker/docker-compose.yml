@@ -39,7 +39,11 @@ services:
     networks:
       - web-service-networks
     ports:
-      - 8080
+      - 8080:8080
+    environment:
+      - BIKE_SERVICE_HOST=rmi-bike:1099/BikeListService
+      - LOCATION_SERVICE_HOST=rmi-bike:1099/LocationListService
+      - FEEDBACK_SERVICE_HOST=rmi-bike:1099/FeedBackListService
 
   web-api:
     restart: on-failure

@@ -11,7 +11,9 @@
 
     <modelVersion>4.0.0</modelVersion>
 
+    <groupId>web.service</groupId>
     <artifactId>rest-api</artifactId>
+    <version>1.0</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -47,6 +49,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>web.service</groupId>
+            <artifactId>rmi-bike</artifactId>
+            <version>1.0</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
