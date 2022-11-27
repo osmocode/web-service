@@ -35,31 +35,14 @@ if ! hash docker 2> /dev/null; then
 fi
 echo "docker:$Green OK !$Reset"
 
-echo -e "$Purple\nBuilding project...\n$Reset"
+echo -e "$Purple\nBuilding java modules...\n$Reset"
 
-# Build RMI Bike
-mvn package -pl rmi-bike -q
+mvn package
 if [ $? -ne 0 ]; then
-    echo "rmi-bike:$Red ERROR - Build failed please run 'mvn package -pl rmi-bike' for more detail...$Reset" >&2
+    echo -e "\njava-modules:$Red ERROR - Build failed please contact admin system...$Reset\n" >&2
     exit 1
 fi
-echo "rmi-bike:$Green BUILD !$Reset"
-
-# Build RMI Customer
-mvn package -pl rmi-customer -q
-if [ $? -ne 0 ]; then
-    echo "rmi-customer:$Red ERROR - Build failed please run 'mvn package -pl rmi-customer' for more detail...$Reset" >&2
-    exit 1
-fi
-echo "rmi-customer:$Green BUILD !$Reset"
-
-# Build Spring Application
-mvn package -pl rest-api -q
-if [ $? -ne 0 ]; then
-    echo "rest-api:$Red ERROR - Build failed please run 'mvn package -pl rest-api' for more detail...$Reset" >&2
-    exit 1
-fi
-echo "rest-api:$Green BUILD !$Reset"
+echo -e "\njava-modules:$Green SUCCED !$Reset"
 
 echo -e "$Purple\nBuilding docker images...\n$Reset"
 
