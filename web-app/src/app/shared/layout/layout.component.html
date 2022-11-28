@@ -1,0 +1,15 @@
+<nz-layout>
+  <nz-header>
+    <div class="logo"></div>
+    <ul nz-menu nzTheme="dark" nzMode="horizontal">
+      <li nz-menu-item [nzMatchRouter]="true" routerLink="/rental" >Rental</li>
+      <li nz-menu-item [nzMatchRouter]="true">Page 2</li>
+      <li nz-menu-item [nzMatchRouter]="true">Page 3</li>
+      <li nz-menu-item [nzMatchRouter]="true" class="right">Login</li>
+    </ul>
+  </nz-header>
+  <nz-content>
+    <ng-content></ng-content>
+  </nz-content>
+  <nz-footer>Ant Design ©2020 Implement By Angular</nz-footer>
+</nz-layout>

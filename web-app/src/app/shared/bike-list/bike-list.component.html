@@ -1,0 +1,12 @@
+<nz-row [nzGutter]="[16, 16]">
+  <ng-container *ngFor="let bike of bikes">
+    <nz-col [nzSpan]="24" [nzSm]="12" [nzMd]="8" [nzLg]="6">
+      <app-bike-card
+        [label]="bike.name"
+        [desc]="bike.desc"
+      >
+      </app-bike-card>
+    </nz-col>
+  </ng-container>
+
+</nz-row>
