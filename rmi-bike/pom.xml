@@ -40,7 +40,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>BikeService</mainClass>
+                            <mainClass>rmi.bike.ApplicationContext</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -59,7 +59,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>BikeService</mainClass>
+                            <mainClass>rmi.bike.ApplicationContext</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

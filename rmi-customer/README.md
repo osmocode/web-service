@@ -18,14 +18,14 @@ All services is binded on port `1099`.
     getAll()
 ```
 
-- Get the customer with `uuid`. The return value will be a `Optional<CustomerService>`.
+- Get the customer with `uuid`. The return value will be a `CustomerService`.
 ```java
     getCustomerByUUID(String uuid)
 ```
 
-- Adds a customer to the list with his `firstName`, `lastName`, `customerType`. The return value will be a `void`.
+- Adds a customer to the list with his `firstName`, `lastName`, `customerType` `password`. The return value will be a `CustomerService`.
 ```java
-    add(String firstName, String lastName, CustomerType customerType)
+    add(String firstName, String lastName, CustomerType customerType, String password)
 ```
 
 ### Customer
@@ -45,7 +45,32 @@ All services is binded on port `1099`.
     getCustomerType()
 ```
 
+- Get customer `password`. The return value will be a `String`.
+```java
+    getPassword()
+```
+
 - Get customer `bikes`. The return value will be a `List<UUID>`.
 ```java
     getBikes()
+```
+
+- Get customer `actualBikeRent`. The return value will be a `UUID`.
+```java
+    getActualBikeRent()
+```
+
+- SET customer `actualBikeRent`. The return value will be a `void`.
+```java
+    setActualBikeRent()
+```
+
+- Informs if the customer can rent. The return value will be a `boolean`.
+```java
+    canRent()
+```
+
+- Informs if the customer can propose a bike. The return value will be a `boolean`.
+```java
+    canProposeBike()
 ```

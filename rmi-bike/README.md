@@ -18,21 +18,30 @@ All services is binded on port `1099`.
   getAll()
 ```
 
-- Get the customer with `uuid`. The return value will be a `Optional<BikeService>`.
+- Get the customer with `uuid`. The return value will be a `BikeService`.
 ```java
   getBikeByUUID(String uuid)
 ```
 
-- Adds a bike to the list with his `firstName`, `lastName`, `bikeState`. The return value will be a `void`.
+- Adds a bike to the list with his `label` `ownerUUID`, `bikeState`. The return value will be a `BikeService`.
 ```java
-    add(Image image, UUID ownerUUID, BikeState bikeState)
+    add(String label, UUID ownerUUID, BikeState bikeState)
 ```
 
 ### Bike
+- Get bike `label`. The return value will be a `String`.
+```java
+  getLabel()
+```
 
 - Get bike `image`. The return value will be a `Image`.
 ```java
   getImage()
+```
+
+- Set bike `image`. The return value will be a `void`.
+```java
+  setImage()
 ```
 
 - Get bike `ownerUUID`. The return value will be a `UUID`.
@@ -60,6 +69,16 @@ All services is binded on port `1099`.
   getAverageNote()
 ```
 
+- Informs if the bike can be rent. The return value will be a `boolean`.
+```java
+    canBeRent()
+```
+
+- Informs if the bike can be sale. The return value will be a `boolean`.
+```java
+    canBeSale()
+```
+
 ## `/RentListService`
 
 ### RentList
@@ -69,14 +88,14 @@ All services is binded on port `1099`.
   getAll()
 ```
 
-- Get the rent with `uuid`. The return value will be a `Optional<RentService>`.
+- Get the rent with `uuid`. The return value will be a `RentService`.
 ```java
   getRentByUUID(String uuid)
 ```
 
-- Adds a rent to the list with his `start`, `end`, `customerClientUUID`. The return value will be a `void`.
+- Adds a rent to the list with his `start`, `end`, `customerClientUUID`, `bikeUUID`. The return value will be a `RentService`.
 ```java
-    add(Date start, Date end, UUID customerClientUUID)
+    add(Date start, Date end, UUID customerClientUUID, UUID bikeUUID)
 ```
 
 ### Rent
@@ -96,6 +115,11 @@ All services is binded on port `1099`.
   getCustomerClientUUID()
 ```
 
+- Get rent `bikeUUID`. The return value will be a `UUID`.
+```java
+  getBikeUUID()
+```
+
 ## `/FeedbackListService`
 
 ### FeedbackList
@@ -105,12 +129,12 @@ All services is binded on port `1099`.
   getAll()
 ```
 
-- Get the feedback with `uuid`. The return value will be a `Optional<FeedbackService>`.
+- Get the feedback with `uuid`. The return value will be a `FeedbackService`.
 ```java
   getFeedbackByUUID(String uuid)
 ```
 
-- Adds a rent to the list with his `start`, `end`, `customerClientUUID`. The return value will be a `void`.
+- Adds a feedback to the list with  `date`, `note`, `comment`, `bikeState`, `rentUUID`. The return value will be a `FeedbackService`.
 ```java
     add(Date date, int note, String comment, BikeState bikeState, String rentUUID)
 ```
@@ -137,7 +161,7 @@ All services is binded on port `1099`.
   getBikeState()
 ```
 
-- Get feedback `rentUUID`. The return value will be a `UUID`.
+- Get feedback `rentUUID`. The return value will be a `RentService`.
 ```java
   getRentUUID()
 ```
