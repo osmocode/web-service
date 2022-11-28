@@ -2,7 +2,9 @@ package rmi.bike.models.bike;
 
 import rmi.bike.interfaces.bike.BikeListService;
 import rmi.bike.interfaces.bike.BikeService;
+import rmi.bike.models.BikeState;
 
+import java.awt.*;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.*;
@@ -17,18 +19,27 @@ public class BikeList extends UnicastRemoteObject implements BikeListService {
     }
 
     @Override
-    public Optional<BikeService> getBikeById(String uuid) throws RemoteException {
+    public Map<UUID, ? extends BikeService> getAll() {
+        return bikeMap;
+    }
+
+    @Override
+    public Optional<BikeService> getBikeByUUID(String uuid) throws RemoteException {
         return Optional.ofNullable(bikeMap.get(UUID.fromString(Objects.requireNonNull(uuid))));
     }
 
     @Override
-    public Optional<List<BikeService>> getBikeByOwner(String uuid) throws RemoteException {
-        // TODO
-        return Optional.ofNullable(null);
-    }
+    public void add(Image image, UUID ownerUUID, BikeState bikeState) throws RemoteException {
+        Objects.requireNonNull(image);
+        Objects.requireNonNull(ownerUUID);
+        Objects.requireNonNull(bikeState);
 
-    @Override
-    public List<BikeService> getBikesList() {
-        return bikeMap.values().stream().collect(Collectors.toList());
+        UUID uuid;
+
+        do {
+            uuid = UUID.randomUUID();
+        } while (bikeMap.putIfAbsent(uuid, new Bike(image, ownerUUID, bikeState)) != null);
+
+        // TODO add uuid in Customer.bikes
     }
 }
