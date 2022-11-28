@@ -24,9 +24,9 @@ public class Bike extends UnicastRemoteObject implements BikeService {
 
     public Bike(Image image, UUID ownerUUID, BikeState bikeState) throws RemoteException {
         super();
-        this.image = Objects.requireNonNull(image);
+        this.image = image;
         this.ownerId = ownerUUID;
-        this.bikeState = Objects.requireNonNull(bikeState);
+        this.bikeState = bikeState;
     }
 
     @Override

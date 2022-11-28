@@ -2,37 +2,55 @@ package web.service.rest.providers;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import rmi.bike.interfaces.bike.BikeService;
-import rmi.bike.interfaces.rent.RentListService;
 import rmi.bike.interfaces.rent.RentService;
 
-import java.awt.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.rmi.RemoteException;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.BlockingQueue;
 
 public class BikeProvider {
 
-    @JsonProperty("id")
-    public final String uuid;
+    @JsonProperty(
+        value = "id",
+        access = JsonProperty.Access.READ_ONLY
+    )
+    public String uuid;
 
-    @JsonProperty("owner")
-    public final UUID owner;
+    @NotEmpty
+    @NotNull
+    @JsonProperty(
+        value = "label",
+        required = true,
+        access = JsonProperty.Access.READ_WRITE
+    )
+    public String label;
 
-    @JsonProperty("image")
-    public final Image image;
+    @JsonProperty(
+        value = "owner",
+        access = JsonProperty.Access.READ_ONLY
+    )
+    public String owner;
 
-    @JsonProperty("rent_history")
+    @JsonProperty(
+        value = "rent_history",
+        access = JsonProperty.Access.READ_ONLY
+    )
     public List<RentService> locationHistory;
 
-    @JsonProperty("rent_queue")
+    @JsonProperty(
+        value = "rent_queue",
+        access = JsonProperty.Access.READ_ONLY
+    )
     public List<RentService> locationQueue;
 
+    public BikeProvider() {}
 
-    public BikeProvider(String uuid, BikeService bikeService) throws RemoteException {
-        this.uuid = uuid;
-        this.owner = bikeService.getOwnerId();
-        this.image = bikeService.getImage();
+    public BikeProvider(UUID uuid, BikeService bikeService) throws RemoteException {
+        this.uuid = uuid.toString();
+        this.label = "default";
+        //this.owner = bikeService.getOwnerId().toString();
         //this.locationHistory = bikeInterface.getLocationHistory();
         //this.locationQueue = bikeInterface.getLocationQueue();
     }

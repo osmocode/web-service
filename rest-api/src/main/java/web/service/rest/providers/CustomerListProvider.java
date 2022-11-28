@@ -16,7 +16,7 @@ public class CustomerListProvider {
     @JsonProperty("results")
     public final List<CustomerProvider> customers;
 
-    public CustomerListProvider(Map<UUID, ? extends CustomerService> customers) throws RemoteException {
+    public CustomerListProvider(Map<UUID, ? extends CustomerService> customers) {
         this.count = customers.size();
         this.customers = customers.entrySet().stream().map((entry) -> {
             try {

@@ -30,9 +30,9 @@ public class BikeList extends UnicastRemoteObject implements BikeListService {
 
     @Override
     public void add(Image image, UUID ownerUUID, BikeState bikeState) throws RemoteException {
-        Objects.requireNonNull(image);
-        Objects.requireNonNull(ownerUUID);
-        Objects.requireNonNull(bikeState);
+        //Objects.requireNonNull(image);
+        //Objects.requireNonNull(ownerUUID);
+        //Objects.requireNonNull(bikeState);
 
         UUID uuid;
 
