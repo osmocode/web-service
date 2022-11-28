@@ -1,13 +1,18 @@
 package rmi.bike.interfaces.bike;
 
 
+import rmi.bike.models.BikeState;
+
+import java.awt.*;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
 public interface BikeListService extends Remote {
-    List<BikeService> getBikesList() throws RemoteException;
-    Optional<BikeService> getBikeById(String uuid) throws RemoteException;
-    Optional<List<BikeService>> getBikeByOwner(String uuid) throws RemoteException;
+    Map<UUID, ? extends BikeService> getAll() throws RemoteException;
+    Optional<BikeService> getBikeByUUID(String uuid) throws RemoteException;
+    void add(Image image, UUID ownerUUID, BikeState bikeState) throws RemoteException;
 }

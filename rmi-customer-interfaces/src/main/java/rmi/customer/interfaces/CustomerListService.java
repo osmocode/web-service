@@ -10,7 +10,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface CustomerListService extends Remote {
-    Map<UUID, CustomerService> getAll() throws RemoteException;
+    Map<UUID, ? extends CustomerService> getAll() throws RemoteException;
     void add (String firstName, String lastName, CustomerType customerType) throws RemoteException;
     Optional<CustomerService> getCustomerByUUID(String uuid) throws RemoteException;
 }

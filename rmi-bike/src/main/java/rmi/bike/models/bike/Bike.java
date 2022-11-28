@@ -1,39 +1,32 @@
 package rmi.bike.models.bike;
 
 import rmi.bike.interfaces.bike.BikeService;
+import rmi.bike.interfaces.feedback.FeedbackService;
 import rmi.bike.interfaces.rent.RentService;
-import rmi.bike.models.location.Rent;
+import rmi.bike.models.BikeState;
+import rmi.bike.models.rent.Rent;
 
 import java.awt.*;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.ArrayBlockingQueue;
 
 public class Bike extends UnicastRemoteObject implements BikeService {
-    private final UUID uuid;
     private final Image image;
     private final UUID ownerId;
-    private final ArrayList<Rent> rentHistory = new ArrayList<>();
+    private final BikeState bikeState;
+    private final ArrayList<FeedbackService> feedbackHistory = new ArrayList<>();
     private final ArrayBlockingQueue<Rent> rentQueue = new ArrayBlockingQueue<>(20);
 
-    private final String name;
-
-    public Bike(UUID uuid, Image image, String ownerUUID, String name) throws RemoteException {
+    public Bike(Image image, UUID ownerUUID, BikeState bikeState) throws RemoteException {
         super();
-        this.uuid = Objects.requireNonNull(uuid);
         this.image = Objects.requireNonNull(image);
-        this.ownerId = UUID.fromString(Objects.requireNonNull(ownerUUID));
-
-        this.name = Objects.requireNonNull(name);
-    }
-
-
-    @Override
-    public String getName() throws RemoteException {
-        return name;
+        this.ownerId = ownerUUID;
+        this.bikeState = Objects.requireNonNull(bikeState);
     }
 
     @Override
@@ -47,12 +40,23 @@ public class Bike extends UnicastRemoteObject implements BikeService {
     }
 
     @Override
-    public ArrayList<? extends RentService> getRentHistory() throws RemoteException {
-        return rentHistory;
+    public BikeState getBikeState() throws RemoteException {
+        return bikeState;
     }
 
     @Override
-    public ArrayBlockingQueue<? extends RentService> getRentQueue() throws RemoteException {
-        return rentQueue;
+    public List<? extends FeedbackService> getFeedbackHistory() throws RemoteException {
+        return feedbackHistory;
+    }
+
+    @Override
+    public List<? extends RentService> getRentQueue() throws RemoteException {
+        return rentQueue.stream().toList();
+    }
+
+    @Override
+    public float getAverageNote() throws RemoteException {
+        // TODO
+        return 0;
     }
 }

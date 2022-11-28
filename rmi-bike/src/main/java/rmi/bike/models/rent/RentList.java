@@ -1,7 +1,7 @@
-package rmi.bike.models.location;
+package rmi.bike.models.rent;
 
 import rmi.bike.interfaces.rent.RentListService;
-import rmi.customer.interfaces.CustomerService;
+import rmi.bike.interfaces.rent.RentService;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -9,19 +9,21 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class RentList extends UnicastRemoteObject implements RentListService {
-    //private final Map<UUID, List<Rent>> rentMap = new ConcurrentHashMap<>();
     private final Map<UUID, Rent> rentMap = new ConcurrentHashMap<>();
 
     public RentList() throws RemoteException {
         super();
     }
 
-    /*
     @Override
-    public Optional<List<? extends RentService>> getRentByCustomer(String uuid) throws RemoteException {
+    public Map<UUID, ? extends RentService> getAll() throws RemoteException {
+        return rentMap;
+    }
+
+    @Override
+    public Optional<RentService> getRentByUUID(String uuid) throws RemoteException {
         return Optional.ofNullable(rentMap.get(UUID.fromString(Objects.requireNonNull(uuid))));
     }
-    */
 
     @Override
     public void add(Date start, Date end, UUID customerClientUUID) throws RemoteException {
@@ -29,7 +31,7 @@ public class RentList extends UnicastRemoteObject implements RentListService {
         Objects.requireNonNull(end);
         Objects.requireNonNull(customerClientUUID);
 
-        // TOOD
+        // TOOD add in mapRent
         /*
         synchronized (rentMap) {
             var uuid = customerClient.getUUID();
@@ -43,5 +45,7 @@ public class RentList extends UnicastRemoteObject implements RentListService {
             }
         }
          */
+
+        // TODO add uuid into Bike.rentQueue
     }
 }

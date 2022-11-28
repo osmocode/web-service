@@ -1,13 +1,15 @@
 package rmi.bike.models.feedback;
 
 import rmi.bike.interfaces.feedback.FeedbackService;
+import rmi.bike.interfaces.rent.RentService;
 import rmi.bike.models.BikeState;
-import rmi.bike.models.location.Rent;
+import rmi.bike.models.rent.Rent;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Date;
 import java.util.Objects;
+import java.util.UUID;
 
 public class Feedback extends UnicastRemoteObject implements FeedbackService {
     private final Date date;
@@ -24,7 +26,7 @@ public class Feedback extends UnicastRemoteObject implements FeedbackService {
         this.date = Objects.requireNonNull(date);
         this.note = note;
         this.comment = comment;
-        this.bikeState = bikeState == null ? BikeState.BAD : bikeState;
+        this.bikeState = bikeState;
         this.rent = Objects.requireNonNull(rent);
     }
 
@@ -46,6 +48,11 @@ public class Feedback extends UnicastRemoteObject implements FeedbackService {
     @Override
     public BikeState getBikeState() throws RuntimeException {
         return bikeState;
+    }
+
+    @Override
+    public RentService getRent() throws RuntimeException {
+        return rent;
     }
 
     @Override
