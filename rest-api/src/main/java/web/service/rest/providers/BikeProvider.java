@@ -16,9 +16,6 @@ public class BikeProvider {
     @JsonProperty("id")
     public final String uuid;
 
-    @JsonProperty("name")
-    public final String name;
-
     @JsonProperty("owner")
     public final UUID owner;
 
@@ -34,7 +31,6 @@ public class BikeProvider {
 
     public BikeProvider(String uuid, BikeService bikeService) throws RemoteException {
         this.uuid = uuid;
-        this.name = bikeService.getName();
         this.owner = bikeService.getOwnerId();
         this.image = bikeService.getImage();
         //this.locationHistory = bikeInterface.getLocationHistory();

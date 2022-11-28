@@ -18,7 +18,7 @@ public class BikeController {
 
     @GetMapping("/bike")
     public Map<String, BikeProvider> getBike() throws RemoteException {
-        var lst = service.getBikesList();
+        var lst = service.getAll();
         var map = new HashMap<String, BikeProvider>();
         for (int i = 0; i < lst.size(); i ++) {
             map.put(String.valueOf(i), new BikeProvider(String.valueOf(i), lst.get(i)));

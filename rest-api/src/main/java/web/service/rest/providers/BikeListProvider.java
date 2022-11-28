@@ -13,7 +13,7 @@ public class BikeListProvider {
     public final Integer count;
 
     public BikeListProvider(BikeListService bikeListService) throws RemoteException {
-        this.count = bikeListService.getBikesList().size();
+        this.count = bikeListService.getAll().size();
     }
 
 }
