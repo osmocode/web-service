@@ -14,11 +14,8 @@ services:
       - web-service-networks
     ports:
       - 1099
-    environment:
-      - CUSTOMER_SERVICE_HOST=rmi-customer:1099/CustomerListService
-      - BIKE_SERVICE_HOST=rmi-bike:1099/BikeListService
-      - LOCATION_SERVICE_HOST=rmi-bike:1099/LocationListService
-      - FEEDBACK_SERVICE_HOST=rmi-bike:1099/FeedBackListService
+    env_file:
+      - .env
     depends_on:
       - rmi-customer
 
@@ -34,11 +31,8 @@ services:
       - web-service-networks
     ports:
       - 1099
-    environment:
-      - CUSTOMER_SERVICE_HOST=rmi-customer:1099/CustomerListService
-      - BIKE_SERVICE_HOST=rmi-bike:1099/BikeListService
-      - LOCATION_SERVICE_HOST=rmi-bike:1099/LocationListService
-      - FEEDBACK_SERVICE_HOST=rmi-bike:1099/FeedBackListService
+    env_file:
+      - .env
 
   rest-api:
     restart: on-failure
@@ -51,17 +45,14 @@ services:
     networks:
       - web-service-networks
     ports:
-      - 8080:8080
-    environment:
-      - CUSTOMER_SERVICE_HOST=rmi-customer:1099/CustomerListService
-      - BIKE_SERVICE_HOST=rmi-bike:1099/BikeListService
-      - LOCATION_SERVICE_HOST=rmi-bike:1099/LocationListService
-      - FEEDBACK_SERVICE_HOST=rmi-bike:1099/FeedBackListService
+      - 8080
+    env_file:
+      - .env
     depends_on:
       - rmi-bike
       - rmi-customer
 
-  web-api:
+  web-app:
     restart: on-failure
     build:
       context: ../
@@ -70,12 +61,33 @@ services:
     container_name: web-app
     command: npm start -- --host 0.0.0.0 --disable-host-check
     ports:
-      - 80:4200
+      - 4200
     volumes:
       - ../web-app/:/web-app
       - node_modules:/web-app/node_modules
     networks:
       - web-service-networks
+  
+  server:
+    restart: on-failure
+    build:
+      context: ../
+      dockerfile: docker/server/Dockerfile
+    image: web-servive/server
+    container_name: web-server
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./server/sites-enabled/:/etc/nginx/sites-enabled/
+    networks:
+      - web-service-networks
+    links:
+      - web-app:web-app
+      - rest-api:rest-api
+    depends_on:
+      - web-app
+      - rest-api
 
 volumes:
   node_modules:
