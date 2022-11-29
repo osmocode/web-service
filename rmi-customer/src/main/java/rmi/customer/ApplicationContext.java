@@ -45,15 +45,15 @@ public class ApplicationContext {
     }
 
     private void addCustomerDemo() throws RemoteException {
-        customers.add("Toto1", "TATA1", CustomerType.STUDENT, "toto1");
-        customers.add("Toto2", "TATA2", CustomerType.STUDENT, "toto2");
-        customers.add("Toto3", "TATA3", CustomerType.STUDENT, "toto3");
-        customers.add("Toto4", "TATA4", CustomerType.EMPLOYEE, "toto4");
-        customers.add("Toto5", "TATA5", CustomerType.EMPLOYEE, "toto5");
-        customers.add("Toto6", "TATA6", CustomerType.EMPLOYEE, "toto6");
-        customers.add("Toto7", "TATA7", CustomerType.EXTERNAL, "toto7");
-        customers.add("Toto8", "TATA8", CustomerType.EXTERNAL, "toto8");
-        customers.add("Toto9", "TATA9", CustomerType.EXTERNAL, "toto9");
-        customers.add("Toto10", "TATA10", CustomerType.EIFFEL_BIKE_CORP, "toto10");
+        customers.add("Toto1", "TATA1", CustomerType.STUDENT, "TT1", "toto1");
+        customers.add("Toto2", "TATA2", CustomerType.STUDENT, "TT2", "toto2");
+        customers.add("Toto3", "TATA3", CustomerType.STUDENT, "TT3", "toto3");
+        customers.add("Toto4", "TATA4", CustomerType.EMPLOYEE, "TT4", "toto4");
+        customers.add("Toto5", "TATA5", CustomerType.EMPLOYEE, "TT5", "toto5");
+        customers.add("Toto6", "TATA6", CustomerType.EMPLOYEE, "TT6", "toto6");
+        customers.add("Toto7", "TATA7", CustomerType.EXTERNAL, "TT7", "toto7");
+        customers.add("Toto8", "TATA8", CustomerType.EXTERNAL, "TT8", "toto8");
+        customers.add("Toto9", "TATA9", CustomerType.EXTERNAL, "TT9", "toto9");
+        customers.add("Toto10", "TATA10", CustomerType.EIFFEL_BIKE_CORP, "TT10", "toto10");
     }
 }
