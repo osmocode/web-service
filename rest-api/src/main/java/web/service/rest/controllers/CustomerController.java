@@ -13,6 +13,8 @@ import javax.validation.Valid;
 import java.rmi.RemoteException;
 import java.util.UUID;
 
+import javax.validation.Valid;
+
 @RestController
 public class CustomerController {
 

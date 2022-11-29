@@ -30,14 +30,13 @@ public class CustomerList extends UnicastRemoteObject implements CustomerListSer
     @Override
     public UUID add(String firstName, String lastName, CustomerType customerType, String username, String password) throws RemoteException {
         Customer customer;
+        UUID uuid;
 
         try {
             customer = new Customer(firstName, lastName, customerType, username, password);
         } catch (NullPointerException e) {
             return null;
         }
-
-        UUID uuid;
 
         do {
             uuid = UUID.randomUUID();
