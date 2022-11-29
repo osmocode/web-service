@@ -23,7 +23,7 @@ All services is binded on port `1099`.
   getBikeByUUID(String uuid)
 ```
 
-- Adds a bike to the list with his `label` `ownerUUID`, `bikeState`. The return value will be a `BikeService`.
+- Adds a bike to the list with his `label` `ownerUUID`, `bikeState`. The return value will be a `Map<UUID, BikeService>`.
 ```java
     add(String label, UUID ownerUUID, BikeState bikeState)
 ```
@@ -93,9 +93,14 @@ All services is binded on port `1099`.
   getRentByUUID(String uuid)
 ```
 
-- Adds a rent to the list with his `start`, `end`, `customerClientUUID`, `bikeUUID`. The return value will be a `RentService`.
+- Adds a rent to the list with his `start`, `end`, `customerClientUUID`, `bikeUUID`. The return value will be a `Map<UUID, RentService>`.
 ```java
     add(Date start, Date end, UUID customerClientUUID, UUID bikeUUID)
+```
+
+- Retrieves the rentals of a customer who has no feedback. The return value will be a `Map<UUID, RentService>`.
+```java
+    getRentsWithNoFeedbackByCustomer(String uuid)
 ```
 
 ### Rent
@@ -134,7 +139,7 @@ All services is binded on port `1099`.
   getFeedbackByUUID(String uuid)
 ```
 
-- Adds a feedback to the list with  `date`, `note`, `comment`, `bikeState`, `rentUUID`. The return value will be a `FeedbackService`.
+- Adds a feedback to the list with  `date`, `note`, `comment`, `bikeState`, `rentUUID`. The return value will be a `Map<UUID, FeedbackService>`.
 ```java
     add(Date date, int note, String comment, BikeState bikeState, String rentUUID)
 ```

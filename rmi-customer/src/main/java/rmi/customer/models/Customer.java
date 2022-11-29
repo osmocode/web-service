@@ -15,7 +15,6 @@ public class Customer extends UnicastRemoteObject implements CustomerService {
     private final String lastName;
     private final String username;
     private final String password;
-    private UUID actualBikeRent;
     private CustomerType customerType;
     private List<UUID> bikes = new ArrayList<>();
 
@@ -64,16 +63,6 @@ public class Customer extends UnicastRemoteObject implements CustomerService {
     }
 
     @Override
-    public UUID getActualBikeRent() throws RemoteException {
-        return actualBikeRent;
-    }
-
-    @Override
-    public void setActualBikeRent(String uuid) throws RemoteException {
-        actualBikeRent = UUID.fromString(Objects.requireNonNull(uuid));
-    }
-
-    @Override
     public boolean canRent() throws RemoteException {
         return customerType.canRent();
     }
@@ -90,7 +79,6 @@ public class Customer extends UnicastRemoteObject implements CustomerService {
                 ", lastName='" + lastName + '\'' +
                 ", username=" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", actualBikeRent=" + actualBikeRent.toString() +
                 ", customerType=" + customerType +
                 ", bikes=" + bikes +
                 '}';

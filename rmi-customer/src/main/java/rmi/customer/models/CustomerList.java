@@ -18,7 +18,10 @@ public class CustomerList extends UnicastRemoteObject implements CustomerListSer
     public CustomerList(ApplicationContext context) throws RemoteException {
         super();
         this.context = Objects.requireNonNull(context);
-        this.customers.put(UUID.fromString("00000000-0000-0000-0000-00000000"), new Customer("yann", "picker", CustomerType.EIFFEL_BIKE_CORP, "password"));
+
+        if (context.DEMO) {
+            addCustomerDemo();
+        }
     }
 
     @Override
@@ -27,7 +30,8 @@ public class CustomerList extends UnicastRemoteObject implements CustomerListSer
     }
 
     @Override
-    public CustomerService add(String firstName, String lastName, CustomerType customerType, String username, String password) throws RemoteException {
+    public Map<UUID, ? extends CustomerService> add(String firstName, String lastName, CustomerType customerType, String username, String password) throws RemoteException {
+        UUID uuid;
         Customer customer;
 
         try {
@@ -36,9 +40,11 @@ public class CustomerList extends UnicastRemoteObject implements CustomerListSer
             return null;
         }
 
-        while (customers.putIfAbsent(UUID.randomUUID(), customer) != null) {}
+        do {
+            uuid = UUID.randomUUID();
+        } while (customers.putIfAbsent(uuid, customer) != null);
 
-        return customer;
+        return Map.of(uuid, customer);
     }
 
     @Override
@@ -90,5 +96,18 @@ public class CustomerList extends UnicastRemoteObject implements CustomerListSer
                 ", customers=" + customers +
                 ", connexionToken=" + connexionToken +
                 '}';
+    }
+
+    private void addCustomerDemo() throws RemoteException {
+        customers.put(UUID.fromString("00000000-0000-0000-0000-00000000"), new Customer("Toto0", "TATA0", CustomerType.EIFFEL_BIKE_CORP, "TT0", "toto0"));
+        customers.put(UUID.fromString("00000000-0000-0000-0000-00000001"), new Customer("Toto1", "TATA1", CustomerType.STUDENT, "TT1", "toto1"));
+        customers.put(UUID.fromString("00000000-0000-0000-0000-00000002"), new Customer("Toto2", "TATA2", CustomerType.STUDENT, "TT2", "toto2"));
+        customers.put(UUID.fromString("00000000-0000-0000-0000-00000003"), new Customer("Toto3", "TATA3", CustomerType.STUDENT, "TT3", "toto3"));
+        customers.put(UUID.fromString("00000000-0000-0000-0000-00000004"), new Customer("Toto4", "TATA4", CustomerType.EMPLOYEE, "TT4", "toto4"));
+        customers.put(UUID.fromString("00000000-0000-0000-0000-00000005"), new Customer("Toto5", "TATA5", CustomerType.EMPLOYEE, "TT5", "toto5"));
+        customers.put(UUID.fromString("00000000-0000-0000-0000-00000006"), new Customer("Toto6", "TATA6", CustomerType.EMPLOYEE, "TT6", "toto6"));
+        customers.put(UUID.fromString("00000000-0000-0000-0000-00000007"), new Customer("Toto7", "TATA7", CustomerType.EXTERNAL, "TT7", "toto7"));
+        customers.put(UUID.fromString("00000000-0000-0000-0000-00000008"), new Customer("Toto8", "TATA8", CustomerType.EXTERNAL, "TT8", "toto8"));
+        customers.put(UUID.fromString("00000000-0000-0000-0000-00000009"), new Customer("Toto9", "TATA9", CustomerType.EXTERNAL, "TT9", "toto9"));
     }
 }

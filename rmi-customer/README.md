@@ -23,7 +23,7 @@ All services is binded on port `1099`.
     getCustomerByUUID(String uuid)
 ```
 
-- Adds a customer to the list with his `firstName`, `lastName`, `customerType`, `username`, `password`. The return value will be a `CustomerService`.
+- Adds a customer to the list with his `firstName`, `lastName`, `customerType`, `username`, `password`. The return value will be a `Map<UUID, CustomerService>`.
 ```java
     add(String firstName, String lastName, CustomerType customerType, String username, String password)
 ```
@@ -74,16 +74,6 @@ All services is binded on port `1099`.
 - Get customer `bikes`. The return value will be a `List<UUID>`.
 ```java
     getBikes()
-```
-
-- Get customer `actualBikeRent`. The return value will be a `UUID`.
-```java
-    getActualBikeRent()
-```
-
-- SET customer `actualBikeRent`. The return value will be a `void`.
-```java
-    setActualBikeRent()
 ```
 
 - Informs if the customer can rent. The return value will be a `boolean`.

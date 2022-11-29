@@ -11,7 +11,7 @@ import java.util.UUID;
 
 public interface CustomerListService extends Remote {
     Map<UUID, ? extends CustomerService> getAll() throws RemoteException;
-    CustomerService add(String firstName, String lastName, CustomerType customerType, String username, String password) throws RemoteException;
+    Map<UUID, ? extends CustomerService> add(String firstName, String lastName, CustomerType customerType, String username, String password) throws RemoteException;
     CustomerService getCustomerByUUID(String uuid) throws RemoteException;
 
     UUID login (String username, String password) throws RemoteException;
