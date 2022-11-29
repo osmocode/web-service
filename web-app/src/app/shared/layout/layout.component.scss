@@ -1,0 +1,27 @@
+.logo {
+  width: 120px;
+  height: 31px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 16px 24px 16px 0;
+  float: left;
+}
+
+nz-layout {
+  min-height: 100%;
+}
+
+[nz-menu] {
+  line-height: 64px;
+}
+
+nz-footer {
+  text-align: center;
+}
+
+nz-content {
+  padding: 0 50px;
+}
+
+.right {
+  float: right;
+}

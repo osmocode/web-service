@@ -1,0 +1,42 @@
+<app-layout>
+  <app-container>
+    <h1>Register to Eiffel Bike Corp</h1>
+    <form nz-form [formGroup]="form" (ngSubmit)="submitForm()">
+      <!-- FIRST NAME INPUT -->
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzRequired>First Name</nz-form-label>
+        <nz-form-control [nzSpan]="18">
+          <input nz-input formControlName="first_name" placeholder="Your first name" />
+        </nz-form-control>
+      </nz-form-item>
+      <!-- LAST NAME INPUT -->
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzRequired>Last Name</nz-form-label>
+        <nz-form-control [nzSpan]="18">
+          <input nz-input formControlName="last_name" placeholder="Your last name" />
+        </nz-form-control>
+      </nz-form-item>
+      <!-- USERNAME INPUT -->
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzRequired>Username</nz-form-label>
+        <nz-form-control [nzSpan]="18">
+          <input nz-input formControlName="username" placeholder="Username to use for connection" />
+        </nz-form-control>
+      </nz-form-item>
+      <!-- PASSWORD -->
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzRequired>Password</nz-form-label>
+        <nz-form-control [nzSpan]="18">
+          <input nz-input type="password" formControlName="password" placeholder="Your secret password" />
+        </nz-form-control>
+      </nz-form-item>
+      <!-- REGISTER BUTTON -->
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6"></nz-form-label>
+        <nz-form-control [nzSpan]="18">
+          <button nz-button [nzType]="'primary'" nzBlock>Register</button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </app-container>
+</app-layout>
