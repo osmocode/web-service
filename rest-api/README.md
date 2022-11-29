@@ -4,7 +4,7 @@
 
 ## API Documentation
 
-### **GET** `/bike`
+### **GET** `/bike` ✅
 
 **Field**
 
@@ -15,7 +15,7 @@
 }
 ```
 
-### **PUT** `/bike`
+### **PUT** `/bike` ✅
 
 **Fields**
 * `image` Optional
@@ -32,7 +32,7 @@
 }
 ```
 
-### **GET** `/bike/<uuid:string>`
+### **GET** `/bike/<uuid:string>` 
 
 **Fields**
 

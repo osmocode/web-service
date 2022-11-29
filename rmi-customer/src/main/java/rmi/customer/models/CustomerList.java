@@ -16,6 +16,7 @@ public class CustomerList extends UnicastRemoteObject implements CustomerListSer
     public CustomerList(ApplicationContext context) throws RemoteException {
         super();
         this.context = Objects.requireNonNull(context);
+        this.customers.put(UUID.fromString("00000000-0000-0000-0000-00000000"), new Customer("yann", "picker", CustomerType.EIFFEL_BIKE_CORP, "password"));
     }
 
     @Override

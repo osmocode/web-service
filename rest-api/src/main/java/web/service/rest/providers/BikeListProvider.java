@@ -10,11 +10,17 @@ import java.util.UUID;
 
 public class BikeListProvider {
 
-    @JsonProperty("count")
-    public final int count;
+    @JsonProperty(
+        value = "count",
+        access = JsonProperty.Access.READ_ONLY
+    )
+    public int count;
 
-    @JsonProperty("results")
-    public final List<BikeProvider> bikes;
+    @JsonProperty(
+        value = "results",
+        access = JsonProperty.Access.READ_ONLY
+    )
+    public List<BikeProvider> bikes;
 
     public BikeListProvider(Map<UUID, ? extends BikeService> bikes) {
         this.count = bikes.size();

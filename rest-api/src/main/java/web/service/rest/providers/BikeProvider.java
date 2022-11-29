@@ -49,7 +49,7 @@ public class BikeProvider {
 
     public BikeProvider(UUID uuid, BikeService bikeService) throws RemoteException {
         this.uuid = uuid.toString();
-        this.label = "default";
+        this.label = bikeService.getLabel();
         //this.owner = bikeService.getOwnerId().toString();
         //this.locationHistory = bikeInterface.getLocationHistory();
         //this.locationQueue = bikeInterface.getLocationQueue();

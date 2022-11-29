@@ -9,13 +9,14 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 
 public class ApplicationContext {
-    private final int PORT = 1098;
+    private final String host;
     private final boolean DEMO = true;
 
     private final CustomerList customers;
 
     public ApplicationContext() throws RemoteException {
         customers = new CustomerList(this);
+        host = System.getenv().getOrDefault("CUSTOMER_SERVICE_HOST", "localhost:1098/CustomerListService");
     }
 
     public CustomerList getCustomers() {
@@ -23,7 +24,7 @@ public class ApplicationContext {
     }
 
     public void runServer() throws MalformedURLException, RemoteException {
-        Naming.rebind("rmi://localhost:" + PORT + "/CustomerListService", customers);
+        Naming.rebind("rmi://" + host, customers);
         System.out.println("CustomerList Service was bind successfully...");
 
         if (DEMO) {
@@ -34,7 +35,7 @@ public class ApplicationContext {
     public static void main(String[] args) throws RemoteException, MalformedURLException {
         var applicationContext = new ApplicationContext();
 
-        LocateRegistry.createRegistry(applicationContext.PORT);
+        LocateRegistry.createRegistry(1099);
 
         applicationContext.runServer();
     }
