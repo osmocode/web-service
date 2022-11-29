@@ -14,6 +14,13 @@ services:
       - web-service-networks
     ports:
       - 1099
+    environment:
+      - CUSTOMER_SERVICE_HOST=rmi-customer:1099/CustomerListService
+      - BIKE_SERVICE_HOST=rmi-bike:1099/BikeListService
+      - LOCATION_SERVICE_HOST=rmi-bike:1099/LocationListService
+      - FEEDBACK_SERVICE_HOST=rmi-bike:1099/FeedBackListService
+    depends_on:
+      - rmi-customer
 
   rmi-customer:
     restart: on-failure
@@ -27,6 +34,11 @@ services:
       - web-service-networks
     ports:
       - 1099
+    environment:
+      - CUSTOMER_SERVICE_HOST=rmi-customer:1099/CustomerListService
+      - BIKE_SERVICE_HOST=rmi-bike:1099/BikeListService
+      - LOCATION_SERVICE_HOST=rmi-bike:1099/LocationListService
+      - FEEDBACK_SERVICE_HOST=rmi-bike:1099/FeedBackListService
 
   rest-api:
     restart: on-failure
@@ -45,6 +57,9 @@ services:
       - BIKE_SERVICE_HOST=rmi-bike:1099/BikeListService
       - LOCATION_SERVICE_HOST=rmi-bike:1099/LocationListService
       - FEEDBACK_SERVICE_HOST=rmi-bike:1099/FeedBackListService
+    depends_on:
+      - rmi-bike
+      - rmi-customer
 
   web-api:
     restart: on-failure

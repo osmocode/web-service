@@ -29,8 +29,7 @@ public class BikeList extends UnicastRemoteObject implements BikeListService {
     }
 
     @Override
-
-    public BikeService add(String label, UUID ownerUUID, BikeState bikeState) throws RemoteException {
+    public Map<UUID, ? extends BikeService> add(String label, UUID ownerUUID, BikeState bikeState) throws RemoteException {
         UUID uuid;
         Bike bike;
 
@@ -55,7 +54,7 @@ public class BikeList extends UnicastRemoteObject implements BikeListService {
             return null;
         }
 
-        return bike;
+        return Map.of(uuid, bike);
     }
 
     @Override

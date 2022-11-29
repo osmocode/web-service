@@ -19,13 +19,16 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class ApplicationContext {
-    private final int PORT = 1099;
-    private final int CONNECT_PORT = 1098;
     private final boolean DEMO = true;
 
     private final BikeList bikes;
     private final RentList rents;
     private final FeedbackList feedbacks;
+
+    private final String hostBikes;
+    private final String hostRental;
+    private final String hostFeedbacks;
+    private final String hostCustomers;
 
     private CustomerListService customers;
 
@@ -33,6 +36,11 @@ public class ApplicationContext {
         bikes = new BikeList(this);
         rents = new RentList(this);
         feedbacks = new FeedbackList(this);
+
+        hostBikes = System.getenv().getOrDefault("BIKE_SERVICE_HOST", "localhost:1099/BikeListService");
+        hostRental = System.getenv().getOrDefault("LOCATION_SERVICE_HOST", "localhost:1099/RentListService");
+        hostFeedbacks = System.getenv().getOrDefault("FEEDBACK_SERVICE_HOST", "localhost:1099/FeedbackListService");
+        hostCustomers = System.getenv().getOrDefault("CUSTOMER_SERVICE_HOST", "localhost:1098/CustomerListService");
     }
 
     public BikeList getBikes() {
@@ -52,13 +60,13 @@ public class ApplicationContext {
     public void runServer() throws IOException, ParseException {
         Objects.requireNonNull(customers);
 
-        Naming.rebind("rmi://localhost:" + PORT + "/BikeListService", bikes);
+        Naming.rebind("rmi://" + hostBikes, bikes);
         System.out.println("BikeList Service was bind successfully...");
 
-        Naming.rebind("rmi://localhost:" + PORT + "/RentListService", rents);
+        Naming.rebind("rmi://" + hostRental, rents);
         System.out.println("RentList Service was bind successfully...");
 
-        Naming.rebind("rmi://localhost:" + PORT + "/FeedbackListService", feedbacks);
+        Naming.rebind("rmi://" + hostFeedbacks, feedbacks);
         System.out.println("FeedbackList Service was bind successfully...");
 
         if (DEMO) {
@@ -67,13 +75,13 @@ public class ApplicationContext {
     }
 
     public void connectServer() throws MalformedURLException, NotBoundException, RemoteException {
-        customers = (CustomerListService) Naming.lookup("rmi://localhost:" + CONNECT_PORT + "/CustomerListService");
+        customers = (CustomerListService) Naming.lookup("rmi://" + hostCustomers);
     }
 
     public static void main(String[] args) throws IOException, ParseException, NotBoundException {
         var applicationContext = new ApplicationContext();
 
-        LocateRegistry.createRegistry(applicationContext.PORT);
+        LocateRegistry.createRegistry(1099);
 
         applicationContext.connectServer();
         applicationContext.runServer();
