@@ -20,12 +20,12 @@ public class BikeController {
     @Autowired
     BikeListService service;
 
-    @GetMapping("/bike")
+    @GetMapping("/api/v1/bike")
     public BikeListProvider getBike() throws RemoteException {
         return new BikeListProvider(service.getAll());
     }
 
-    @PostMapping("/bike")
+    @PostMapping("/api/v1/bike")
     public BikeProvider putBike(@Valid @RequestBody BikeProvider bike) throws RemoteException {
         var entry = service.add(bike.label, UUID.fromString("00000000-0000-0000-0000-00000000"), BikeState.EXCELLENT);
 
