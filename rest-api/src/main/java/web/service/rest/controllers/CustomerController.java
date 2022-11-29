@@ -15,6 +15,8 @@ import java.util.UUID;
 
 import javax.validation.Valid;
 
+import javax.validation.Valid;
+
 @RestController
 public class CustomerController {
 
