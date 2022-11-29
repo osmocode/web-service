@@ -12,6 +12,6 @@ import java.util.UUID;
 
 public interface FeedbackListService extends Remote {
     Map<UUID, ? extends FeedbackService> getAll() throws RemoteException;
-    Optional<FeedbackService> getFeedbackByUUID(String uuid) throws RemoteException;
-    void add(Date date, int note, String comment, BikeState bikeState, UUID uuid) throws RemoteException;
+    FeedbackService getFeedbackByUUID(String uuid) throws RemoteException;
+    FeedbackService add(Date date, int note, String comment, BikeState bikeState, UUID rentUUID) throws RemoteException;
 }
