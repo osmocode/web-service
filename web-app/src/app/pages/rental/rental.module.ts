@@ -16,6 +16,7 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { NzMessageModule } from 'ng-zorro-antd/message';
 import { RentalPublishComponent } from "./publish/rental-publish.component";
 
 
@@ -52,6 +53,7 @@ const routes: Routes = [
     NzGridModule,
     NzButtonModule,
     NzUploadModule,
+    NzMessageModule,
     SharedComponentModule,
     RouterModule.forChild(routes)
   ]

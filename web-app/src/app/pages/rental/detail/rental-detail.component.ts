@@ -1,6 +1,11 @@
 import { Component } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+import { NzMessageService } from "ng-zorro-antd/message";
+import { firstValueFrom, Subscription } from "rxjs";
 import { Bike } from "src/app/models/bike";
 import { Feedback } from "src/app/models/feedback";
+import { PageResult } from "src/app/models/result";
+import { BikeService } from "src/app/services/bike.service";
 
 
 @Component({
@@ -10,7 +15,30 @@ import { Feedback } from "src/app/models/feedback";
 })
 export class RentalDetailComponent {
 
+  private readonly subscriptions: Subscription[] = [];
+  private id!: string;
+
   bike?: Bike;
-  feedbacks?: Feedback[];
+
+  constructor(
+    private readonly bikeService: BikeService,
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly messageService: NzMessageService
+  ) {
+    this.subscriptions.push(
+      this.activatedRoute.params.subscribe(params => {
+        this.id = params['id'];
+        this.onChangeRoute(params['id']);
+      })
+    );
+  }
+
+  private async onChangeRoute(id: string): Promise<void> {
+    try {
+      this.bike = await firstValueFrom(this.bikeService.getBikeById(id));
+    } catch(error) {
+      this.messageService.error('Something get wrong please try again later...');
+    }
+  }
 
 }

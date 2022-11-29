@@ -10,17 +10,16 @@ import { PageResult } from "../models/result";
 })
 export class BikeService {
 
-
   constructor(
     private readonly http: HttpClient
   ) { }
 
   getAll(): Observable<PageResult<Bike>> {
-    return this.http.get<PageResult<Bike>>(`http://localhost:8080/bike`);
+    return this.http.get<PageResult<Bike>>(`api/v1/bike`);
   }
 
   getBikeById(id: string) {
-    return this.http.get<Bike>(`localhost:8080/bike/${id}`);
+    return this.http.get<Bike>(`api/v1/bike/${id}`);
   }
 
 }

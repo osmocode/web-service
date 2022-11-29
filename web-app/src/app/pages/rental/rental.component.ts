@@ -15,7 +15,7 @@ import { RentalPublishComponent } from "./publish/rental-publish.component";
 })
 export class RentalComponent implements OnInit, OnDestroy{
 
-  private readonly _subscriptions: Subscription[] = [];
+  private readonly subscriptions: Subscription[] = [];
 
   pageResult?: PageResult<Bike>;
 
@@ -27,7 +27,7 @@ export class RentalComponent implements OnInit, OnDestroy{
   ) { }
 
   ngOnInit(): void {
-    this._subscriptions.push(
+    this.subscriptions.push(
       this.bikeService.getAll().subscribe((pageResult) => {
         this.pageResult = pageResult;
       })
@@ -35,7 +35,7 @@ export class RentalComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy(): void {
-    this._subscriptions.forEach(s => s.unsubscribe());
+    this.subscriptions.forEach(s => s.unsubscribe());
   }
 
   changeRoute(id: string) {

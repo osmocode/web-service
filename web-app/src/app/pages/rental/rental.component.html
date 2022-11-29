@@ -10,9 +10,9 @@
       <nz-page-header-content>
         <nz-divider></nz-divider>
         <nz-row nzType="flex" style="float: left;">
-          <nz-statistic nzTitle="Total bikes" [nzValue]="42"></nz-statistic>
-          <nz-statistic nzTitle="Available bikes" [nzValue]="4" style="margin: 0 32px"></nz-statistic>
-          <nz-statistic nzTitle="Number of rental" [nzValue]="5711"></nz-statistic>
+          <nz-statistic nzTitle="Total bikes" [nzValue]="pageResult?.count"></nz-statistic>
+          <nz-statistic nzTitle="Available bikes" [nzValue]="pageResult?.count" style="margin: 0 32px"></nz-statistic>
+          <nz-statistic nzTitle="Number of rental" [nzValue]="pageResult?.count"></nz-statistic>
         </nz-row>
       </nz-page-header-content>
     </nz-page-header>

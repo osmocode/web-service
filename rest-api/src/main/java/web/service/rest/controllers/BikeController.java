@@ -26,8 +26,8 @@ public class BikeController {
         return new BikeListProvider(service.getAll());
     }
 
-    @PostMapping("/api/v1/bike")
-    @GetMapping("/bike/{id}")
+
+    @GetMapping("api/v1/bike/{id}")
     public BikeProvider getBikeById(@PathVariable("id") String uuid) throws RemoteException {
         var bike = service.getBikeByUUID(uuid);
         if (bike == null) {
@@ -36,7 +36,7 @@ public class BikeController {
         return new BikeProvider(UUID.fromString(uuid), bike);
     }
 
-    @PostMapping("/bike")
+    @PostMapping("/api/v1/bike")
     public BikeProvider putBike(@Valid @RequestBody BikeProvider bike) throws RemoteException {
         var entry = service.add(bike.label, UUID.fromString("00000000-0000-0000-0000-00000000"), BikeState.EXCELLENT);
         if(entry == null){
