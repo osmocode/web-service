@@ -1,6 +1,25 @@
 <app-layout>
   <app-container>
-    <h1>Chose your bike</h1>
-    <app-bike-list></app-bike-list>
+    <nz-page-header nzTitle="Bike Rental" nzSubtitle="Choice the bike you wan't to rent">
+      <nz-page-header-extra>
+        <button nz-button nzType="primary" (click)="createPublishModal()">
+          <i nz-icon nzType="plus" nzTheme="outline"></i>
+          Propose your bike
+        </button>
+      </nz-page-header-extra>
+      <nz-page-header-content>
+        <nz-divider></nz-divider>
+        <nz-row nzType="flex" style="float: left;">
+          <nz-statistic nzTitle="Total bikes" [nzValue]="42"></nz-statistic>
+          <nz-statistic nzTitle="Available bikes" [nzValue]="4" style="margin: 0 32px"></nz-statistic>
+          <nz-statistic nzTitle="Number of rental" [nzValue]="5711"></nz-statistic>
+        </nz-row>
+      </nz-page-header-content>
+    </nz-page-header>
+
+    <app-bike-list
+      [bikes]="bikes"
+      (didClickItem)="changeRoute($event)"
+    ></app-bike-list>
   </app-container>
 </app-layout>

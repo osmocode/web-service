@@ -1,12 +1,16 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
+import { FormsModule } from "@angular/forms";
 
 // APP-Modules
 import { LayoutComponent } from "./layout/layout.component";
 import { ContainerComponent } from "./container/container.component";
 import { ContentComponent } from "./content/content.component";
 import { BikeListComponent } from "./bike-list/bike-list.component";
+import { BikeCardComponent } from "./bike-card/bike-card.component";
+import { FeedbackCardComponent } from "./feedback-card/feedback-card.component";
+import { FeedbackListComponent } from "./feedback-list/feedback-list.component";
 
 // NZ-Modules
 import { NzLayoutModule } from "ng-zorro-antd/layout";
@@ -15,7 +19,12 @@ import { NzIconModule } from "ng-zorro-antd/icon";
 import { NzMenuModule } from "ng-zorro-antd/menu";
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzCardModule } from 'ng-zorro-antd/card';
-import { BikeCardComponent } from "./bike-card/bike-card.component";
+import { NzCommentModule } from 'ng-zorro-antd/comment';
+import { NzAvatarModule } from 'ng-zorro-antd/avatar';
+import { NzRateModule } from "ng-zorro-antd/rate";
+import { NzTimelineModule } from 'ng-zorro-antd/timeline';
+import { NzEmptyModule } from 'ng-zorro-antd/empty';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 
 
 const SHARED_COMPONENTS = [
@@ -23,19 +32,29 @@ const SHARED_COMPONENTS = [
   ContainerComponent,
   ContentComponent,
   BikeListComponent,
-  BikeCardComponent
+  BikeCardComponent,
+  FeedbackListComponent,
+  FeedbackCardComponent
 ]
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
+    FormsModule,
+
     NzButtonModule,
     NzIconModule,
     NzMenuModule,
     NzLayoutModule,
     NzGridModule,
-    NzCardModule
+    NzCardModule,
+    NzCommentModule,
+    NzAvatarModule,
+    NzRateModule,
+    NzTimelineModule,
+    NzEmptyModule,
+    NzSpinModule
   ],
   declarations: [
     ...SHARED_COMPONENTS

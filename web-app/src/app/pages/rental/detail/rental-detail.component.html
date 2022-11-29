@@ -1,0 +1,35 @@
+<app-layout>
+  <app-container>
+
+    <nz-page-header nzTitle="Bike Detail" nzBackIcon></nz-page-header>
+
+    <nz-row [nzGutter]="[32, 32]">
+      <nz-col nzSpan="6">
+        <app-bike-card [bike]="bike"></app-bike-card>
+        <nz-divider></nz-divider>
+        <button nz-button nzType="primary" nzBlock>Rent the bike</button>
+        <button nz-button nzBlock>Add to cart</button>
+      </nz-col>
+      <nz-col nzSpan="18">
+
+        <nz-row [nzGutter]="32">
+          <nz-col nzSpan="12">
+            <h1>{{bike.label}}</h1>
+            <p>{{bike.desc}}</p>
+            <b style="margin-right: 15px;">Rate :</b>
+            <nz-rate [ngModel]="3.5" nzAllowHalf nzDisabled></nz-rate>
+          </nz-col>
+          <nz-col nzSpan="12">
+            <nz-row nzType="flex" style="float: right;">
+              <nz-statistic nzTitle="Number of reviews" [nzValue]="4" style="margin: 0 32px"></nz-statistic>
+              <nz-statistic nzTitle="Number of rental" [nzValue]="12" style="margin-right: 32px;"></nz-statistic>
+            </nz-row>
+          </nz-col>
+        </nz-row>
+
+        <nz-divider nzText="Top reviews and feedback" nzOrientation="left"></nz-divider>
+        <app-feedback-list [feedbacks]="feedbacks"></app-feedback-list>
+      </nz-col>
+    </nz-row>
+  </app-container>
+</app-layout>

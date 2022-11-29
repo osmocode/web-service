@@ -1,0 +1,37 @@
+<form nz-form [formGroup]="form" (ngSubmit)="submitModal()">
+  <!-- LABEL INPUT -->
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzRequired>Label</nz-form-label>
+    <nz-form-control [nzSpan]="13">
+      <input nz-input formControlName="label" placeholder="Type the name or model of bike" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <!-- DESC INPUT -->
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6">Description</nz-form-label>
+    <nz-form-control [nzSpan]="13">
+      <textarea formControlName="desc" nz-input rows="4" placeholder="Type a description of the bike..."></textarea>
+    </nz-form-control>
+  </nz-form-item>
+
+  <!-- IMAGE INPUT -->
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6">Image</nz-form-label>
+    <nz-form-control [nzSpan]="13">
+      <nz-upload
+        nzListType="picture"
+        [nzPreviewFile]="previewFile">
+        <button nz-button nzBlock>
+          <i nz-icon nzType="upload"></i>
+          Upload
+        </button>
+      </nz-upload>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+
+<div *nzModalFooter>
+  <button nz-button nzType="default" (click)="destroyModal()">Cancel</button>
+  <button nz-button nzType="primary" (click)="destroyModal()">Publish</button>
+</div>

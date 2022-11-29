@@ -1,4 +1,5 @@
-import { Component, Input } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { Bike } from "src/app/models/bike";
 
 
 @Component({
@@ -8,8 +9,6 @@ import { Component, Input } from "@angular/core";
 })
 export class BikeCardComponent {
 
-  @Input() label!: string;
-  @Input() desc!: string;
-  @Input() image!: string;
-
+  @Input() bike!: Bike;
+  @Output() didClick= new EventEmitter<string>();
 }

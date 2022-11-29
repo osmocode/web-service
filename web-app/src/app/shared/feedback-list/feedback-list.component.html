@@ -1,0 +1,20 @@
+<ng-container *ngIf="feedbacks; else: loading">
+
+  <ng-container *ngIf="feedbacks.length === 0">
+    <nz-empty nzNotFoundContent="Empty"></nz-empty>
+  </ng-container>
+
+  <ng-container *ngFor="let feedback of feedbacks">
+    <app-feedback-card [feedback]="feedback"></app-feedback-card>
+  </ng-container>
+
+</ng-container>
+
+<ng-template #loading>
+  <div class="spin">
+    <nz-spin nzSimple nzSize="large"></nz-spin>
+  </div>
+</ng-template>
+
+
+

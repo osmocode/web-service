@@ -1,4 +1,5 @@
-import { Component } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { Bike } from "src/app/models/bike";
 
 
 @Component({
@@ -8,28 +9,7 @@ import { Component } from "@angular/core";
 })
 export class BikeListComponent {
 
-  bikes: Bike[] = [
-    {
-      name: 'SuperBike',
-      desc: 'Lorem ipsum'
-    },
-    {
-      name: 'SuperBike',
-      desc: 'Lorem ipsum'
-    },
-    {
-      name: 'SuperBike',
-      desc: 'Lorem ipsum'
-    },
-    {
-      name: 'SuperBike',
-      desc: 'Lorem ipsum'
-    }
-  ]
+  @Input() bikes!: Bike[];
+  @Output() didClickItem = new EventEmitter<string>();
 
-}
-
-interface Bike {
-  name: string;
-  desc: string;
 }
