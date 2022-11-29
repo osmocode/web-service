@@ -1,18 +1,14 @@
 package web.service.rest.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 import rmi.bike.interfaces.bike.BikeListService;
-import rmi.bike.models.BikeState;
-import web.service.rest.providers.BikeListProvider;
 import web.service.rest.providers.BikeProvider;
 
-import javax.validation.Valid;
 import java.rmi.RemoteException;
-import java.util.Optional;
-import java.util.UUID;
-
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 public class BikeController {
@@ -20,18 +16,19 @@ public class BikeController {
     @Autowired
     BikeListService service;
 
+
     @GetMapping("/bike")
-    public BikeListProvider getBike() throws RemoteException {
-        return new BikeListProvider(service.getAll());
-    }
+    public Map<String, BikeProvider> getBike() throws RemoteException {
+        /*
+        var lst = service.getBikesList();
+        var map = new HashMap<String, BikeProvider>();
+        for (int i = 0; i < lst.size(); i ++) {
+            map.put(String.valueOf(i), new BikeProvider(String.valueOf(i), lst.get(i)));
+        }
+        return map;
 
-    @PostMapping("/bike")
-    public BikeProvider putBike(@Valid @RequestBody BikeProvider bike) throws RemoteException {
-        var entry = service.add(bike.label, UUID.fromString("00000000-0000-0000-0000-00000000"), BikeState.EXCELLENT);
-
-        var response =  entry.entrySet().stream().findFirst().get();
-
-        return new BikeProvider(response.getKey(), response.getValue());
+         */
+        return null;
     }
 
 }
