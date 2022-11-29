@@ -10,24 +10,7 @@ import { Feedback } from "src/app/models/feedback";
 })
 export class RentalDetailComponent {
 
-  bike: Bike = {
-    id: "1",
-    label: "Super bike",
-    desc: "New bike with the best performance."
-  }
+  bike?: Bike;
+  feedbacks?: Feedback[];
 
-  feedbacks: Feedback[] = [
-    {
-      title: "Super",
-      desc: "Lorem ipsum"
-    },
-    {
-      title: "Super",
-      desc: "Lorem ipsum"
-    },
-    {
-      title: "Super",
-      desc: "Lorem ipsum"
-    }
-  ]
 }

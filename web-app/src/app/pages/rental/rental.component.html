@@ -18,7 +18,7 @@
     </nz-page-header>
 
     <app-bike-list
-      [bikes]="bikes"
+      [bikes]="pageResult?.results"
       (didClickItem)="changeRoute($event)"
     ></app-bike-list>
   </app-container>
