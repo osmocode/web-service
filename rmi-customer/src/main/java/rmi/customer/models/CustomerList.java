@@ -1,5 +1,6 @@
 package rmi.customer.models;
 
+import rmi.customer.ApplicationContext;
 import rmi.customer.interfaces.CustomerListService;
 import rmi.customer.interfaces.CustomerService;
 
@@ -9,29 +10,44 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class CustomerList extends UnicastRemoteObject implements CustomerListService {
+    private final ApplicationContext context;
+    private final Map<UUID, Customer> customers = new ConcurrentHashMap<>();
 
-    private final Map<UUID, Customer> customerMap = new ConcurrentHashMap<>();
-
-    public CustomerList() throws RemoteException {
+    public CustomerList(ApplicationContext context) throws RemoteException {
         super();
+        this.context = Objects.requireNonNull(context);
     }
 
     @Override
     public Map<UUID, ? extends CustomerService> getAll() throws RemoteException {
-        return customerMap;
+        return customers;
     }
 
     @Override
-    public void add(String firstName, String lastName, CustomerType customerType) throws RemoteException {
-        Objects.requireNonNull(firstName);
-        Objects.requireNonNull(lastName);
-        Objects.requireNonNull(customerType);
+    public CustomerService add(String firstName, String lastName, CustomerType customerType, String password) throws RemoteException {
+        Customer customer;
 
-        while (customerMap.putIfAbsent(UUID.randomUUID(), new Customer(firstName, lastName, customerType)) != null) {}
+        try {
+            customer = new Customer(firstName, lastName, customerType, password);
+        } catch (NullPointerException e) {
+            return null;
+        }
+
+        while (customers.putIfAbsent(UUID.randomUUID(), customer) != null) {}
+
+        return customer;
     }
 
     @Override
-    public Optional<CustomerService> getCustomerByUUID(String uuid) throws RemoteException {
-        return Optional.ofNullable(customerMap.get(UUID.fromString(Objects.requireNonNull(uuid))));
+    public CustomerService getCustomerByUUID(String uuid) throws RemoteException {
+        return customers.get(UUID.fromString(Objects.requireNonNull(uuid)));
+    }
+
+    @Override
+    public String toString() {
+        return "CustomerList{" +
+                "context=" + context +
+                ", customers=" + customers +
+                '}';
     }
 }

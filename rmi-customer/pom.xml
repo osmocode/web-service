@@ -40,7 +40,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>CustomerService</mainClass>
+                            <mainClass>rmi.customer.ApplicationContext</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -59,7 +59,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>CustomerService</mainClass>
+                            <mainClass>rmi.customer.ApplicationContext</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

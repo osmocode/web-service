@@ -1,7 +1,9 @@
 package rmi.bike.models.rent;
 
+import rmi.bike.ApplicationContext;
 import rmi.bike.interfaces.rent.RentListService;
 import rmi.bike.interfaces.rent.RentService;
+import rmi.bike.models.bike.Bike;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -9,43 +11,60 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class RentList extends UnicastRemoteObject implements RentListService {
-    private final Map<UUID, Rent> rentMap = new ConcurrentHashMap<>();
+    private final ApplicationContext context;
+    private final Map<UUID, Rent> rents = new ConcurrentHashMap<>();
 
-    public RentList() throws RemoteException {
+    public RentList(ApplicationContext context) throws RemoteException {
         super();
+        this.context = Objects.requireNonNull(context);
     }
 
     @Override
     public Map<UUID, ? extends RentService> getAll() throws RemoteException {
-        return rentMap;
+        return rents;
     }
 
     @Override
-    public Optional<RentService> getRentByUUID(String uuid) throws RemoteException {
-        return Optional.ofNullable(rentMap.get(UUID.fromString(Objects.requireNonNull(uuid))));
+    public RentService getRentByUUID(String uuid) throws RemoteException {
+        return rents.get(UUID.fromString(Objects.requireNonNull(uuid)));
     }
 
     @Override
-    public void add(Date start, Date end, UUID customerClientUUID) throws RemoteException {
-        Objects.requireNonNull(start);
-        Objects.requireNonNull(end);
-        Objects.requireNonNull(customerClientUUID);
+    public RentService add(Date start, Date end, UUID customerClientUUID, UUID bikeUUID) throws RemoteException {
+        UUID uuid;
+        Rent rent;
 
-        // TOOD add in mapRent
-        /*
-        synchronized (rentMap) {
-            var uuid = customerClient.getUUID();
-            var rent = new Rent(start, end, customerClient);
-
-
-            if (rentMap.get(uuid) == null) {
-                rentMap.put(uuid, List.of(rent));
-            } else {
-                rentMap.get(uuid).add(rent);
-            }
+        var bike = (Bike) context.getBikes().getBikeByUUID(bikeUUID.toString());
+        if (bike == null) {
+            return null;
         }
-         */
 
-        // TODO add uuid into Bike.rentQueue
+        try {
+            rent = new Rent(start, end, customerClientUUID, bike);
+        } catch (NullPointerException e) {
+            return null;
+        }
+
+        // Add in rents
+        do {
+            uuid = UUID.randomUUID();
+        } while (rents.putIfAbsent(uuid, rent) != null);
+
+        // Add in Bike.rentQueue
+        try {
+            bike.addRentQueue(rent);
+        } catch (InterruptedException e) {
+            return null;
+        }
+
+        return rent;
+    }
+
+    @Override
+    public String toString() {
+        return "RentList{" +
+                "context=" + context +
+                ", rents=" + rents +
+                '}';
     }
 }

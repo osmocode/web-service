@@ -1,10 +1,11 @@
 package rmi.bike.models.feedback;
 
 
+import rmi.bike.ApplicationContext;
 import rmi.bike.interfaces.feedback.FeedbackListService;
 import rmi.bike.interfaces.feedback.FeedbackService;
-import rmi.bike.interfaces.rent.RentService;
 import rmi.bike.models.BikeState;
+import rmi.bike.models.bike.Bike;
 import rmi.bike.models.rent.Rent;
 
 import java.rmi.RemoteException;
@@ -12,44 +13,70 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.*;
 
 public class FeedbackList extends UnicastRemoteObject implements FeedbackListService {
-    private final Map<UUID, Feedback> feedbackMap = new HashMap<>();
+    private final ApplicationContext context;
+    private final Map<UUID, Feedback> feedbacks = new HashMap<>();
 
-    public FeedbackList() throws RemoteException {
+    public FeedbackList(ApplicationContext context) throws RemoteException {
         super();
+        this.context = Objects.requireNonNull(context);
     }
 
     @Override
     public Map<UUID, ? extends FeedbackService> getAll() throws RemoteException {
-        return feedbackMap;
+        return feedbacks;
     }
 
     @Override
-    public Optional<FeedbackService> getFeedbackByUUID(String uuid) throws RemoteException {
-        return Optional.ofNullable(feedbackMap.get(Objects.requireNonNull(uuid)));
+    public FeedbackService getFeedbackByUUID(String uuid) throws RemoteException {
+        return feedbacks.get(Objects.requireNonNull(uuid));
     }
 
     @Override
-    public void add(Date date, int note, String comment, BikeState bikeState, UUID rentUUID) throws RemoteException {
-        Objects.requireNonNull(date);
-        Objects.requireNonNull(comment);
-        Objects.requireNonNull(bikeState);
-        Objects.requireNonNull(rentUUID);
+    public FeedbackService add(Date date, int note, String comment, BikeState bikeState, UUID rentUUID) throws RemoteException {
+        UUID uuid;
+        Feedback feedback;
 
-        if (note > 5 || note < -1) {
-            throw new IllegalArgumentException("-1 <= note <= 5");
+        var rent = (Rent) context.getRents().getRentByUUID(rentUUID.toString());
+        if (rent == null) {
+            return null;
         }
 
-        UUID uuid;
+        try {
+            feedback = new Feedback(date, note, comment, bikeState, rent);
+        } catch (NullPointerException e) {
+            return null;
+        }
 
-        // TODO get rent
-        //Rent rent = ;
-
-        /*
+        // Add in feedbacks
         do {
             uuid = UUID.randomUUID();
-        } while (feedbackMap.putIfAbsent(uuid, new Feedback(date, note, comment, bikeState, )) != null);
-         */
+        } while (feedbacks.putIfAbsent(uuid, feedback) != null);
 
-        // TODO add uuid in Bike.feedbackHistory
+        // Add in Bike.feedbackHistory
+        var bike = (Bike) context.getBikes().getBikeByUUID(rent.getBike().toString());
+        if (bike == null) {
+            return null;
+        }
+
+        if (!bike.addFeedbackHistory(feedback)) {
+            return null;
+        }
+
+        // Remove rent in Bike.rentQueue
+        try {
+            bike.removeRentQueue();
+        } catch (InterruptedException e) {
+            return null;
+        }
+
+        return feedback;
+    }
+
+    @Override
+    public String toString() {
+        return "FeedbackList{" +
+                "context=" + context +
+                ", feedbacks=" + feedbacks +
+                '}';
     }
 }

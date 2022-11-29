@@ -11,5 +11,10 @@ public interface CustomerService extends Remote {
     String getFirstName() throws RemoteException;
     String getLastName() throws RemoteException;
     CustomerType getCustomerType() throws RemoteException;
+    String getPassword() throws RemoteException;
     List<UUID> getBikes() throws RemoteException;
+    UUID getActualBikeRent() throws RemoteException;
+    void setActualBikeRent(String uuid) throws RemoteException;
+    boolean canRent() throws RemoteException;
+    boolean canProposeBike() throws RemoteException;
 }

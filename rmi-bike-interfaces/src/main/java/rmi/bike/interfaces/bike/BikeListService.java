@@ -13,6 +13,6 @@ import java.util.UUID;
 
 public interface BikeListService extends Remote {
     Map<UUID, ? extends BikeService> getAll() throws RemoteException;
-    Optional<BikeService> getBikeByUUID(String uuid) throws RemoteException;
-    void add(Image image, UUID ownerUUID, BikeState bikeState) throws RemoteException;
+    BikeService getBikeByUUID(String uuid) throws RemoteException;
+    BikeService add(String label, UUID ownerUUID, BikeState bikeState) throws RemoteException;
 }

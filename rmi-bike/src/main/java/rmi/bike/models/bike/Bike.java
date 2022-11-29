@@ -4,6 +4,7 @@ import rmi.bike.interfaces.bike.BikeService;
 import rmi.bike.interfaces.feedback.FeedbackService;
 import rmi.bike.interfaces.rent.RentService;
 import rmi.bike.models.BikeState;
+import rmi.bike.models.feedback.Feedback;
 import rmi.bike.models.rent.Rent;
 
 import java.awt.*;
@@ -16,22 +17,45 @@ import java.util.UUID;
 import java.util.concurrent.ArrayBlockingQueue;
 
 public class Bike extends UnicastRemoteObject implements BikeService {
-    private final Image image;
+    private final String label;
+    private Image image;
     private final UUID ownerId;
     private final BikeState bikeState;
-    private final ArrayList<FeedbackService> feedbackHistory = new ArrayList<>();
+    private final ArrayList<Feedback> feedbackHistory = new ArrayList<>();
     private final ArrayBlockingQueue<Rent> rentQueue = new ArrayBlockingQueue<>(20);
 
-    public Bike(Image image, UUID ownerUUID, BikeState bikeState) throws RemoteException {
+    public Bike(String label, UUID ownerUUID, BikeState bikeState) throws RemoteException {
         super();
-        this.image = image;
-        this.ownerId = ownerUUID;
-        this.bikeState = bikeState;
+        this.label = Objects.requireNonNull(label);
+        this.ownerId = Objects.requireNonNull(ownerUUID);
+        this.bikeState = Objects.requireNonNull(bikeState);
+    }
+
+    public boolean addFeedbackHistory(Feedback feedback) {
+        return feedbackHistory.add(Objects.requireNonNull(feedback));
+    }
+
+    public void addRentQueue(Rent rent) throws InterruptedException {
+        rentQueue.put(Objects.requireNonNull(rent));
+    }
+
+    public void removeRentQueue() throws InterruptedException {
+        rentQueue.remove();
+    }
+
+    @Override
+    public String getLabel() throws RemoteException {
+        return label;
     }
 
     @Override
     public Image getImage() throws RemoteException {
         return image;
+    }
+
+    @Override
+    public void setImage(Image image) throws RemoteException {
+        this.image = image;
     }
 
     @Override
@@ -56,7 +80,28 @@ public class Bike extends UnicastRemoteObject implements BikeService {
 
     @Override
     public float getAverageNote() throws RemoteException {
-        // TODO
-        return 0;
+        return (float) feedbackHistory.stream().filter(feedback -> feedback.getNote() != -1).mapToDouble(Feedback::getNote).average().orElse(Double.NaN);
+    }
+
+    @Override
+    public boolean canBeRent() throws RemoteException {
+        return rentQueue.size() > 1;
+    }
+
+    @Override
+    public boolean canBeSale() throws RemoteException {
+        return feedbackHistory.size() > 0;
+    }
+
+    @Override
+    public String toString() {
+        return "Bike{" +
+                "label='" + label + '\'' +
+                ", image=" + image +
+                ", ownerId=" + ownerId.toString() +
+                ", bikeState=" + bikeState +
+                ", feedbackHistory=" + feedbackHistory +
+                ", rentQueue=" + rentQueue +
+                '}';
     }
 }

@@ -1,8 +1,9 @@
 package rmi.bike.models.rent;
 
 
+import rmi.bike.interfaces.bike.BikeService;
 import rmi.bike.interfaces.rent.RentService;
-import rmi.customer.interfaces.CustomerService;
+import rmi.bike.models.bike.Bike;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -14,12 +15,14 @@ public class Rent extends UnicastRemoteObject implements RentService {
     private final Date start;
     private final Date end;
     private final UUID customerClientUUID;
+    private final Bike bike;
 
-    public Rent(Date start, Date end, UUID customerClientUUID) throws RemoteException {
+    public Rent(Date start, Date end, UUID customerClientUUID, Bike bike) throws RemoteException {
         super();
         this.start = Objects.requireNonNull(start);
         this.end = Objects.requireNonNull(end);
         this.customerClientUUID = Objects.requireNonNull(customerClientUUID);
+        this.bike = Objects.requireNonNull(bike);
     }
 
     @Override
@@ -38,11 +41,17 @@ public class Rent extends UnicastRemoteObject implements RentService {
     }
 
     @Override
+    public BikeService getBike() throws RemoteException {
+        return bike;
+    }
+
+    @Override
     public String toString() {
         return "Rent{" +
                 "start=" + start +
                 ", end=" + end +
                 ", customerClientUUID=" + customerClientUUID.toString() +
+                ", bike=" + bike +
                 '}';
     }
 }
