@@ -15,7 +15,7 @@ public class CustomerController {
     private CustomerListService service;
 
 
-    @GetMapping("/customer")
+    @GetMapping("/api/v1/customer")
     public CustomerListProvider getCustomerAll() throws RemoteException {
         return new CustomerListProvider(service.getAll());
     }

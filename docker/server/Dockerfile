@@ -1,0 +1,11 @@
+FROM nginx
+
+RUN rm /etc/nginx/conf.d/default.conf
+
+# Default configuration file
+COPY docker/server/config/nginx.dev.conf /etc/nginx/nginx.conf
+
+# Forward nginx logs to docker
+# https://alexanderallen.medium.com/forwarding-nginx-logs-to-docker-3bb6283a207
+RUN ln -sf /dev/stdout /var/log/nginx/access.log && \
+    ln -sf /dev/stderr /var/log/nginx/error.log

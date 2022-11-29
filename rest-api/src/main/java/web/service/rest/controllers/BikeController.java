@@ -21,11 +21,12 @@ public class BikeController {
     @Autowired
     BikeListService service;
 
-    @GetMapping("/bike")
+    @GetMapping("/api/v1/bike")
     public BikeListProvider getBike() throws RemoteException {
         return new BikeListProvider(service.getAll());
     }
 
+    @PostMapping("/api/v1/bike")
     @GetMapping("/bike/{id}")
     public BikeProvider getBikeById(@PathVariable("id") String uuid) throws RemoteException {
         var bike = service.getBikeByUUID(uuid);
