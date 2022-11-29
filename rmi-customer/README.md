@@ -23,10 +23,26 @@ All services is binded on port `1099`.
     getCustomerByUUID(String uuid)
 ```
 
-- Adds a customer to the list with his `firstName`, `lastName`, `customerType` `password`. The return value will be a `CustomerService`.
+- Adds a customer to the list with his `firstName`, `lastName`, `customerType`, `username`, `password`. The return value will be a `CustomerService`.
 ```java
-    add(String firstName, String lastName, CustomerType customerType, String password)
+    add(String firstName, String lastName, CustomerType customerType, String username, String password)
 ```
+
+- Connect the customer with this `username` and `password`. The return value will be a `UUID`.
+```java
+    login(String username, String password)
+```
+
+- Informs us if the connexion token exists. The return value will be a `boolean`.
+```java
+    isLogged(UUID token)
+```
+
+- Disconnect the customer with this connexion token. The return value will be a `UUID`.
+```java
+    logOut(UUID token)
+```
+
 
 ### Customer
 
@@ -43,6 +59,11 @@ All services is binded on port `1099`.
 - Get customer `customerType`. The return value will be a `String`.
 ```java
     getCustomerType()
+```
+
+- Get customer `username`. The return value will be a `String`.
+```java
+    getUsername()
 ```
 
 - Get customer `password`. The return value will be a `String`.
