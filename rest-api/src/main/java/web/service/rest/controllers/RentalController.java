@@ -1,4 +1,4 @@
 package web.service.rest.controllers;
 
-public class LocationController {
+public class RentalController {
 }

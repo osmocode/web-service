@@ -29,6 +29,7 @@ public class BikeList extends UnicastRemoteObject implements BikeListService {
     }
 
     @Override
+
     public BikeService add(String label, UUID ownerUUID, BikeState bikeState) throws RemoteException {
         UUID uuid;
         Bike bike;

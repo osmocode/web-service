@@ -1,14 +1,15 @@
 package web.service.rest.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import rmi.bike.interfaces.bike.BikeListService;
+import rmi.bike.models.BikeState;
+import web.service.rest.providers.BikeListProvider;
 import web.service.rest.providers.BikeProvider;
 
+import javax.validation.Valid;
 import java.rmi.RemoteException;
-import java.util.HashMap;
-import java.util.Map;
+
 
 @RestController
 public class BikeController {
@@ -16,15 +17,15 @@ public class BikeController {
     @Autowired
     BikeListService service;
 
-
     @GetMapping("/bike")
-    public Map<String, BikeProvider> getBike() throws RemoteException {
-        var lst = service.getBikesList();
-        var map = new HashMap<String, BikeProvider>();
-        for (int i = 0; i < lst.size(); i ++) {
-            map.put(String.valueOf(i), new BikeProvider(String.valueOf(i), lst.get(i)));
-        }
-        return map;
+    public BikeListProvider getBike() throws RemoteException {
+        return new BikeListProvider(service.getAll());
+    }
+
+    @PostMapping("/bike")
+    public BikeProvider put(@Valid @RequestBody BikeProvider bike) throws RemoteException {
+        service.add(null, null, BikeState.EXCELLENT);
+        return bike;
     }
 
 }
