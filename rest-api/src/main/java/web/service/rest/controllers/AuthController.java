@@ -41,8 +41,8 @@ public class AuthController {
 
     @Authenticated
     @PostMapping("/api/v1/auth/logout")
-    public void logout() {
-
+    public void logout(@RequestHeader(value = "X-Auth-Token") String token) throws RemoteException {
+        this.service.logOut(UUID.fromString(token));
     }
 
 }
