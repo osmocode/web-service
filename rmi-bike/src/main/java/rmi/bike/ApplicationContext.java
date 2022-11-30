@@ -96,13 +96,9 @@ public class ApplicationContext {
     private void addBikesDemo() throws IOException {
         // TODO change UUID.randomUUID() to the UUID of the owner customer.
 
-        bikes.add("bike1", UUID.randomUUID(), BikeState.EXCELLENT);
-        bikes.add("bike2", UUID.randomUUID(), BikeState.CORRECT);
-        bikes.add("bike3", UUID.randomUUID(), BikeState.VERY_GOOD);
-        bikes.add("bike4", UUID.randomUUID(), BikeState.BAD);
-        bikes.add("bike5", UUID.randomUUID(), BikeState.GOOD);
-        bikes.add("bike6", UUID.randomUUID(), BikeState.VERY_BAD);
-        bikes.add("bike7", UUID.randomUUID(), BikeState.CORRECT);
+        bikes.add("bike1", null, UUID.randomUUID(), BikeState.EXCELLENT);
+        bikes.add("bike2", null, UUID.randomUUID(), BikeState.CORRECT);
+        bikes.add("bike3", null, UUID.randomUUID(), BikeState.VERY_GOOD);
     }
 
     private void addRentDemo() throws RemoteException, ParseException {

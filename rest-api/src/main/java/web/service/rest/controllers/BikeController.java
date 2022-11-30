@@ -6,8 +6,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import rmi.bike.interfaces.bike.BikeListService;
 import rmi.bike.models.BikeState;
+import rmi.customer.interfaces.CustomerListService;
 import web.service.rest.providers.BikeListProvider;
 import web.service.rest.providers.BikeProvider;
+import web.service.rest.session.Authenticated;
 
 import javax.validation.Valid;
 import java.rmi.RemoteException;
@@ -20,6 +22,9 @@ public class BikeController {
 
     @Autowired
     BikeListService service;
+
+    @Autowired
+    CustomerListService authService;
 
     @GetMapping("/api/v1/bike")
     public BikeListProvider getBike() throws RemoteException {
@@ -35,9 +40,11 @@ public class BikeController {
         return new BikeProvider(UUID.fromString(uuid), bike);
     }
 
+    @Authenticated
     @PostMapping("/api/v1/bike")
-    public BikeProvider postBike(@Valid @RequestBody BikeProvider bike) throws RemoteException {
-        var entry = service.add(bike.label, UUID.fromString("00000000-0000-0000-0000-00000000"), BikeState.EXCELLENT);
+    public BikeProvider postBike(@RequestHeader(value = "X-Auth-Token") String token, @Valid @RequestBody BikeProvider bike) throws RemoteException {
+        var user = authService.isLogged(UUID.fromString(token));
+        var entry = service.add(bike.label, bike.desc, user, BikeState.valueOf(bike.state));
         if(entry == null){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "bike not created");
         }

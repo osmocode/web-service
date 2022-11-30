@@ -1,8 +1,21 @@
-<nz-row [nzGutter]="[16, 16]">
-  <ng-container *ngFor="let bike of bikes">
-    <nz-col [nzSpan]="24" [nzSm]="12" [nzMd]="8" [nzLg]="6">
-      <app-bike-card [bike]="bike" (didClick)="didClickItem.emit($event)">
-      </app-bike-card>
-    </nz-col>
+<ng-container *ngIf="bikes; else: loading">
+
+  <ng-container *ngIf="bikes.length === 0">
+    <nz-empty nzNotFoundContent="Empty"></nz-empty>
   </ng-container>
-</nz-row>
+
+  <nz-row [nzGutter]="[16, 16]">
+    <ng-container *ngFor="let bike of bikes">
+      <nz-col [nzSpan]="24" [nzSm]="12" [nzMd]="8" [nzLg]="6">
+        <app-bike-card [bike]="bike" (didClick)="didClickItem.emit($event)"></app-bike-card>
+      </nz-col>
+    </ng-container>
+  </nz-row>
+
+</ng-container>
+
+<ng-template #loading>
+  <div class="spin">
+    <nz-spin nzSimple nzSize="large"></nz-spin>
+  </div>
+</ng-template>

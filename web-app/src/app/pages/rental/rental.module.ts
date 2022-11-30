@@ -17,7 +17,11 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzMessageModule } from 'ng-zorro-antd/message';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzSelectModule } from 'ng-zorro-antd/select';
 import { RentalPublishComponent } from "./publish/rental-publish.component";
+import { RentalRentComponent } from "./rent/rental-rent.component";
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 
 
 const routes: Routes = [
@@ -37,6 +41,7 @@ const routes: Routes = [
     RentalComponent,
     RentalDetailComponent,
     RentalPublishComponent,
+    RentalRentComponent
   ],
   imports: [
     CommonModule,
@@ -54,6 +59,9 @@ const routes: Routes = [
     NzButtonModule,
     NzUploadModule,
     NzMessageModule,
+    NzDropDownModule,
+    NzSelectModule,
+    NzDatePickerModule,
     SharedComponentModule,
     RouterModule.forChild(routes)
   ]

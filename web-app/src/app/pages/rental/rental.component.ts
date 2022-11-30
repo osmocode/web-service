@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { NzModalService } from "ng-zorro-antd/modal";
-import { Subscription } from "rxjs";
+import { lastValueFrom, Subscription } from "rxjs";
 import { Bike } from "src/app/models/bike";
 import { PageResult } from "src/app/models/result";
 import { BikeService } from "src/app/services/bike.service";
@@ -26,12 +26,8 @@ export class RentalComponent implements OnInit, OnDestroy{
     private router: Router
   ) { }
 
-  ngOnInit(): void {
-    this.subscriptions.push(
-      this.bikeService.getAll().subscribe((pageResult) => {
-        this.pageResult = pageResult;
-      })
-    );
+  async ngOnInit(): Promise<void> {
+    this.pageResult = await lastValueFrom(this.bikeService.getAll());
   }
 
   ngOnDestroy(): void {
@@ -43,11 +39,16 @@ export class RentalComponent implements OnInit, OnDestroy{
   }
 
   createPublishModal() {
-    this.modalService.create({
-      nzTitle: 'Publish bike',
-      nzContent: RentalPublishComponent,
-      nzWidth: '60%'
-    })
+    this.subscriptions.push(
+      this.modalService.create({
+        nzTitle: 'Publish bike',
+        nzContent: RentalPublishComponent,
+        nzWidth: '60%',
+      }).afterClose.subscribe(async () => {
+        this.pageResult = await lastValueFrom(this.bikeService.getAll())
+      })
+    )
+
   }
 
 }

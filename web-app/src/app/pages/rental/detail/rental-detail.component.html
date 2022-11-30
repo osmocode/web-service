@@ -6,9 +6,11 @@
     <nz-row [nzGutter]="[32, 32]">
       <nz-col nzSpan="6">
         <app-bike-card [bike]="bike"></app-bike-card>
-        <nz-divider></nz-divider>
-        <button nz-button nzType="primary" nzBlock>Rent the bike</button>
-        <button nz-button nzBlock>Add to cart</button>
+        <ng-container *ngIf="canRent">
+          <nz-divider></nz-divider>
+          <button nz-button nzType="primary" nzBlock (click)="createRentModal()">Rent the bike</button>
+          <button nz-button nzBlock>Add to cart</button>
+        </ng-container>
       </nz-col>
       <nz-col nzSpan="18">
 

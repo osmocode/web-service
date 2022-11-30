@@ -2,10 +2,22 @@
   <nz-header>
     <div class="logo"></div>
     <ul nz-menu nzTheme="dark" nzMode="horizontal">
-      <li nz-menu-item [nzMatchRouter]="true" routerLink="/rental" >Rental</li>
-      <li nz-menu-item [nzMatchRouter]="true">Page 2</li>
-      <li nz-menu-item [nzMatchRouter]="true">Page 3</li>
-      <li nz-menu-item [nzMatchRouter]="true" routerLink="/login" class="right">Login</li>
+      <ng-container *ngIf="user; else: empty">
+        <li nz-menu-item [nzMatchRouter]="true" routerLink="/rental" >Rental</li>
+        <li nz-menu-item [nzMatchRouter]="true">Page 2</li>
+        <li nz-menu-item [nzMatchRouter]="true">Page 3</li>
+
+        <li nz-dropdown [nzDropdownMenu]="profile" nzPlacement="bottomRight" nzTrigger="click" nz-menu-item [nzMatchRouter]="true" class="right"><nz-avatar [nzText]="initial(user)"></nz-avatar></li>
+        <nz-dropdown-menu #profile="nzDropdownMenu">
+          <ul nz-menu style="width: 200px;text-align:end;">
+            <li nz-menu-item style="text-align:end" (click)="goProfile(user)">Profile</li>
+            <li nz-menu-item nzDanger (click)="logout()">Logout</li>
+          </ul>
+        </nz-dropdown-menu>
+      </ng-container>
+      <ng-template #empty>
+        <li nz-menu-item [nzMatchRouter]="true" routerLink="/login" class="right">Login</li>
+      </ng-template>
     </ul>
   </nz-header>
   <nz-content>

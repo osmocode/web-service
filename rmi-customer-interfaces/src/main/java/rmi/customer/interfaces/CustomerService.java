@@ -14,6 +14,7 @@ public interface CustomerService extends Remote {
     String getUsername() throws RemoteException;
     String getPassword() throws RemoteException;
     List<UUID> getBikes() throws RemoteException;
+    void addBike(UUID bikeId) throws RemoteException;
     UUID getActualBikeRent() throws RemoteException;
     void setActualBikeRent(String uuid) throws RemoteException;
     boolean canRent() throws RemoteException;

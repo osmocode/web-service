@@ -64,6 +64,11 @@ public class Customer extends UnicastRemoteObject implements CustomerService {
     }
 
     @Override
+    public void addBike(UUID bikeId) throws RemoteException {
+        this.bikes.add(bikeId);
+    }
+
+    @Override
     public UUID getActualBikeRent() throws RemoteException {
         return actualBikeRent;
     }
