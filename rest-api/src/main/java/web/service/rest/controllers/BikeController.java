@@ -26,18 +26,17 @@ public class BikeController {
         return new BikeListProvider(service.getAll());
     }
 
-
     @GetMapping("api/v1/bike/{id}")
     public BikeProvider getBikeById(@PathVariable("id") String uuid) throws RemoteException {
         var bike = service.getBikeByUUID(uuid);
         if (bike == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "bike not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Bike not found");
         }
         return new BikeProvider(UUID.fromString(uuid), bike);
     }
 
     @PostMapping("/api/v1/bike")
-    public BikeProvider putBike(@Valid @RequestBody BikeProvider bike) throws RemoteException {
+    public BikeProvider postBike(@Valid @RequestBody BikeProvider bike) throws RemoteException {
         var entry = service.add(bike.label, UUID.fromString("00000000-0000-0000-0000-00000000"), BikeState.EXCELLENT);
         if(entry == null){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "bike not created");

@@ -13,12 +13,12 @@ import java.util.stream.Collectors;
 public class CustomerList extends UnicastRemoteObject implements CustomerListService {
     private final ApplicationContext context;
     private final Map<UUID, Customer> customers = new ConcurrentHashMap<>();
-    private final Map<UUID, Customer> connexionToken = new ConcurrentHashMap<>();
+    private final Map<UUID, UUID> connexionToken = new ConcurrentHashMap<>();
 
     public CustomerList(ApplicationContext context) throws RemoteException {
         super();
         this.context = Objects.requireNonNull(context);
-        this.customers.put(UUID.fromString("00000000-0000-0000-0000-00000000"), new Customer("yann", "picker", CustomerType.EIFFEL_BIKE_CORP, "password"));
+        this.customers.put(UUID.fromString("00000000-0000-0000-0000-00000000"), new Customer("yann", "picker", CustomerType.EIFFEL_BIKE_CORP,"ypicker", "password"));
     }
 
     @Override
@@ -62,24 +62,23 @@ public class CustomerList extends UnicastRemoteObject implements CustomerListSer
                                 }
                                 return list.get(0);
                             }
-                            ))
-                .getValue();
+                            ));
 
         UUID token;
         do {
             token = UUID.randomUUID();
-        } while (connexionToken.putIfAbsent(token, customer) != null);
+        } while (connexionToken.putIfAbsent(token, customer.getKey()) != null);
 
         return token;
     }
 
     @Override
-    public CustomerService isLogged(UUID token) throws RemoteException {
+    public UUID isLogged(UUID token) throws RemoteException {
         return connexionToken.get(Objects.requireNonNull(token));
     }
 
     @Override
-    public CustomerService logOut(UUID token) throws RemoteException {
+    public UUID logOut(UUID token) throws RemoteException {
         return connexionToken.remove(Objects.requireNonNull(token));
     }
 
