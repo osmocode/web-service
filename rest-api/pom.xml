@@ -51,6 +51,10 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+        <dependency>
             <groupId>web.service</groupId>
             <artifactId>rmi-bike-interfaces</artifactId>
             <version>1.0</version>
@@ -61,6 +65,11 @@
             <artifactId>rmi-customer-interfaces</artifactId>
             <version>1.0</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.8.9</version>
         </dependency>
     </dependencies>
 

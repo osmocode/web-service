@@ -12,6 +12,7 @@ import java.util.UUID;
 
 public interface BikeService extends Remote {
     String getLabel() throws RemoteException;
+    String getDescription() throws RemoteException;
     Image getImage() throws RemoteException;
     void setImage(Image image) throws RemoteException;
     UUID getOwnerId() throws RemoteException;

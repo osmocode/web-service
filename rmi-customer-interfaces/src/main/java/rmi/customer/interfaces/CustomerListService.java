@@ -15,6 +15,6 @@ public interface CustomerListService extends Remote {
     CustomerService getCustomerByUUID(String uuid) throws RemoteException;
 
     UUID login (String username, String password) throws RemoteException;
-    CustomerService isLogged (UUID token) throws RemoteException;
-    CustomerService logOut(UUID token) throws RemoteException;
+    UUID isLogged (UUID token) throws RemoteException;
+    UUID logOut(UUID token) throws RemoteException;
 }

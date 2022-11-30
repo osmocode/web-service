@@ -25,6 +25,7 @@ import { NzRateModule } from "ng-zorro-antd/rate";
 import { NzTimelineModule } from 'ng-zorro-antd/timeline';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 
 
 const SHARED_COMPONENTS = [
@@ -54,7 +55,8 @@ const SHARED_COMPONENTS = [
     NzRateModule,
     NzTimelineModule,
     NzEmptyModule,
-    NzSpinModule
+    NzSpinModule,
+    NzDropDownModule
   ],
   declarations: [
     ...SHARED_COMPONENTS

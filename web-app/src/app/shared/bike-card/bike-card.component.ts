@@ -9,6 +9,6 @@ import { Bike } from "src/app/models/bike";
 })
 export class BikeCardComponent {
 
-  @Input() bike!: Bike;
+  @Input() bike?: Bike;
   @Output() didClick= new EventEmitter<string>();
 }
