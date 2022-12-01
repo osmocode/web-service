@@ -12,8 +12,10 @@ import java.util.stream.Collectors;
 
 public class CustomerList extends UnicastRemoteObject implements CustomerListService {
     private final ApplicationContext context;
+
     private final Map<UUID, Customer> customers = new ConcurrentHashMap<>();
     private final Map<UUID, UUID> connexionToken = new ConcurrentHashMap<>();
+    private final Map<UUID, List<UUID>> baskets = new ConcurrentHashMap<>();
 
     public CustomerList(ApplicationContext context) throws RemoteException {
         super();
@@ -62,13 +64,13 @@ public class CustomerList extends UnicastRemoteObject implements CustomerListSer
                 .filter(uuidCustomerEntry -> uuidCustomerEntry.getValue().verifLogin(username, password))
                 .collect(
                         Collectors.collectingAndThen(
-                            Collectors.toList(), list -> {
-                                if (list.size() != 1) {
-                                    throw new IllegalStateException();
+                                Collectors.toList(), list -> {
+                                    if (list.size() != 1) {
+                                        throw new IllegalStateException();
+                                    }
+                                    return list.get(0);
                                 }
-                                return list.get(0);
-                            }
-                            ));
+                        ));
 
         UUID token;
         do {
@@ -86,6 +88,34 @@ public class CustomerList extends UnicastRemoteObject implements CustomerListSer
     @Override
     public UUID logOut(UUID token) throws RemoteException {
         return connexionToken.remove(Objects.requireNonNull(token));
+    }
+
+    @Override
+    public List<UUID> getBasket(String uuid) throws RemoteException {
+        return baskets.get(UUID.fromString(Objects.requireNonNull(uuid)));
+    }
+
+    @Override
+    public void addInBasket(String customerId, String bikeId) throws RemoteException {
+        baskets.get(UUID.fromString(Objects.requireNonNull(customerId))).add(UUID.fromString(Objects.requireNonNull(bikeId)));
+    }
+
+    @Override
+    public boolean canBuyBasket(String uuid) {
+        var basket =  baskets.get(Objects.requireNonNull(uuid));
+
+        var price = basket.isEmpty()
+                ? 0
+                : basket.stream().map(uuidBike -> 1L/* TODO Bike.getPrice() */).mapToLong(Long::longValue).sum();
+
+        return customers.get(uuid).haveFund(price);
+    }
+
+    @Override
+    public void buyBasket(String uuid) {
+        var basket =  baskets.get(Objects.requireNonNull(uuid));
+
+        basket.forEach(uuidBike -> {} /* TODO Bike.changeOwner() and Customer.setFund for Before and After owner */);
     }
 
     @Override

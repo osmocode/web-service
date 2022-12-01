@@ -13,6 +13,8 @@ public interface CustomerService extends Remote {
     CustomerType getCustomerType() throws RemoteException;
     String getUsername() throws RemoteException;
     String getPassword() throws RemoteException;
+    long getFund() throws RemoteException;
+    void setFund(long fund) throws RemoteException;
     List<UUID> getBikes() throws RemoteException;
     void addBike(UUID bikeId) throws RemoteException;
     boolean canRent() throws RemoteException;

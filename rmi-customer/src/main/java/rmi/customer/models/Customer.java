@@ -16,6 +16,7 @@ public class Customer extends UnicastRemoteObject implements CustomerService {
     private final String username;
     private final String password;
     private CustomerType customerType;
+    private long fund = 0;
     private List<UUID> bikes = new ArrayList<>();
 
     public Customer(String firstName, String lastName, CustomerType customerType, String username, String password) throws RemoteException {
@@ -30,6 +31,10 @@ public class Customer extends UnicastRemoteObject implements CustomerService {
 
     public boolean verifLogin(String username, String password) {
         return this.username.equals(username) && this.password.equals(password);
+    }
+
+    public boolean haveFund(long price) {
+        return price < fund;
     }
 
     @Override
@@ -58,13 +63,27 @@ public class Customer extends UnicastRemoteObject implements CustomerService {
     }
 
     @Override
+    public long getFund() throws RemoteException {
+        return fund;
+    }
+
+    @Override
+    public void setFund(long fund) throws RemoteException {
+        if (fund < 0) {
+            throw new IllegalArgumentException("fund < 0");
+        }
+
+        this.fund = fund;
+    }
+
+    @Override
     public List<UUID> getBikes() throws RemoteException {
         return bikes;
     }
 
     @Override
     public void addBike(UUID bikeId) throws RemoteException {
-        this.bikes.add(bikeId);
+        bikes.add(Objects.requireNonNull(bikeId));
     }
 
     @Override
@@ -82,9 +101,10 @@ public class Customer extends UnicastRemoteObject implements CustomerService {
         return "Customer{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", username=" + username + '\'' +
+                ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", customerType=" + customerType +
+                ", fund=" + fund +
                 ", bikes=" + bikes +
                 '}';
     }

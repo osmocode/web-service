@@ -2,7 +2,7 @@
 
 ## Description
 This service based on the middleware Java RMI allows users to provide or reserve bicycles.  
-This service depends on another service which is [RMI Customers](https://github.com/osmocode/web-service/tree/main/rmi-customer).  
+This service depends on another service which is [RMI Customers](https://github.com/osmocode/web-service/tree/main/rmi-customer).
 
 All accessible methods are defined in the Documentation API section.
 
@@ -23,15 +23,20 @@ All services is binded on port `1099`.
   getBikeByUUID(String uuid)
 ```
 
-- Adds a bike to the list with his `label` `ownerUUID`, `bikeState`. The return value will be a `Map<UUID, BikeService>`.
+- Adds a bike to the list with his `label`, `description, `ownerUUID`, `bikeState`. The return value will be a `Map<UUID, BikeService>`.
 ```java
-    add(String label, UUID ownerUUID, BikeState bikeState)
+    add(String label, String description, UUID ownerUUID, BikeState bikeState)
 ```
 
 ### Bike
 - Get bike `label`. The return value will be a `String`.
 ```java
   getLabel()
+```
+
+- Get bike `description`. The return value will be a `String`.
+```java
+  getDescription()
 ```
 
 - Get bike `image`. The return value will be a `Image`.
@@ -46,12 +51,22 @@ All services is binded on port `1099`.
 
 - Get bike `ownerUUID`. The return value will be a `UUID`.
 ```java
-  getOwnerUUID()
+  getOwnerID()
+```
+
+- Change bike `ownerUUID`. The return value will be a `void`.
+```java
+  changeOwner(String ownerId)
 ```
 
 - Get bike `bikeState`. The return value will be a `BikeState`.
 ```java
   getBikeState()
+```
+
+- Get bike `price`. The return value will be a `long`.
+```java
+  getPrice()
 ```
 
 - Get bike `feedbackHistory`. The return value will be a `List<FeedbackService>`.
@@ -77,6 +92,11 @@ All services is binded on port `1099`.
 - Informs if the bike can be sale. The return value will be a `boolean`.
 ```java
     canBeSale()
+```
+
+- Change bike `price`. The return value will be a `boolean`.
+```java
+    putToSale(int price)
 ```
 
 ## `/RentListService`

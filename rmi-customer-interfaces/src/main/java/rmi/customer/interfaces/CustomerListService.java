@@ -17,4 +17,9 @@ public interface CustomerListService extends Remote {
     UUID login (String username, String password) throws RemoteException;
     UUID isLogged (UUID token) throws RemoteException;
     UUID logOut(UUID token) throws RemoteException;
+
+    List<UUID> getBasket(String uuid) throws RemoteException;
+    void addInBasket(String customerId, String bikeId) throws RemoteException;
+    boolean canBuyBasket(String uuid);
+    void buyBasket(String uuid);
 }

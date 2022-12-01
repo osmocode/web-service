@@ -43,6 +43,25 @@ All services is binded on port `1099`.
     logOut(UUID token)
 ```
 
+- Get customer `basket`. The return value will be a `List<UUID>`.
+```java
+    getBasket(String uuid)
+```
+
+- Add bike into customer `basket`. The return value will be a `void`.
+```java
+    addInBasket(String customerId, String bikeId)
+```
+
+- Inform if the customer can purchase is `basket`. The return value will be a `boolean`.
+```java
+    canBuyBasket(String uuid)
+```
+
+- The customer buy is `basket`. The return value will be a `boolean`.
+```java
+    buyBasket(String uuid)
+```
 
 ### Customer
 
@@ -71,9 +90,24 @@ All services is binded on port `1099`.
     getPassword()
 ```
 
+- Get customer `fund`. The return value will be a `long`.
+```java
+    getFund()
+```
+
+- Set customer `fund`. The return value will be a `void`.
+```java
+    setFund(long fund)
+```
+
 - Get customer `bikes`. The return value will be a `List<UUID>`.
 ```java
     getBikes()
+```
+
+- Add bike in customer `bikes`. The return value will be a `void`.
+```java
+    addBike(UUIS bikeID)
 ```
 
 - Informs if the customer can rent. The return value will be a `boolean`.
