@@ -6,9 +6,12 @@ import { firstValueFrom, Subscription } from "rxjs";
 import { Bike } from "src/app/models/bike";
 import { Customer } from "src/app/models/customer";
 import { Feedback } from "src/app/models/feedback";
+import { Rent } from "src/app/models/rent";
 import { PageResult } from "src/app/models/result";
 import { AuthService } from "src/app/services/auth.service";
 import { BikeService } from "src/app/services/bike.service";
+import { RentalService } from "src/app/services/rental.service";
+import { RentalFeedbackComponent } from "../feedback/rental-feedback.component";
 import { RentalRentComponent } from "../rent/rental-rent.component";
 
 
@@ -23,9 +26,11 @@ export class RentalDetailComponent implements OnInit {
   private id!: string;
 
   bike?: Bike;
+  rentals?: Rent[];
   canRent = false;
 
   constructor(
+    private readonly rentService: RentalService,
     private readonly authService: AuthService,
     private readonly bikeService: BikeService,
     private readonly activatedRoute: ActivatedRoute,
@@ -40,11 +45,28 @@ export class RentalDetailComponent implements OnInit {
     );
   }
 
+  createFeedbackModal(rental: Rent) {
+    this.modalService.create({
+      nzTitle: 'Add feedback',
+      nzContent: RentalFeedbackComponent,
+      nzWidth: '60%',
+      nzComponentParams: {
+        rental: rental
+      }
+    });
+  }
+
   createRentModal() {
     this.modalService.create({
       nzTitle: 'Rent bike',
       nzContent: RentalRentComponent,
-      nzWidth: '60%'
+      nzWidth: '60%',
+      nzComponentParams: {
+        bike: this.bike,
+        rentals: this.rentals
+      }
+    }).afterClose.subscribe(() => {
+      this.onChangeRoute(this.id);
     });
   }
 
@@ -53,12 +75,23 @@ export class RentalDetailComponent implements OnInit {
       if (customer) {
         this.canRent = !customer.bikes.includes(this.id);
       }
-    })
+    });
   }
 
   private async onChangeRoute(id: string): Promise<void> {
     try {
-      this.bike = await firstValueFrom(this.bikeService.getBikeById(id));
+      const bike = await firstValueFrom(this.bikeService.getBikeById(id));
+      var rentals: Rent[] = [];
+      bike.rent_queue.forEach(async queue => {
+        try {
+          const r = await firstValueFrom(this.rentService.getRentById(queue));
+          rentals.push(r);
+        } catch (error) {
+          this.messageService.error(`Rent: ${queue} failed`);
+        }
+      });
+      this.bike = bike;
+      this.rentals = rentals;
     } catch(error) {
       this.messageService.error('Something get wrong please try again later...');
     }

@@ -14,9 +14,9 @@
           <nz-statistic nzTitle="Number of reviews" [nzValue]="12" style="margin: 0 32px;"></nz-statistic>
         </nz-row>
 
-        <nz-divider nzText="Owned bike" nzOrientation="right"></nz-divider>
+        <nz-divider nzText="Owned bike" nzOrientation="center"></nz-divider>
         <app-bike-list [bikes]="bikes" (didClickItem)="goDetailBike($event)"></app-bike-list>
-        <nz-divider nzText="Last review" nzOrientation="right"></nz-divider>
+        <nz-divider nzText="Last review" nzOrientation="center"></nz-divider>
         <app-feedback-list [feedbacks]="feedbacks"></app-feedback-list>
       </nz-col>
     </nz-row>

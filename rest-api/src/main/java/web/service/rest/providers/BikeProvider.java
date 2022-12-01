@@ -57,7 +57,7 @@ public class BikeProvider {
         value = "rent_queue",
         access = JsonProperty.Access.READ_ONLY
     )
-    public List<RentService> locationQueue;
+    public List<String> locationQueue;
 
     public BikeProvider() {}
 
@@ -67,8 +67,7 @@ public class BikeProvider {
         this.label = bikeService.getLabel();
         this.state = bikeService.getBikeState().toString();
         this.owner = bikeService.getOwnerId().toString();
-        //this.locationHistory = bikeInterface.getLocationHistory();
-        //this.locationQueue = bikeInterface.getLocationQueue();
+        this.locationQueue = bikeService.getRentQueue().stream().map(UUID::toString).toList();
     }
 
 }

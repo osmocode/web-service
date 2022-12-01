@@ -30,7 +30,7 @@ public class RentList extends UnicastRemoteObject implements RentListService {
     }
 
     @Override
-    public RentService add(Date start, Date end, UUID customerClientUUID, UUID bikeUUID) throws RemoteException {
+    public Map<UUID, ? extends RentService> add(Date start, Date end, UUID customerClientUUID, UUID bikeUUID) throws RemoteException {
         UUID uuid;
         Rent rent;
 
@@ -52,12 +52,12 @@ public class RentList extends UnicastRemoteObject implements RentListService {
 
         // Add in Bike.rentQueue
         try {
-            bike.addRentQueue(rent);
+            bike.addRentQueue(uuid);
         } catch (InterruptedException e) {
             return null;
         }
 
-        return rent;
+        return Map.of(uuid, rent);
     }
 
     @Override

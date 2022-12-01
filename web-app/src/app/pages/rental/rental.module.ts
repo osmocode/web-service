@@ -22,6 +22,7 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { RentalPublishComponent } from "./publish/rental-publish.component";
 import { RentalRentComponent } from "./rent/rental-rent.component";
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { RentalFeedbackComponent } from "./feedback/rental-feedback.component";
 
 
 const routes: Routes = [
@@ -41,7 +42,8 @@ const routes: Routes = [
     RentalComponent,
     RentalDetailComponent,
     RentalPublishComponent,
-    RentalRentComponent
+    RentalRentComponent,
+    RentalFeedbackComponent
   ],
   imports: [
     CommonModule,

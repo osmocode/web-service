@@ -1,7 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 // APP-Modules
 import { LayoutComponent } from "./layout/layout.component";
@@ -11,6 +11,8 @@ import { BikeListComponent } from "./bike-list/bike-list.component";
 import { BikeCardComponent } from "./bike-card/bike-card.component";
 import { FeedbackCardComponent } from "./feedback-card/feedback-card.component";
 import { FeedbackListComponent } from "./feedback-list/feedback-list.component";
+import { RentalListComponent } from "./rental-list/rental-list.component";
+import { RentalCardComponent } from "./rental-card/rental-card.component";
 
 // NZ-Modules
 import { NzLayoutModule } from "ng-zorro-antd/layout";
@@ -26,6 +28,11 @@ import { NzTimelineModule } from 'ng-zorro-antd/timeline';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
+import { NzStatisticModule } from 'ng-zorro-antd/statistic';
+import { NzSelectModule } from "ng-zorro-antd/select";
+import { NzFormModule } from "ng-zorro-antd/form";
+import { NzInputModule } from "ng-zorro-antd/input";
 
 
 const SHARED_COMPONENTS = [
@@ -35,7 +42,9 @@ const SHARED_COMPONENTS = [
   BikeListComponent,
   BikeCardComponent,
   FeedbackListComponent,
-  FeedbackCardComponent
+  FeedbackCardComponent,
+  RentalListComponent,
+  RentalCardComponent
 ]
 
 @NgModule({
@@ -43,6 +52,7 @@ const SHARED_COMPONENTS = [
     CommonModule,
     RouterModule,
     FormsModule,
+    ReactiveFormsModule,
 
     NzButtonModule,
     NzIconModule,
@@ -56,7 +66,12 @@ const SHARED_COMPONENTS = [
     NzTimelineModule,
     NzEmptyModule,
     NzSpinModule,
-    NzDropDownModule
+    NzDropDownModule,
+    NzSkeletonModule,
+    NzStatisticModule,
+    NzSelectModule,
+    NzFormModule,
+    NzInputModule,
   ],
   declarations: [
     ...SHARED_COMPONENTS

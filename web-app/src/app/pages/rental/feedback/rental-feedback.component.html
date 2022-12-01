@@ -1,0 +1,44 @@
+<form nz-form [formGroup]="form">
+
+  <!-- NOTE INPUT -->
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" nzFor="note">Note</nz-form-label>
+    <nz-form-control [nzSm]="13">
+      <nz-rate formControlName="note" id="note"></nz-rate>
+    </nz-form-control>
+  </nz-form-item>
+
+  <!-- COMMENT INPUT -->
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" nzFor="comment">Comment</nz-form-label>
+    <nz-form-control [nzSm]="13">
+      <textarea formControlName="comment" nz-input rows="4" placeholder="Type a description of the bike..."></textarea>
+    </nz-form-control>
+  </nz-form-item>
+
+
+  <!-- STATE INPUT -->
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzFor="bike_state">State</nz-form-label>
+    <nz-form-control [nzSpan]="13">
+      <nz-select
+        id="bike_state"
+        formControlName="bike_state"
+        nzPlaceHolder="Choice state of bike"
+      >
+        <nz-option [nzValue]="bikeState.EXCELLENT" [nzLabel]="bikeState.EXCELLENT"></nz-option>
+        <nz-option [nzValue]="bikeState.VERY_GOOD" [nzLabel]="bikeState.VERY_GOOD"></nz-option>
+        <nz-option [nzValue]="bikeState.GOOD" [nzLabel]="bikeState.GOOD"></nz-option>
+        <nz-option [nzValue]="bikeState.CORRECT" [nzLabel]="bikeState.CORRECT"></nz-option>
+        <nz-option [nzValue]="bikeState.BAD" [nzLabel]="bikeState.BAD"></nz-option>
+        <nz-option [nzValue]="bikeState.VERY_BAD" [nzLabel]="bikeState.VERY_BAD"></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+
+</form>
+
+<div *nzModalFooter>
+  <button nz-button nzType="default" (click)="destroyModal()">Cancel</button>
+  <button nz-button nzType="primary" (click)="submitModal()" [nzLoading]="submiting">Send</button>
+</div>
