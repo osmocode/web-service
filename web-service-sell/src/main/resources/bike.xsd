@@ -4,7 +4,7 @@
     <xs:element name="getBikeRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="name" type="xs:string"></xs:element>
+                <xs:element name="id" type="xs:string"></xs:element>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -19,8 +19,10 @@
 
     <xs:complexType name="bike">
         <xs:sequence>
+            <xs:element name="id" type="xs:string"></xs:element>
             <xs:element name="label" type="xs:string"></xs:element>
             <xs:element name="desc" type="xs:string"></xs:element>
+            <xs:element name="owner" type="xs:string"></xs:element>
         </xs:sequence>
     </xs:complexType>
 

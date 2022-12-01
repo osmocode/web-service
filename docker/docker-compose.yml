@@ -2,6 +2,24 @@ version: '3.7'
 
 services:
 
+  web-service-sell:
+    restart: on-failure
+    image: openjdk:17-slim
+    container_name: web-service-sell
+    command: "java -jar web-service-sell.jar"
+    working_dir: /app
+    volumes:
+      - ../web-service-sell/target/web-service-sell.jar:/app/web-service-sell.jar
+    networks:
+      - web-service-networks
+    ports:
+      - 8080
+    env_file:
+      - .env
+    depends_on:
+      - rmi-bike
+      - rmi-customer
+
   rmi-bike:
     restart: on-failure
     image: openjdk:17-slim

@@ -8,19 +8,28 @@ import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
+import rmi.bike.interfaces.bike.BikeListService;
+
+import java.rmi.RemoteException;
 
 @Endpoint
 public class BikeEndpoint {
 
     private static final String URL = "http://localhost/xml/web-service";
 
+    @Autowired
+    private BikeListService bikeService;
+
     @PayloadRoot(namespace = URL, localPart = "getBikeRequest")
     @ResponsePayload
-    public GetBikeResponse getBikeResponse(@RequestPayload GetBikeRequest request) {
+    public GetBikeResponse getBikeResponse(@RequestPayload GetBikeRequest request) throws RemoteException {
         GetBikeResponse response = new GetBikeResponse();
         var bike = new Bike();
-        bike.setLabel("Super bike");
-        bike.setDesc("Lorem ipsum");
+        var b = bikeService.getBikeByUUID(request.getId());
+        bike.setId(request.getId());
+        bike.setLabel(b.getLabel());
+        bike.setDesc(b.getDescription());
+        bike.setOwner(b.getOwnerId().toString());
         response.setBike(bike);
         return response;
     }
