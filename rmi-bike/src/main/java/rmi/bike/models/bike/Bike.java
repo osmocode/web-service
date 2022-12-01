@@ -18,17 +18,21 @@ import java.util.concurrent.ArrayBlockingQueue;
 
 public class Bike extends UnicastRemoteObject implements BikeService {
     private final String label;
+    private String description;
     private Image image;
-    private final UUID ownerId;
+    private UUID ownerId;
     private final BikeState bikeState;
+    private long price;
     private final ArrayList<Feedback> feedbackHistory = new ArrayList<>();
     private final ArrayBlockingQueue<Rent> rentQueue = new ArrayBlockingQueue<>(20);
 
-    public Bike(String label, UUID ownerUUID, BikeState bikeState) throws RemoteException {
+    public Bike(String label, String description, UUID ownerUUID, BikeState bikeState) throws RemoteException {
         super();
         this.label = Objects.requireNonNull(label);
+        this.description = description == null ? "" : description;
         this.ownerId = Objects.requireNonNull(ownerUUID);
         this.bikeState = Objects.requireNonNull(bikeState);
+        this.price = -1;
     }
 
     public boolean addFeedbackHistory(Feedback feedback) {
@@ -49,6 +53,11 @@ public class Bike extends UnicastRemoteObject implements BikeService {
     }
 
     @Override
+    public String getDescription() throws RemoteException {
+        return description;
+    }
+
+    @Override
     public Image getImage() throws RemoteException {
         return image;
     }
@@ -64,8 +73,19 @@ public class Bike extends UnicastRemoteObject implements BikeService {
     }
 
     @Override
+    public void changeOwner(String ownerId) throws RemoteException {
+        this.price = -1;
+        this.ownerId = UUID.fromString(Objects.requireNonNull(ownerId));
+    }
+
+    @Override
     public BikeState getBikeState() throws RemoteException {
         return bikeState;
+    }
+
+    @Override
+    public long getPrice() throws RemoteException {
+        return price;
     }
 
     @Override
@@ -94,12 +114,29 @@ public class Bike extends UnicastRemoteObject implements BikeService {
     }
 
     @Override
+    public boolean putToSale(int price) throws RemoteException {
+        if (price < 0) {
+            throw new IllegalArgumentException("price < 0");
+        }
+
+        if(!canBeSale()) {
+            return false;
+        }
+
+        this.price = price;
+
+        return true;
+    }
+
+    @Override
     public String toString() {
         return "Bike{" +
                 "label='" + label + '\'' +
+                ", description='" + description + '\'' +
                 ", image=" + image +
-                ", ownerId=" + ownerId.toString() +
+                ", ownerId=" + ownerId +
                 ", bikeState=" + bikeState +
+                ", price=" + price +
                 ", feedbackHistory=" + feedbackHistory +
                 ", rentQueue=" + rentQueue +
                 '}';

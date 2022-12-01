@@ -14,5 +14,5 @@ import java.util.UUID;
 public interface BikeListService extends Remote {
     Map<UUID, ? extends BikeService> getAll() throws RemoteException;
     BikeService getBikeByUUID(String uuid) throws RemoteException;
-    Map<UUID, ? extends BikeService> add(String label, UUID ownerUUID, BikeState bikeState) throws RemoteException;
+    Map<UUID, ? extends BikeService> add(String label, String description, UUID ownerUUID, BikeState bikeState) throws RemoteException;
 }
