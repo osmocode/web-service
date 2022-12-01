@@ -36,6 +36,14 @@ public class RentList extends UnicastRemoteObject implements RentListService {
     }
 
     @Override
+    public Map<UUID, ? extends RentService> getRentByCustomerUUID(String customerUUID) throws RemoteException {
+        Objects.requireNonNull(customerUUID);
+
+        return rents.entrySet().stream().filter(uuidRentEntry -> uuidRentEntry.getValue().sameCustomerClientUUID(customerUUID))
+                .collect(Collectors.toMap(uuidRentEntry -> uuidRentEntry.getKey(), uuidRentEntry -> uuidRentEntry.getValue()));
+    }
+
+    @Override
     public Map<UUID, ? extends RentService> add(Date start, Date end, UUID customerClientUUID, UUID bikeUUID) throws RemoteException {
         UUID uuid;
         Rent rent;

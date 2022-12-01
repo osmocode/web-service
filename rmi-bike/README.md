@@ -113,6 +113,11 @@ All services is binded on port `1099`.
   getRentByUUID(String uuid)
 ```
 
+- Get the customer rent. The return value will be a `Map<UUID, RentService>`.
+```java
+  getRentByCustomerUUID(String customerUUID)
+```
+
 - Adds a rent to the list with his `start`, `end`, `customerClientUUID`, `bikeUUID`. The return value will be a `Map<UUID, RentService>`.
 ```java
     add(Date start, Date end, UUID customerClientUUID, UUID bikeUUID)
