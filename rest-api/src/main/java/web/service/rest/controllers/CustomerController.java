@@ -11,6 +11,7 @@ import web.service.rest.providers.CustomerListProvider;
 import web.service.rest.providers.CustomerProvider;
 
 import java.rmi.RemoteException;
+import java.util.UUID;
 
 import javax.validation.Valid;
 
@@ -26,10 +27,14 @@ public class CustomerController {
         return new CustomerListProvider(service.getAll());
     }
 
+    @GetMapping("/customer/{id}")
+    public CustomerProvider getCustomerById(String id) throws RemoteException {
+        return new CustomerProvider(UUID.fromString(id), service.getCustomerByUUID(id));
+    }
+
     @PostMapping("/customer")
     public CustomerProvider putCustomer(@Valid @RequestBody CustomerProvider customer) throws RemoteException {
-        var entry = service.add(customer.firstName, customer.lastName,CustomerType.valueOf(customer.customerType), customer.password);
-
+        var entry = service.add(customer.firstName, customer.lastName,CustomerType.valueOf(customer.customerType.toUpperCase().replace(" ", "_")), customer.password);
         var response =  entry.entrySet().stream().findFirst().get();
 
         return new CustomerProvider(response.getKey(), response.getValue());

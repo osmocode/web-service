@@ -15,17 +15,17 @@ public class CustomerProvider {
     public String uuid;
 
     @JsonProperty(
-        value = "first_name",
-        access = JsonProperty.Access.READ_WRITE
-    )
-    public String firstName;
-
-    @JsonProperty(
         value = "last_name",
         access = JsonProperty.Access.READ_WRITE
     )
     public String lastName;
 
+    @JsonProperty(
+        value = "first_name",
+        access = JsonProperty.Access.READ_WRITE
+    )
+    public String firstName;
+    
     @JsonProperty(
         value = "password",
         access = JsonProperty.Access.READ_WRITE
@@ -37,6 +37,8 @@ public class CustomerProvider {
         access = JsonProperty.Access.READ_WRITE
     )
     public String customerType;
+
+    public CustomerProvider(){}
 
     public CustomerProvider(UUID uuid, CustomerService customerInterface) throws RemoteException {
         this.uuid = uuid.toString();

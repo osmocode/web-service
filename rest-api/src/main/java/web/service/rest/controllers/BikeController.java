@@ -1,7 +1,6 @@
 package web.service.rest.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import rmi.bike.interfaces.bike.BikeListService;
 import rmi.bike.models.BikeState;
@@ -10,7 +9,6 @@ import web.service.rest.providers.BikeProvider;
 
 import javax.validation.Valid;
 import java.rmi.RemoteException;
-import java.util.Optional;
 import java.util.UUID;
 
 
