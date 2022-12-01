@@ -4,7 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import rmi.bike.interfaces.bike.BikeListService;
+import rmi.bike.interfaces.rent.RentListService;
 import rmi.bike.models.BikeState;
 import rmi.customer.interfaces.CustomerListService;
 import web.service.rest.providers.BikeListProvider;
@@ -21,6 +25,9 @@ public class BikeController {
 
     @Autowired
     BikeListService service;
+
+    @Autowired
+    RentListService rentService;
 
     @Autowired
     CustomerListService authService;
@@ -52,6 +59,36 @@ public class BikeController {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "bike creation error");
         }
         return new BikeProvider(response.get().getKey(), response.get().getValue());
+    }
+
+    @GetMapping("api/v1/bike/stats")
+    public BikeProvider getBikeStats() throws RemoteException {
+        return new BikeProvider(UUID.fromString(uuid), bike);
+    }
+
+    class BikeStats{
+        @JsonProperty(
+        value = "num_rental",
+        access = JsonProperty.Access.READ_ONLY
+        )
+        public final long totalRentals;
+        
+        @JsonProperty(
+        value = "num_bike",
+        access = JsonProperty.Access.READ_ONLY
+        )
+        public final long totalBikes;
+        
+        @JsonProperty(
+        value = "num_free_bike",
+        access = JsonProperty.Access.READ_ONLY
+        )
+        public final long totalFreeBikes;
+
+        public BikeStats() throws RemoteException{
+            totalRentals = rentService.get.;
+            totalBikes = service.getAll().size();
+        }
     }
 
 }
