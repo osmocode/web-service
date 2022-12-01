@@ -10,10 +10,16 @@ import java.util.*;
 
 public class CustomerListProvider {
 
-    @JsonProperty("count")
+    @JsonProperty(
+        value = "count",
+        access = JsonProperty.Access.READ_ONLY
+    )
     public final int count;
 
-    @JsonProperty("results")
+    @JsonProperty(
+        value = "results",
+        access = JsonProperty.Access.READ_ONLY
+    )
     public final List<CustomerProvider> customers;
 
     public CustomerListProvider(Map<UUID, ? extends CustomerService> customers) {

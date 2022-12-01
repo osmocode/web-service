@@ -13,18 +13,24 @@ import java.util.UUID;
 public class Customer extends UnicastRemoteObject implements CustomerService {
     private final String firstName;
     private final String lastName;
+    private final String username;
     private final String password;
     private UUID actualBikeRent;
     private CustomerType customerType;
     private List<UUID> bikes = new ArrayList<>();
 
-    public Customer(String firstName, String lastName, CustomerType customerType, String password) throws RemoteException {
+    public Customer(String firstName, String lastName, CustomerType customerType, String username, String password) throws RemoteException {
         super();
 
         this.firstName = Objects.requireNonNull(firstName);
         this.lastName = Objects.requireNonNull(lastName);
         this.customerType = Objects.requireNonNull(customerType);
+        this.username = Objects.requireNonNull(username);
         this.password = Objects.requireNonNull(password);
+    }
+
+    public boolean verifLogin(String username, String password) {
+        return this.username.equals(username) && this.password.equals(password);
     }
 
     @Override
@@ -43,6 +49,11 @@ public class Customer extends UnicastRemoteObject implements CustomerService {
     }
 
     @Override
+    public String getUsername() throws RemoteException {
+        return username;
+    }
+
+    @Override
     public String getPassword() throws RemoteException {
         return password;
     }
@@ -50,6 +61,11 @@ public class Customer extends UnicastRemoteObject implements CustomerService {
     @Override
     public List<UUID> getBikes() throws RemoteException {
         return bikes;
+    }
+
+    @Override
+    public void addBike(UUID bikeId) throws RemoteException {
+        this.bikes.add(bikeId);
     }
 
     @Override
@@ -77,6 +93,7 @@ public class Customer extends UnicastRemoteObject implements CustomerService {
         return "Customer{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", username=" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", actualBikeRent=" + actualBikeRent.toString() +
                 ", customerType=" + customerType +

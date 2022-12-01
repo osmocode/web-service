@@ -9,7 +9,7 @@ import { Bike } from "src/app/models/bike";
 })
 export class BikeListComponent {
 
-  @Input() bikes!: Bike[];
+  @Input() bikes?: Bike[];
   @Output() didClickItem = new EventEmitter<string>();
 
 }

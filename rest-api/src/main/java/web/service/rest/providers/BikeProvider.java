@@ -28,10 +28,24 @@ public class BikeProvider {
     public String label;
 
     @JsonProperty(
+        value = "desc",
+        access = JsonProperty.Access.READ_WRITE
+    )
+    public String desc;
+
+    @JsonProperty(
         value = "owner",
         access = JsonProperty.Access.READ_ONLY
     )
     public String owner;
+
+    @NotEmpty
+    @NotNull
+    @JsonProperty(
+        value = "state",
+        access = JsonProperty.Access.READ_WRITE
+    )
+    public String state;
 
     @JsonProperty(
         value = "rent_history",
@@ -43,16 +57,17 @@ public class BikeProvider {
         value = "rent_queue",
         access = JsonProperty.Access.READ_ONLY
     )
-    public List<RentService> locationQueue;
+    public List<String> locationQueue;
 
     public BikeProvider() {}
 
     public BikeProvider(UUID uuid, BikeService bikeService) throws RemoteException {
         this.uuid = uuid.toString();
+        this.desc = bikeService.getDescription();
         this.label = bikeService.getLabel();
-        //this.owner = bikeService.getOwnerId().toString();
-        //this.locationHistory = bikeInterface.getLocationHistory();
-        //this.locationQueue = bikeInterface.getLocationQueue();
+        this.state = bikeService.getBikeState().toString();
+        this.owner = bikeService.getOwnerId().toString();
+        this.locationQueue = bikeService.getRentQueue().stream().map(UUID::toString).toList();
     }
 
 }

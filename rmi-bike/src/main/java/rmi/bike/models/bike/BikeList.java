@@ -29,12 +29,12 @@ public class BikeList extends UnicastRemoteObject implements BikeListService {
     }
 
     @Override
-    public Map<UUID, ? extends BikeService> add(String label, UUID ownerUUID, BikeState bikeState) throws RemoteException {
+    public Map<UUID, ? extends BikeService> add(String label, String desc, UUID ownerUUID, BikeState bikeState) throws RemoteException {
         UUID uuid;
         Bike bike;
 
         try {
-            bike = new Bike(label, ownerUUID, bikeState);
+            bike = new Bike(label, desc, ownerUUID, bikeState);
         } catch (NullPointerException e) {
             return null;
         }
@@ -49,10 +49,7 @@ public class BikeList extends UnicastRemoteObject implements BikeListService {
         if (customer == null) {
             return null;
         }
-
-        if (!customer.getBikes().add(uuid)) {
-            return null;
-        }
+        customer.addBike(uuid);
 
         return Map.of(uuid, bike);
     }
