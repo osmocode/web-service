@@ -30,7 +30,7 @@ public class BikeList extends UnicastRemoteObject implements BikeListService {
 
     @Override
     public Map<UUID, ? extends BikeService> add(String label, String desc, UUID ownerUUID, BikeState bikeState) throws RemoteException {
-        UUID uuid = UUID.fromString("00000000-0000-0000-0000-00000000");
+        UUID uuid;
         Bike bike;
 
         try {
@@ -40,12 +40,10 @@ public class BikeList extends UnicastRemoteObject implements BikeListService {
         }
 
         // Add bike in bikes
-        //do {
-        //    uuid = UUID.randomUUID();
-        //}
-        while (bikes.putIfAbsent(uuid, bike) != null) {
+        do {
             uuid = UUID.randomUUID();
         }
+        while (bikes.putIfAbsent(uuid, bike) != null);
 
         // Add uuid in Customer.bikes
         var customer = context.getCustomers().getCustomerByUUID(ownerUUID.toString());

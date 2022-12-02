@@ -96,7 +96,7 @@ public class ApplicationContext {
     private void addBikesDemo() throws IOException {
         // TODO change UUID.randomUUID() to the UUID of the owner customer.
 
-        bikes.add("bike1", null, UUID.fromString("00000000-0000-0000-0000-00000000"), BikeState.EXCELLENT);
+        bikes.add("bike1", null, UUID.randomUUID(), BikeState.EXCELLENT);
         bikes.add("bike2", null, UUID.randomUUID(), BikeState.CORRECT);
         bikes.add("bike3", null, UUID.randomUUID(), BikeState.VERY_GOOD);
     }
