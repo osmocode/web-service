@@ -64,4 +64,6 @@ hs_err_pid*
 
 # Project ignore
 META-INF/
-web/service/wsdl/
+**/web/service/wsdl/
+web-service-convertor/**/resources/
+web-service-sell/**/resources/
