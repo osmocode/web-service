@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { Customer } from "../models/customer";
+import { Customer, CustomerForm } from "../models/customer";
 import { PageResult } from "../models/result";
 
 
@@ -20,6 +20,10 @@ export class CustomerService {
 
   getCustomerById(id: string) {
     return this.http.get<Customer>(`/api/v1/customer/${id}`);
+  }
+
+  postCustomer(form: CustomerForm) {
+    return this.http.post<CustomerForm>(`/api/v1/customer`, form);
   }
 
 }
