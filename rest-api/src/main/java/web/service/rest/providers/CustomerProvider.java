@@ -1,8 +1,6 @@
 package web.service.rest.providers;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import rmi.bike.interfaces.bike.BikeService;
-import rmi.bike.interfaces.rent.RentService;
 import rmi.customer.interfaces.CustomerService;
 
 import javax.validation.constraints.NotEmpty;
@@ -46,6 +44,8 @@ public class CustomerProvider {
     )
     public String username;
 
+    @NotEmpty
+    @NotNull
     @JsonProperty(
         value = "password",
         access = JsonProperty.Access.WRITE_ONLY
