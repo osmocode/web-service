@@ -27,7 +27,7 @@ public class CustomerList extends UnicastRemoteObject implements CustomerListSer
     }
 
     @Override
-    public CustomerService add(String firstName, String lastName, CustomerType customerType, String username, String password) throws RemoteException {
+    public UUID add(String firstName, String lastName, CustomerType customerType, String username, String password) throws RemoteException {
         Customer customer;
 
         try {
@@ -36,9 +36,13 @@ public class CustomerList extends UnicastRemoteObject implements CustomerListSer
             return null;
         }
 
-        while (customers.putIfAbsent(UUID.randomUUID(), customer) != null) {}
+        UUID uuid;
 
-        return customer;
+        do {
+            uuid = UUID.randomUUID();
+        } while (customers.putIfAbsent(uuid, customer) != null);
+
+        return uuid;
     }
 
     @Override
