@@ -47,7 +47,8 @@ public class BikeList extends UnicastRemoteObject implements BikeListService {
         // Add bike in bikes
         do {
             uuid = UUID.randomUUID();
-        } while (bikes.putIfAbsent(uuid, bike) != null);
+        }
+        while (bikes.putIfAbsent(uuid, bike) != null);
 
         // Add uuid in Customer.bikes
         var customer = context.getCustomers().getCustomerByUUID(ownerUUID.toString());

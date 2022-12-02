@@ -16,7 +16,7 @@ export interface Bike {
   owner: string;
   state: BikeState;
   rent_history: Feedback[];
-  rent_queue: Rent[];
+  rent_queue: string[];
 }
 
 export interface BikeForm {

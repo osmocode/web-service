@@ -31,27 +31,27 @@ public class Feedback extends UnicastRemoteObject implements FeedbackService {
     }
 
     @Override
-    public Date getDate() throws RuntimeException {
+    public Date getDate() throws RemoteException {
         return date;
     }
 
     @Override
-    public int getNote() throws RuntimeException {
+    public int getNote() throws RemoteException {
         return note;
     }
 
     @Override
-    public String getComment() throws RuntimeException {
+    public String getComment() throws RemoteException {
         return comment;
     }
 
     @Override
-    public BikeState getBikeState() throws RuntimeException {
+    public BikeState getBikeState() throws RemoteException {
         return bikeState;
     }
 
     @Override
-    public RentService getRent() throws RuntimeException {
+    public RentService getRent() throws RemoteException {
         return rent;
     }
 

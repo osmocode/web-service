@@ -2,6 +2,42 @@ version: '3.7'
 
 services:
 
+  ws-convertor:
+    restart: on-failure
+    image: openjdk:17-slim
+    container_name: ws-convertor
+    command: "java -jar web-service-convertor.jar"
+    working_dir: /app
+    volumes:
+      - ../web-service-convertor/target/web-service-convertor.jar:/app/web-service-convertor.jar
+    networks:
+      - web-service-networks
+    ports:
+      - 8080
+    env_file:
+      - .env
+
+  ws-sell:
+    restart: on-failure
+    image: openjdk:17-slim
+    container_name: ws-sell
+    command: "java -jar web-service-sell.jar"
+    working_dir: /app
+    volumes:
+      - ../web-service-sell/target/web-service-sell.jar:/app/web-service-sell.jar
+    networks:
+      - web-service-networks
+    ports:
+      - 8080
+    env_file:
+      - .env
+    links:
+      - ws-convertor:ws-convertor
+    depends_on:
+      - rmi-bike
+      - rmi-customer
+      - ws-convertor
+
   rmi-bike:
     restart: on-failure
     image: openjdk:17-slim
@@ -88,6 +124,8 @@ services:
     depends_on:
       - web-app
       - rest-api
+      - ws-sell
+      - ws-convertor
 
 volumes:
   node_modules:

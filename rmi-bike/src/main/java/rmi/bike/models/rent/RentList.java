@@ -79,7 +79,7 @@ public class RentList extends UnicastRemoteObject implements RentListService {
 
         // Add in Bike.rentQueue
         try {
-            bike.addRentQueue(rent);
+            bike.addRentQueue(uuid);
         } catch (InterruptedException e) {
             return null;
         }

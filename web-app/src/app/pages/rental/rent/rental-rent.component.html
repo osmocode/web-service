@@ -3,12 +3,12 @@
   <nz-form-item>
     <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>Rental dates</nz-form-label>
     <nz-form-control [nzSm]="16" [nzXs]="24">
-      <nz-range-picker formControlName="rangePicker"></nz-range-picker>
+      <nz-range-picker formControlName="rangePicker" [nzDisabledDate]="disableDate"></nz-range-picker>
     </nz-form-control>
   </nz-form-item>
 </form>
 
 <div *nzModalFooter>
   <button nz-button nzType="default" (click)="destroyModal()">Cancel</button>
-  <button nz-button nzType="primary" (click)="submitModal()" [nzLoading]="submiting">Publish</button>
+  <button nz-button nzType="primary" (click)="submitModal()" [nzLoading]="submiting">Rent</button>
 </div>

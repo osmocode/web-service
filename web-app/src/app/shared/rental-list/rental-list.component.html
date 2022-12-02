@@ -1,0 +1,9 @@
+<nz-row [nzGutter]="[16, 16]">
+  <ng-container *ngFor="let rental of rentals">
+    <nz-col nzSpan="24">
+      <app-rental-card [rental]="rental" (didClick)="didClickRent.emit(rental)"></app-rental-card>
+    </nz-col>
+  </ng-container>
+</nz-row>
+
+

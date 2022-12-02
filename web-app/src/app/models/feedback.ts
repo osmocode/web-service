@@ -1,5 +1,15 @@
+import { BikeState } from "./bike";
+
 export interface Feedback {
   id: string;
-  title: string;
-  desc: string;
+  date: string;
+  note: number;
+  comment: string;
+  bike_state: BikeState;
+}
+
+export interface FeedbackForm {
+  note: number;
+  comment: string;
+  bike_state: BikeState;
 }

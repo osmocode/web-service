@@ -20,7 +20,7 @@ public interface BikeService extends Remote {
     BikeState getBikeState() throws RemoteException;
     long getPrice() throws RemoteException;
     List<? extends FeedbackService> getFeedbackHistory() throws RemoteException;
-    List<? extends RentService> getRentQueue() throws RemoteException;
+    List<UUID> getRentQueue() throws RemoteException;
     float getAverageNote() throws RemoteException;
     boolean canBeRent() throws RemoteException;
     boolean canBeSale() throws RemoteException;

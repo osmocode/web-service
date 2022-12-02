@@ -24,7 +24,7 @@ public class Bike extends UnicastRemoteObject implements BikeService {
     private final BikeState bikeState;
     private long price;
     private final ArrayList<Feedback> feedbackHistory = new ArrayList<>();
-    private final ArrayBlockingQueue<Rent> rentQueue = new ArrayBlockingQueue<>(20);
+    private final ArrayBlockingQueue<UUID> rentQueue = new ArrayBlockingQueue<>(20);
 
     public Bike(String label, String description, UUID ownerUUID, BikeState bikeState) throws RemoteException {
         super();
@@ -39,7 +39,7 @@ public class Bike extends UnicastRemoteObject implements BikeService {
         return feedbackHistory.add(Objects.requireNonNull(feedback));
     }
 
-    public void addRentQueue(Rent rent) throws InterruptedException {
+    public void addRentQueue(UUID rent) throws InterruptedException {
         rentQueue.put(Objects.requireNonNull(rent));
     }
 
@@ -94,13 +94,14 @@ public class Bike extends UnicastRemoteObject implements BikeService {
     }
 
     @Override
-    public List<? extends RentService> getRentQueue() throws RemoteException {
+    public List<UUID> getRentQueue() throws RemoteException {
         return rentQueue.stream().toList();
     }
 
     @Override
     public float getAverageNote() throws RemoteException {
-        return (float) feedbackHistory.stream().filter(feedback -> feedback.getNote() != -1).mapToDouble(Feedback::getNote).average().orElse(Double.NaN);
+        return 0F;
+        //return (float) feedbackHistory.stream().filter(feedback -> feedback.getNote() != -1).mapToDouble(Feedback::getNote).average().orElse(Double.NaN);
     }
 
     @Override

@@ -59,7 +59,7 @@ public class FeedbackList extends UnicastRemoteObject implements FeedbackListSer
         }
 
         // Add in Bike.feedbackHistory
-        var bike = (Bike) context.getBikes().getBikeByUUID(rent.getBike().toString());
+        var bike = (Bike) rent.getBike();
         if (bike == null) {
             return null;
         }

@@ -1,0 +1,24 @@
+<nz-card>
+
+  <nz-skeleton [nzActive]="true" [nzLoading]="user === undefined" [nzAvatar]="{ size: 'default' }">
+    <nz-card-meta
+      *ngIf="user"
+      [nzAvatar]="avatarTemplate"
+      [nzTitle]="user.username"
+    ></nz-card-meta>
+    <ng-template #avatarTemplate>
+      <nz-avatar *ngIf="user" [nzText]="initial(user)"></nz-avatar>
+    </ng-template>
+  </nz-skeleton>
+
+  <nz-row [nzGutter]="16" class="stats">
+    <nz-col [nzSpan]="12">
+      <nz-statistic [nzValue]="(rental.start | date) || ''" [nzValueStyle]="{ 'font-size': '20px' }" [nzTitle]="'Start'"></nz-statistic>
+    </nz-col>
+    <nz-col [nzSpan]="12">
+      <nz-statistic [nzValue]="(rental.end | date) || ''" [nzValueStyle]="{ 'font-size': '20px' }" [nzTitle]="'End'"></nz-statistic>
+    </nz-col>
+  </nz-row>
+
+  <button nz-button nzType="default" nzBlock (click)="didClick.emit()">Feedback</button>
+</nz-card>
