@@ -28,4 +28,15 @@
         </xs:sequence>
     </xs:complexType>
 
+    <xs:element name="getBikeListRequest">
+    </xs:element>
+
+    <xs:element name="getBikeListResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" name="bike" type="tns:bike"></xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
 </xs:schema>
