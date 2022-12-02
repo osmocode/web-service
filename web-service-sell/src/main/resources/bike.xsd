@@ -1,0 +1,60 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="http://www.springframework.org/schema/web-services"
+           targetNamespace="http://www.springframework.org/schema/web-services"
+           elementFormDefault="qualified">
+
+    <xs:element name="getBikeRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:string"></xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getBikeResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="bike" type="tns:bike"></xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="bike">
+        <xs:sequence>
+            <xs:element name="id" type="xs:string"></xs:element>
+            <xs:element name="label" type="xs:string"></xs:element>
+            <xs:element name="desc" type="xs:string"></xs:element>
+            <xs:element name="owner" type="xs:string"></xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="getBikeListRequest">
+    </xs:element>
+
+    <xs:element name="getBikeListResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" name="bike" type="tns:bike"></xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getConvertRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="from" type="xs:string"></xs:element>
+                <xs:element name="to" type="xs:string"></xs:element>
+                <xs:element name="amount" type="xs:double"></xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getConvertResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="result" type="xs:double"></xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
