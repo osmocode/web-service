@@ -31,18 +31,18 @@ public class Config extends WsConfigurerAdapter {
         return new ServletRegistrationBean(servlet, "/service/*");
     }
 
-    @Bean(name = "bikeDetailsWsdl")
-    public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema countriesSchema) {
+    @Bean(name = "bike")
+    public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema bikeSchema) {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
-        wsdl11Definition.setPortTypeName("BikeDetailsPort");
-        wsdl11Definition.setLocationUri("/service/bike-details");
-        wsdl11Definition.setTargetNamespace("http://localhost/xml/web-service");
-        wsdl11Definition.setSchema(countriesSchema);
+        wsdl11Definition.setPortTypeName("BikePort");
+        wsdl11Definition.setLocationUri("/service/bike");
+        wsdl11Definition.setTargetNamespace("http://www.springframework.org/schema/web-services");
+        wsdl11Definition.setSchema(bikeSchema);
         return wsdl11Definition;
     }
 
     @Bean
-    public XsdSchema countriesSchema() {
+    public XsdSchema bikeSchema() {
         return new SimpleXsdSchema(new ClassPathResource("bike.xsd"));
     }
 

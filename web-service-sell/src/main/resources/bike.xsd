@@ -1,5 +1,7 @@
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://spring.io/guides/gs-producing-web-service"
-           targetNamespace="http://spring.io/guides/gs-producing-web-service" elementFormDefault="qualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="http://www.springframework.org/schema/web-services"
+           targetNamespace="http://www.springframework.org/schema/web-services"
+           elementFormDefault="qualified">
 
     <xs:element name="getBikeRequest">
         <xs:complexType>
@@ -8,7 +10,7 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    
+
     <xs:element name="getBikeResponse">
         <xs:complexType>
             <xs:sequence>
