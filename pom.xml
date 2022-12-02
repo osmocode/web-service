@@ -15,6 +15,7 @@
         <module>rmi-customer-interfaces</module>
         <module>rmi-bike-interfaces</module>
         <module>web-service-sell</module>
+        <module>web-service-convertor</module>
     </modules>
 
     <properties>
