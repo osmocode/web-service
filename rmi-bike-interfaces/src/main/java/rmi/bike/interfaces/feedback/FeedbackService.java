@@ -5,7 +5,6 @@ import rmi.bike.models.BikeState;
 
 import java.rmi.Remote;
 import java.util.Date;
-import java.util.UUID;
 
 public interface FeedbackService extends Remote {
     Date getDate() throws RuntimeException;

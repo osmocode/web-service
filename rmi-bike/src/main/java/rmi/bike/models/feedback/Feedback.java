@@ -9,7 +9,6 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Date;
 import java.util.Objects;
-import java.util.UUID;
 
 public class Feedback extends UnicastRemoteObject implements FeedbackService {
     private final Date date;
