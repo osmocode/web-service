@@ -12,3 +12,11 @@ export interface Customer {
   type: CustomerType;
   bikes: string[];
 }
+
+export interface CustomerForm {
+  first_name: string;
+  last_name: string;
+  username: string;
+  password: string;
+  type: CustomerType;
+}
