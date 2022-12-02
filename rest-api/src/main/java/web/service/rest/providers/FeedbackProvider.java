@@ -27,7 +27,6 @@ public class FeedbackProvider {
         access = JsonProperty.Access.READ_WRITE
     )
     public int note;
-
     @JsonProperty(
         value = "comment",
         access = JsonProperty.Access.READ_WRITE
