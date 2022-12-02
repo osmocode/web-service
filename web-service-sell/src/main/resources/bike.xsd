@@ -39,4 +39,22 @@
         </xs:complexType>
     </xs:element>
 
+    <xs:element name="getConvertRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="from" type="xs:string"></xs:element>
+                <xs:element name="to" type="xs:string"></xs:element>
+                <xs:element name="amount" type="xs:double"></xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getConvertResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="result" type="xs:double"></xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
 </xs:schema>
