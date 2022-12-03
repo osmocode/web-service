@@ -1,6 +1,3 @@
-import { Feedback } from "./feedback";
-import { Rent } from "./rent";
-
 export enum BikeState {
   EXCELLENT = "EXCELLENT",
   VERY_GOOD = "VERY_GOOD",
@@ -15,7 +12,7 @@ export interface Bike {
   desc: string;
   owner: string;
   state: BikeState;
-  rent_history: Feedback[];
+  rent_history: string[];
   rent_queue: string[];
 }
 
