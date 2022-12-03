@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 public class CustomerList extends UnicastRemoteObject implements CustomerListService {
     private final ApplicationContext context;
+
     private final Map<UUID, Customer> customers = new ConcurrentHashMap<>();
     private final Map<UUID, UUID> connexionToken = new ConcurrentHashMap<>();
 
@@ -60,13 +61,13 @@ public class CustomerList extends UnicastRemoteObject implements CustomerListSer
                 .filter(uuidCustomerEntry -> uuidCustomerEntry.getValue().verifLogin(username, password))
                 .collect(
                         Collectors.collectingAndThen(
-                            Collectors.toList(), list -> {
-                                if (list.size() != 1) {
-                                    throw new IllegalStateException();
+                                Collectors.toList(), list -> {
+                                    if (list.size() != 1) {
+                                        throw new IllegalStateException();
+                                    }
+                                    return list.get(0);
                                 }
-                                return list.get(0);
-                            }
-                            ));
+                        ));
 
         UUID token;
         do {

@@ -28,12 +28,11 @@ public class FeedbackList extends UnicastRemoteObject implements FeedbackListSer
 
     @Override
     public FeedbackService getFeedbackByUUID(String uuid) throws RemoteException {
-        return feedbacks.get(Objects.requireNonNull(uuid));
+        return feedbacks.get(UUID.fromString(Objects.requireNonNull(uuid)));
     }
 
     @Override
     public FeedbackService add(Date date, int note, String comment, BikeState bikeState, UUID rentUUID) throws RemoteException {
-        UUID uuid;
         Feedback feedback;
 
         var rent = (Rent) context.getRents().getRentByUUID(rentUUID.toString());
@@ -48,9 +47,9 @@ public class FeedbackList extends UnicastRemoteObject implements FeedbackListSer
         }
 
         // Add in feedbacks
-        do {
-            uuid = UUID.randomUUID();
-        } while (feedbacks.putIfAbsent(uuid, feedback) != null);
+        if (feedbacks.putIfAbsent(rentUUID, feedback) != null) {
+            return null;
+        }
 
         // Add in Bike.feedbackHistory
         var bike = (Bike) rent.getBike();

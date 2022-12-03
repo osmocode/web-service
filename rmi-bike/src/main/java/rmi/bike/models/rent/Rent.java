@@ -25,6 +25,10 @@ public class Rent extends UnicastRemoteObject implements RentService {
         this.bike = Objects.requireNonNull(bike);
     }
 
+    public boolean sameCustomerClientUUID(String uuid) {
+        return customerClientUUID.toString().equals(Objects.requireNonNull(uuid));
+    }
+
     @Override
     public Date getStart() throws RemoteException {
         return start;
