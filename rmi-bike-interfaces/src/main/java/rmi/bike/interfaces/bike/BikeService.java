@@ -1,13 +1,12 @@
 package rmi.bike.interfaces.bike;
 
 import rmi.bike.interfaces.feedback.FeedbackService;
-import rmi.bike.interfaces.rent.RentService;
 import rmi.bike.models.BikeState;
 
 import java.awt.*;
-import java.util.List;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.List;
 import java.util.UUID;
 
 public interface BikeService extends Remote {

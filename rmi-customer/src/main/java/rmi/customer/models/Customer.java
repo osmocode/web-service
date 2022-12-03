@@ -15,9 +15,8 @@ public class Customer extends UnicastRemoteObject implements CustomerService {
     private final String lastName;
     private final String username;
     private final String password;
-    private UUID actualBikeRent;
-    private CustomerType customerType;
-    private List<UUID> bikes = new ArrayList<>();
+    private final CustomerType customerType;
+    private final List<UUID> bikes = new ArrayList<>();
 
     public Customer(String firstName, String lastName, CustomerType customerType, String username, String password) throws RemoteException {
         super();
@@ -65,17 +64,7 @@ public class Customer extends UnicastRemoteObject implements CustomerService {
 
     @Override
     public void addBike(UUID bikeId) throws RemoteException {
-        this.bikes.add(bikeId);
-    }
-
-    @Override
-    public UUID getActualBikeRent() throws RemoteException {
-        return actualBikeRent;
-    }
-
-    @Override
-    public void setActualBikeRent(String uuid) throws RemoteException {
-        actualBikeRent = UUID.fromString(Objects.requireNonNull(uuid));
+        bikes.add(Objects.requireNonNull(bikeId));
     }
 
     @Override
@@ -93,9 +82,8 @@ public class Customer extends UnicastRemoteObject implements CustomerService {
         return "Customer{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", username=" + username + '\'' +
+                ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", actualBikeRent=" + actualBikeRent.toString() +
                 ", customerType=" + customerType +
                 ", bikes=" + bikes +
                 '}';
