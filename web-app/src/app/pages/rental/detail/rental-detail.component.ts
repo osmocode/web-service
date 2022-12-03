@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { ChangeDetectorRef, Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { NzMessageService } from "ng-zorro-antd/message";
 import { NzModalService } from "ng-zorro-antd/modal";
@@ -10,6 +10,7 @@ import { Rent } from "src/app/models/rent";
 import { PageResult } from "src/app/models/result";
 import { AuthService } from "src/app/services/auth.service";
 import { BikeService } from "src/app/services/bike.service";
+import { FeedbackService } from "src/app/services/feedback.service";
 import { RentalService } from "src/app/services/rental.service";
 import { RentalFeedbackComponent } from "../feedback/rental-feedback.component";
 import { RentalRentComponent } from "../rent/rental-rent.component";
@@ -27,15 +28,19 @@ export class RentalDetailComponent implements OnInit {
 
   bike?: Bike;
   rentals?: Rent[];
+  feedbacks?: Feedback[];
+  reviews: number = 0;
+  average: number[] = [];
   canRent = false;
 
   constructor(
+    private readonly feedbackService: FeedbackService,
     private readonly rentService: RentalService,
     private readonly authService: AuthService,
     private readonly bikeService: BikeService,
     private readonly activatedRoute: ActivatedRoute,
     private readonly messageService: NzMessageService,
-    private readonly modalService: NzModalService
+    private readonly modalService: NzModalService,
   ) {
     this.subscriptions.push(
       this.activatedRoute.params.subscribe(params => {
@@ -86,6 +91,9 @@ export class RentalDetailComponent implements OnInit {
   private async onChangeRoute(id: string): Promise<void> {
     try {
       const bike = await firstValueFrom(this.bikeService.getBikeById(id));
+      this.reviews = 0;
+      this.average = [];
+      var feedbacks: Feedback[] = [];
       var rentals: Rent[] = [];
       bike.rent_queue.forEach(async queue => {
         try {
@@ -95,11 +103,29 @@ export class RentalDetailComponent implements OnInit {
           this.messageService.error(`Rent: ${queue} failed`);
         }
       });
+      bike.rent_history.forEach(async feedback => {
+        try {
+          const f = await firstValueFrom(this.feedbackService.getFeedbackById(feedback));
+          feedbacks.push(f);
+          if (f.note !== 0) {
+            this.reviews += 1;
+            this.average.push(f.note);
+          }
+        } catch (error) {
+          this.messageService.error(`Feedback: ${feedback} failed`);
+        }
+      });
       this.bike = bike;
       this.rentals = rentals;
+      this.feedbacks = feedbacks;
     } catch(error) {
       this.messageService.error('Something get wrong please try again later...');
     }
+  }
+
+  averageStars(list: number[]): number {
+    var sum = list.reduce((a, b) => a + b, 0);
+    return (sum / list.length);
   }
 
 }
