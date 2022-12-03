@@ -9,7 +9,7 @@ import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 import org.springframework.ws.soap.client.core.SoapActionCallback;
 import rmi.bike.interfaces.bike.BikeListService;
-import web.service.wsdl.sell.*;
+import web.service.wsdl.bike.*;
 
 
 import java.io.UncheckedIOException;

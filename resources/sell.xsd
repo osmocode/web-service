@@ -13,15 +13,9 @@
             <xs:element name="description" type="xs:string"></xs:element>
             <xs:element name="owner" type="xs:string"></xs:element>
             <xs:element name="state" type="xs:string"></xs:element>
-            <xs:element name="price" type="tns:articlePrice"></xs:element>
-            <xs:element name="available" type="xs:boolean"></xs:element>
-        </xs:sequence>
-    </xs:complexType>
-
-    <xs:complexType name="articlePrice">
-        <xs:sequence>
-            <xs:element name="value" type="xs:double"></xs:element>
+            <xs:element name="price" type="xs:double"></xs:element>
             <xs:element name="currency" type="xs:string"></xs:element>
+            <xs:element name="available" type="xs:boolean"></xs:element>
         </xs:sequence>
     </xs:complexType>
 
@@ -71,7 +65,8 @@
             <xs:sequence>
                 <xs:element name="token" type="xs:string"></xs:element>
                 <xs:element name="uuid" type="xs:string"></xs:element>
-                <xs:element name="price" type="tns:articlePrice"></xs:element>
+                <xs:element name="price" type="xs:double"></xs:element>
+                <xs:element name="currency" type="xs:string"></xs:element>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
