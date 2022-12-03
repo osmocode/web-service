@@ -64,7 +64,7 @@ public class FeedbackList extends UnicastRemoteObject implements FeedbackListSer
         } catch (InterruptedException e) {
             return null;
         }
-        return Map.of(uuid, feedback);
+        return feedback;
     }
 
     @Override
