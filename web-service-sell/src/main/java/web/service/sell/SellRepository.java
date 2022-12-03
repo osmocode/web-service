@@ -167,6 +167,10 @@ public class SellRepository {
 
         var article = bikeIntoArticle(bikeUuid, request.getCurrency());
 
+        if (!getBike(bikeUuid).getRentQueue().isEmpty()) {
+            return null;
+        }
+
         if (article.getOwner().equals(authService.isLogged(UUID.fromString(request.getToken())).toString())) {
             return null;
         }
