@@ -9,18 +9,25 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Date;
 import java.util.Objects;
-import java.util.UUID;
 
 public class Feedback extends UnicastRemoteObject implements FeedbackService {
     private final Date date;
     private final int note;
     private final String comment;
     private final BikeState bikeState;
-    private Rent rent;
+    private final Rent rent;
 
     public Feedback(Date date, int note, String comment, BikeState bikeState, Rent rent) throws RemoteException {
-        if (note > 5 || note < -1) {
-            throw new IllegalArgumentException("-1 <= note <= 5");
+        if (note > 5 || note < 0) {
+            throw new IllegalArgumentException("0 <= note <= 5");
+        }
+
+        if (note == 0 && comment != null) {
+            if (comment.isBlank() || comment.isEmpty()) {
+                throw new IllegalArgumentException("Comment AND Note  or  NO comment AND NO note");
+            }
+        } else if (note != 0 && comment == null) {
+            throw new IllegalArgumentException("Comment AND Note  or  NO comment AND NO note");
         }
 
         this.date = Objects.requireNonNull(date);

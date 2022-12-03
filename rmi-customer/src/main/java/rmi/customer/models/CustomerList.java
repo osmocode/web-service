@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 public class CustomerList extends UnicastRemoteObject implements CustomerListService {
     private final ApplicationContext context;
+
     private final Map<UUID, Customer> customers = new ConcurrentHashMap<>();
     private final Map<UUID, UUID> connexionToken = new ConcurrentHashMap<>();
 
@@ -27,7 +28,8 @@ public class CustomerList extends UnicastRemoteObject implements CustomerListSer
     }
 
     @Override
-    public UUID add(String firstName, String lastName, CustomerType customerType, String username, String password) throws RemoteException {
+    public Map<UUID, ? extends CustomerService> add(String firstName, String lastName, CustomerType customerType, String username, String password) throws RemoteException {
+        UUID uuid;
         Customer customer;
 
         try {
@@ -36,13 +38,11 @@ public class CustomerList extends UnicastRemoteObject implements CustomerListSer
             return null;
         }
 
-        UUID uuid;
-
         do {
             uuid = UUID.randomUUID();
         } while (customers.putIfAbsent(uuid, customer) != null);
 
-        return uuid;
+        return Map.of(uuid, customer);
     }
 
     @Override
@@ -60,13 +60,13 @@ public class CustomerList extends UnicastRemoteObject implements CustomerListSer
                 .filter(uuidCustomerEntry -> uuidCustomerEntry.getValue().verifLogin(username, password))
                 .collect(
                         Collectors.collectingAndThen(
-                            Collectors.toList(), list -> {
-                                if (list.size() != 1) {
-                                    throw new IllegalStateException();
+                                Collectors.toList(), list -> {
+                                    if (list.size() != 1) {
+                                        throw new IllegalStateException();
+                                    }
+                                    return list.get(0);
                                 }
-                                return list.get(0);
-                            }
-                            ));
+                        ));
 
         UUID token;
         do {

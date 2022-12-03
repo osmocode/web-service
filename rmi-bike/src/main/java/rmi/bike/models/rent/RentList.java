@@ -7,8 +7,12 @@ import rmi.bike.models.bike.Bike;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.*;
+import java.util.Date;
+import java.util.Map;
+import java.util.Objects;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 public class RentList extends UnicastRemoteObject implements RentListService {
     private final ApplicationContext context;
@@ -30,6 +34,14 @@ public class RentList extends UnicastRemoteObject implements RentListService {
     }
 
     @Override
+    public Map<UUID, ? extends RentService> getRentByCustomerUUID(String customerUUID) throws RemoteException {
+        Objects.requireNonNull(customerUUID);
+
+        return rents.entrySet().stream().filter(uuidRentEntry -> uuidRentEntry.getValue().sameCustomerClientUUID(customerUUID))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    }
+
+    @Override
     public Map<UUID, ? extends RentService> add(Date start, Date end, UUID customerClientUUID, UUID bikeUUID) throws RemoteException {
         UUID uuid;
         Rent rent;
@@ -42,6 +54,20 @@ public class RentList extends UnicastRemoteObject implements RentListService {
         try {
             rent = new Rent(start, end, customerClientUUID, bike);
         } catch (NullPointerException e) {
+            return null;
+        }
+
+        // We check if the location is not straddling another location of the user
+        if (getRentsWithNoFeedbackByCustomer(customerClientUUID.toString()).entrySet().stream().noneMatch(uuidEntry -> {
+            try {
+                // TODO
+                var startR = uuidEntry.getValue().getStart();
+                var endR = uuidEntry.getValue().getEnd();
+                return start.before(endR); //n_start > end && n_end < start && n_start < n_end
+            } catch (RemoteException e) {
+                return false;
+            }
+        })) {
             return null;
         }
 
@@ -58,6 +84,22 @@ public class RentList extends UnicastRemoteObject implements RentListService {
         }
 
         return Map.of(uuid, rent);
+    }
+
+    @Override
+    public Map<UUID, ? extends RentService> getRentsWithNoFeedbackByCustomer(String uuid) throws RemoteException {
+        Objects.requireNonNull(uuid);
+
+        return rents.entrySet().stream()
+                .filter(uuidRentEntry -> uuidRentEntry.getValue().sameCustomerClientUUID(uuid))
+                .filter(uuidRentEntry -> {
+                    try {
+                        return context.getFeedbacks().getFeedbackByUUID(uuidRentEntry.getKey().toString()) == null;
+                    } catch (RemoteException e) {
+                        return false;
+                    }
+                })
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
     @Override
