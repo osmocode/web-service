@@ -20,7 +20,7 @@ public class Bike extends UnicastRemoteObject implements BikeService {
     private Image image;
     private final UUID ownerId;
     private final BikeState bikeState;
-    private final ArrayList<Feedback> feedbackHistory = new ArrayList<>();
+    private final ArrayList<UUID> feedbackHistory = new ArrayList<>();
     private final ArrayBlockingQueue<UUID> rentQueue = new ArrayBlockingQueue<>(20);
 
     public Bike(String label, String description, UUID ownerUUID, BikeState bikeState) throws RemoteException {
@@ -31,7 +31,7 @@ public class Bike extends UnicastRemoteObject implements BikeService {
         this.bikeState = Objects.requireNonNull(bikeState);
     }
 
-    public boolean addFeedbackHistory(Feedback feedback) {
+    public boolean addFeedbackHistory(UUID feedback) {
         return feedbackHistory.add(Objects.requireNonNull(feedback));
     }
 
@@ -74,7 +74,7 @@ public class Bike extends UnicastRemoteObject implements BikeService {
     }
 
     @Override
-    public List<? extends FeedbackService> getFeedbackHistory() throws RemoteException {
+    public List<UUID> getFeedbackHistory() throws RemoteException {
         return feedbackHistory;
     }
 
@@ -85,12 +85,16 @@ public class Bike extends UnicastRemoteObject implements BikeService {
 
     @Override
     public float getAverageNote() throws RemoteException {
+        return 0F;
+        /*
         return (float) feedbackHistory.stream().mapToInt(feedback -> {
                 try {
                     return feedback.getNote();
                 } catch (RemoteException e) {
                     throw new RuntimeException(e.getCause());
             }}).filter(integer -> integer != 0).average().orElse(Double.NaN);
+
+         */
     }
 
     @Override

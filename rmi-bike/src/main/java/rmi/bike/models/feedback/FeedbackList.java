@@ -57,7 +57,7 @@ public class FeedbackList extends UnicastRemoteObject implements FeedbackListSer
             return null;
         }
 
-        if (!bike.addFeedbackHistory(feedback)) {
+        if (!bike.addFeedbackHistory(rentUUID)) {
             return null;
         }
 
