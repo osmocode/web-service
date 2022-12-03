@@ -14,6 +14,7 @@ import { AuthService } from "src/app/services/auth.service";
 export class LoginComponent {
 
   form: FormGroup;
+  submiting = false;
 
   constructor(
     private readonly messageService: NzMessageService,
@@ -28,6 +29,7 @@ export class LoginComponent {
   }
 
   async submitForm() {
+    this.submiting = true;
     if (this.form.valid) {
       this.authService.login(this.form.value).then((user) => {
         this.messageService.success(`Successfuly connected ${user.first_name} ${user.last_name}!`);
@@ -43,6 +45,7 @@ export class LoginComponent {
         }
       });
     }
+    this.submiting = false;
   }
 
 }

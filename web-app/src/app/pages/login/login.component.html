@@ -17,7 +17,7 @@
           </nz-input-group>
         </nz-form-control>
       </nz-form-item>
-      <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">Log in</button>
+      <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'" [nzLoading]="submiting">Log in</button>
       Or
       <a routerLink="/register">register now!</a>
     </form>
