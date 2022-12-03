@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { NzMessageService } from "ng-zorro-antd/message";
+import { lastValueFrom } from "rxjs";
 import { CustomerType } from "src/app/models/customer";
 import { CustomerService } from "src/app/services/customer.service";
 
@@ -35,7 +36,13 @@ export class RegisterComponent {
   async submitForm() {
     this.submiting = true;
     if (this.form.valid) {
-
+      try {
+        const user = await lastValueFrom(this.customerService.postCustomer(this.form.value))
+        this.messageService.success(`User ${user.username} created !`);
+        this.router.navigateByUrl('/login', { replaceUrl: true });
+      } catch (error) {
+        this.messageService.error('Something get wrong, try again later...');
+      }
     } else {
       Object.values(this.form.controls).forEach(control => {
         if (control.invalid) {
@@ -43,8 +50,8 @@ export class RegisterComponent {
           control.updateValueAndValidity({ onlySelf: true });
         }
       });
-      this.submiting = false;
     }
+    this.submiting = false;
   }
 
 }
