@@ -29,6 +29,31 @@ public class RentList extends UnicastRemoteObject implements RentListService {
         return rents.get(UUID.fromString(Objects.requireNonNull(uuid)));
     }
 
+    public long getNumberOfOnGoingRents() throws RemoteException{
+        var date = new Date();
+        return rents.entrySet().stream().filter(t -> {
+            try {
+                return t.getValue().getEnd().getTime() > date.getTime() && t.getValue().getStart().getTime() <= date.getTime() ;
+            } catch (RemoteException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }).count();
+    }
+
+    public long getNumberOfRentsPlanned() throws RemoteException{
+        var date = new Date();
+        return rents.entrySet().stream().filter(t -> {
+            try {
+                return t.getValue().getStart().getTime() > date.getTime();
+            } catch (RemoteException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+                return false;
+            }
+        }).count();
+    }
+
     @Override
     public Map<UUID, ? extends RentService> add(Date start, Date end, UUID customerClientUUID, UUID bikeUUID) throws RemoteException {
         UUID uuid;
