@@ -1,0 +1,90 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="http://www.springframework.org/schema/web-services"
+           targetNamespace="http://www.springframework.org/schema/web-services"
+           elementFormDefault="qualified">
+
+    <!-- TYPE DEF -->
+    <xs:complexType name="wallet">
+        <xs:sequence>
+            <xs:element name="currency" type="xs:string"></xs:element>
+            <xs:element name="balance" type="xs:double"></xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <!-- GET WALLET LIST -->
+    <xs:element name="getWalletListRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="uuid" type="xs:string"></xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getWalletListResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" name="wallets" type="tns:wallet"></xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- GET BALANCE -->
+    <xs:element name="getBalanceRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="uuid" type="xs:string"></xs:element>
+                <xs:element name="currency" type="xs:string"></xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getBalanceResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="wallet" type="tns:wallet"></xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- ADD MONEY -->
+    <xs:element name="addMoneyWalletRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="uuid" type="xs:string"></xs:element>
+                <xs:element name="currency" type="xs:string"></xs:element>
+                <xs:element name="value" type="xs:double"></xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="addMoneyWalletResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="wallet" type="tns:wallet"></xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- REMOVE MONEY -->
+    <xs:element name="removeMoneyWalletRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="uuid" type="xs:string"></xs:element>
+                <xs:element name="currency" type="xs:string"></xs:element>
+                <xs:element name="value" type="xs:double"></xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="removeMoneyWalletResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="success" type="xs:boolean"></xs:element>
+                <xs:element name="message" type="xs:string"></xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+</xs:schema>

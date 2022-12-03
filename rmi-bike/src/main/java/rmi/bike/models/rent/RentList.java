@@ -58,6 +58,7 @@ public class RentList extends UnicastRemoteObject implements RentListService {
         }
 
         // We check if the location is not straddling another location of the user
+        /*
         if (getRentsWithNoFeedbackByCustomer(customerClientUUID.toString()).entrySet().stream().noneMatch(uuidEntry -> {
             try {
                 // TODO
@@ -70,6 +71,7 @@ public class RentList extends UnicastRemoteObject implements RentListService {
         })) {
             return null;
         }
+         */
 
         // Add in rents
         do {

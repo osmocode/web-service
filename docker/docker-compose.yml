@@ -2,6 +2,21 @@ version: '3.7'
 
 services:
 
+  ws-bank:
+    restart: on-failure
+    image: openjdk:17-slim
+    container_name: ws-bank
+    command: "java -jar web-service-bank.jar"
+    working_dir: /app
+    volumes:
+      - ../web-service-bank/target/web-service-bank.jar:/app/web-service-bank.jar
+    networks:
+      - web-service-networks
+    ports:
+      - 8080
+    env_file:
+      - .env
+
   ws-convertor:
     restart: on-failure
     image: openjdk:17-slim
@@ -33,10 +48,12 @@ services:
       - .env
     links:
       - ws-convertor:ws-convertor
+      - ws-bank:ws-bank
     depends_on:
       - rmi-bike
       - rmi-customer
       - ws-convertor
+      - ws-bank
 
   rmi-bike:
     restart: on-failure

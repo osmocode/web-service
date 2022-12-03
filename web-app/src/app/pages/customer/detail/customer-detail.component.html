@@ -6,6 +6,7 @@
         <nz-divider></nz-divider>
         <h1>{{customer?.last_name?.toLocaleUpperCase()}} {{customer?.first_name?.toLocaleUpperCase()}}</h1>
         <p><b>Pseudo : </b>{{customer?.username}}</p>
+        <p nz-typography nzCopyable [nzCopyText]="token?.token">Click to get your token</p>
       </nz-col>
       <nz-col nzSpan="18">
 
