@@ -9,6 +9,7 @@ import { CustomerComponent } from "./customer.component";
 import { CustomerDetailComponent } from "./detail/customer-detail.component";
 import { NzStatisticModule } from 'ng-zorro-antd/statistic';
 import { NzMessageModule } from "ng-zorro-antd/message";
+import { NzTypographyModule } from 'ng-zorro-antd/typography';
 
 
 const routes: Routes = [
@@ -35,6 +36,7 @@ const routes: Routes = [
     NzDividerModule,
     NzStatisticModule,
     NzMessageModule,
+    NzTypographyModule,
     SharedComponentModule,
     RouterModule.forChild(routes)
   ]
