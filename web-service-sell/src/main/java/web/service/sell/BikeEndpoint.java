@@ -57,7 +57,7 @@ public class BikeEndpoint {
     @ResponsePayload
     public GetConvertResponse getConvertResponse(@RequestPayload GetConvertRequest request) {
         var template = new WebServiceTemplate(marshaller);
-        var response = (web.service.wsdl.convertor.GetConvertResponse) template.marshalSendAndReceive("http://ws-convertor:8080/ws/convertor", Providers.GetConvertRequest(request),
+        var response = (web.service.wsdl.convertor.GetConvertResponse) template.marshalSendAndReceive("http://ws-convertor:8080/ws/convertor/convertor", Providers.GetConvertRequest(request),
                 new SoapActionCallback(NAMESPACE));
         return Providers.GetConvertResponse(response);
     }
