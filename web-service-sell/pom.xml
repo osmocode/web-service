@@ -65,6 +65,12 @@
             <version>1.0</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>web.service</groupId>
+            <artifactId>rmi-customer-interfaces</artifactId>
+            <version>1.0</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -82,12 +88,27 @@
                 <executions>
                     <execution>
                         <phase>generate-sources</phase>
-                        <id>bike-wsdl</id>
+                        <id>sell-wsdl</id>
                         <goals>
                             <goal>xjc</goal>
                         </goals>
                         <configuration>
                             <packageName>web.service.wsdl.sell</packageName>
+                            <sources>
+                                <source>${project.basedir}/../resources/sell.xsd</source>
+                            </sources>
+                            <outputDirectory>${project.basedir}/src/main/java</outputDirectory>
+                            <clearOutputDir>false</clearOutputDir>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <id>bike-wsdl</id>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                        <configuration>
+                            <packageName>web.service.wsdl.bike</packageName>
                             <sources>
                                 <source>${project.basedir}/../resources/bike.xsd</source>
                             </sources>
