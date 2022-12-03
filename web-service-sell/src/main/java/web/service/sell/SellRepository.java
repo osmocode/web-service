@@ -134,7 +134,7 @@ public class SellRepository {
 
         if (!tokenIsValid(request.getToken())) { return null; }
 
-        var uuid = request.getUuid();
+        var uuid = authService.isLogged(UUID.fromString(request.getToken())).toString();
 
         filterBasket(uuid);
 
