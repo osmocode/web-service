@@ -38,7 +38,7 @@ public class FeedbackList extends UnicastRemoteObject implements FeedbackListSer
     }
 
     @Override
-    public Map<UUID, ? extends FeedbackService> add(Date date, int note, String comment, BikeState bikeState, UUID rentUUID) throws RemoteException {
+    public FeedbackService add(Date date, int note, String comment, BikeState bikeState, UUID rentUUID) throws RemoteException {
         UUID uuid = rentUUID;
         Feedback feedback;
 
@@ -75,7 +75,7 @@ public class FeedbackList extends UnicastRemoteObject implements FeedbackListSer
             return null;
         }
 
-        return Map.of(uuid, feedback);
+        return feedback;
     }
 
     @Override

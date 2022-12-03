@@ -164,7 +164,7 @@ All services is binded on port `1099`.
   getFeedbackByUUID(String uuid)
 ```
 
-- Adds a feedback to the list with  `date`, `note`, `comment`, `bikeState`, `rentUUID`. The return value will be a `Map<UUID, FeedbackService>`.
+- Adds a feedback to the list with  `date`, `note`, `comment`, `bikeState`, `rentUUID`. The return value will be a `FeedbackService`.
 ```java
     add(Date date, int note, String comment, BikeState bikeState, String rentUUID)
 ```

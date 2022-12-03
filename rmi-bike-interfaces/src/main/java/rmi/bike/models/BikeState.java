@@ -7,5 +7,4 @@ public enum BikeState {
     CORRECT,
     BAD,
     VERY_BAD;
-
 }

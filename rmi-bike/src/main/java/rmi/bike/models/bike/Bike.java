@@ -8,6 +8,7 @@ import rmi.bike.models.feedback.Feedback;
 import rmi.bike.models.rent.Rent;
 
 import java.awt.*;
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
@@ -100,8 +101,12 @@ public class Bike extends UnicastRemoteObject implements BikeService {
 
     @Override
     public float getAverageNote() throws RemoteException {
-        return 0F;
-        //return (float) feedbackHistory.stream().filter(feedback -> feedback.getNote() != -1).mapToDouble(Feedback::getNote).average().orElse(Double.NaN);
+        return (float) feedbackHistory.stream().mapToInt(feedback -> {
+                try {
+                    return feedback.getNote();
+                } catch (RemoteException e) {
+                    throw new RuntimeException(e.getCause());
+            }}).filter(integer -> integer != 0).average().orElse(Double.NaN);
     }
 
     @Override
