@@ -2,18 +2,18 @@
   <app-container>
     <h1>Register to Eiffel Bike Corp</h1>
     <form nz-form [formGroup]="form" nzLayout="vertical" (ngSubmit)="submitForm()">
-      <!-- FIRST NAME INPUT -->
-      <nz-form-item>
-        <nz-form-label nzRequired>First Name</nz-form-label>
-        <nz-form-control>
-          <input nz-input formControlName="first_name" placeholder="Your first name" />
-        </nz-form-control>
-      </nz-form-item>
       <!-- LAST NAME INPUT -->
       <nz-form-item>
         <nz-form-label nzRequired>Last Name</nz-form-label>
         <nz-form-control>
           <input nz-input formControlName="last_name" placeholder="Your last name" />
+        </nz-form-control>
+      </nz-form-item>
+      <!-- FIRST NAME INPUT -->
+      <nz-form-item>
+        <nz-form-label nzRequired>First Name</nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName="first_name" placeholder="Your first name" />
         </nz-form-control>
       </nz-form-item>
       <!-- USERNAME INPUT -->
