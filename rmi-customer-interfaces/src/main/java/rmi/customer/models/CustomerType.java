@@ -3,25 +3,6 @@ package rmi.customer.models;
 public enum CustomerType {
     STUDENT, EMPLOYEE, EIFFEL_BIKE_CORP, EXTERNAL;
 
-    public String toString() {
-        switch (this) {
-            case STUDENT:
-                return "Student";
-
-            case EMPLOYEE:
-                return "Employee";
-
-            case EIFFEL_BIKE_CORP:
-                return "Eiffel Bike Corp";
-
-            case EXTERNAL:
-                return "External";
-
-            default:
-                return "null";
-        }
-    }
-
     public boolean canProposeBike() {
         switch (this) {
             case STUDENT:

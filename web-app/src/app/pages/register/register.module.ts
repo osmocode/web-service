@@ -7,6 +7,8 @@ import { NzFormModule } from "ng-zorro-antd/form";
 import { NzGridModule } from "ng-zorro-antd/grid";
 import { NzIconModule } from "ng-zorro-antd/icon";
 import { NzInputModule } from "ng-zorro-antd/input";
+import { NzMessageModule, NzMessageService } from "ng-zorro-antd/message";
+import { NzSelectModule } from "ng-zorro-antd/select";
 import { SharedComponentModule } from "src/app/shared/shared.module";
 import { RegisterComponent } from "./register.component";
 
@@ -31,6 +33,8 @@ const routes: Routes = [
     NzFormModule,
     NzIconModule,
     NzGridModule,
+    NzSelectModule,
+    NzMessageModule,
     SharedComponentModule,
     RouterModule.forChild(routes)
   ]
