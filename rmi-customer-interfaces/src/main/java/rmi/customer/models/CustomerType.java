@@ -4,28 +4,16 @@ public enum CustomerType {
     STUDENT, EMPLOYEE, EIFFEL_BIKE_CORP, EXTERNAL;
 
     public boolean canProposeBike() {
-        switch (this) {
-            case STUDENT:
-
-            case EMPLOYEE:
-
-            case EIFFEL_BIKE_CORP:
-                return true;
-
-            default:
-                return false;
-        }
+        return switch (this) {
+            case STUDENT, EMPLOYEE, EIFFEL_BIKE_CORP -> true;
+            default -> false;
+        };
     }
 
     public boolean canRent() {
-        switch (this) {
-            case STUDENT:
-
-            case EMPLOYEE:
-                return true;
-
-            default:
-                return false;
-        }
+        return switch (this) {
+            case STUDENT, EMPLOYEE -> true;
+            default -> false;
+        };
     }
 }
