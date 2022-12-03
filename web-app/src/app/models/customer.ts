@@ -1,8 +1,9 @@
-export declare type CustomerType =
-  "Eiffel Bike Corp" |
-  "Student" |
-  "Employee" |
-  "External";
+export enum CustomerType {
+  STUDENT = "STUDENT",
+  EMPLOYEE = "EMPLOYEE",
+  EIFFEL_BIKE_CORP = "EIFFEL_BIKE_CORP",
+  EXTERNAL = "EXTERNAL",
+}
 
 export interface Customer {
   id: string;
