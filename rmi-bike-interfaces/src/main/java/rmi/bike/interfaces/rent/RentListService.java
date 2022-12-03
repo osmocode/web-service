@@ -9,6 +9,7 @@ public interface RentListService extends Remote {
     RentService getRentByUUID(String uuid) throws RemoteException;
     Map<UUID, ? extends RentService> getRentByCustomerUUID(String customerUUID) throws RemoteException;
     Map<UUID, ? extends RentService> add(Date start, Date end, UUID customerClientUUID, UUID bikeUUID) throws RemoteException;
+    public Map<UUID, ? extends RentService> getRentsWithNoFeedbackByCustomer(String uuid) throws RemoteException;
     long getNumberOfOnGoingRents() throws RemoteException;
     long getNumberOfRentsPlanned() throws RemoteException;
 }

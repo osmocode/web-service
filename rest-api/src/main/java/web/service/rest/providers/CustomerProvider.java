@@ -43,14 +43,6 @@ public class CustomerProvider {
         access = JsonProperty.Access.READ_WRITE
     )
     public String username;
-
-    @NotEmpty
-    @NotNull
-    @JsonProperty(
-        value = "first_name",
-        access = JsonProperty.Access.READ_WRITE
-    )
-    public String firstName;
     
     @JsonProperty(
         value = "password",

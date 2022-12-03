@@ -62,8 +62,8 @@ public class BikeController {
     }
 
     @GetMapping("api/v1/bike/stats")
-    public BikeProvider getBikeStats() throws RemoteException {
-        return new BikeProvider(UUID.fromString(uuid), bike);
+    public BikeStats getBikeStats() throws RemoteException {
+        return new BikeStats();
     }
 
     class BikeStats{
@@ -86,8 +86,9 @@ public class BikeController {
         public final long totalFreeBikes;
 
         public BikeStats() throws RemoteException{
-            totalRentals = rentService.get.;
+            totalRentals = rentService.getNumberOfOnGoingRents();
             totalBikes = service.getAll().size();
+            totalFreeBikes = totalBikes - totalRentals;
         }
     }
 
