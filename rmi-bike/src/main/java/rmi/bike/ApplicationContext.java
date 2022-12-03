@@ -28,7 +28,7 @@ public class ApplicationContext {
 
     private CustomerListService customers;
 
-    public ApplicationContext() throws RemoteException, IOException {
+    public ApplicationContext() throws RemoteException {
         bikes = new BikeList(this);
         rents = new RentList(this);
         feedbacks = new FeedbackList(this);
