@@ -46,14 +46,19 @@ export class RentalDetailComponent implements OnInit {
   }
 
   createFeedbackModal(rental: Rent) {
-    this.modalService.create({
-      nzTitle: 'Add feedback',
-      nzContent: RentalFeedbackComponent,
-      nzWidth: '60%',
-      nzComponentParams: {
-        rental: rental
-      }
-    });
+    this.subscriptions.push(
+      this.modalService.create({
+        nzTitle: 'Add feedback',
+        nzContent: RentalFeedbackComponent,
+        nzWidth: '60%',
+        nzComponentParams: {
+          rental: rental
+        }
+      }).afterClose.subscribe(() => {
+        this.onChangeRoute(this.id);
+      })
+    )
+
   }
 
   createRentModal() {

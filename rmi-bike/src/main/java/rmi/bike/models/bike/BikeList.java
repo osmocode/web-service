@@ -52,7 +52,6 @@ public class BikeList extends UnicastRemoteObject implements BikeListService {
             return null;
         }
         customer.addBike(uuid);
-
         return Map.of(uuid, bike);
     }
 
