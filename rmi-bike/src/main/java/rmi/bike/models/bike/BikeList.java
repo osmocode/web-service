@@ -14,7 +14,7 @@ public class BikeList extends UnicastRemoteObject implements BikeListService {
     private final ApplicationContext context;
     private final HashMap<UUID, Bike> bikes = new HashMap<>();
 
-    public BikeList(ApplicationContext applicationContext) throws RemoteException, IOException {
+    public BikeList(ApplicationContext applicationContext) throws RemoteException {
         super();
         this.context = Objects.requireNonNull(applicationContext);
     }

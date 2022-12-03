@@ -28,8 +28,7 @@ public class CustomerList extends UnicastRemoteObject implements CustomerListSer
     }
 
     @Override
-    public Map<UUID, ? extends CustomerService> add(String firstName, String lastName, CustomerType customerType, String username, String password) throws RemoteException {
-        UUID uuid;
+    public UUID add(String firstName, String lastName, CustomerType customerType, String username, String password) throws RemoteException {
         Customer customer;
 
         try {
@@ -38,11 +37,13 @@ public class CustomerList extends UnicastRemoteObject implements CustomerListSer
             return null;
         }
 
+        UUID uuid;
+
         do {
             uuid = UUID.randomUUID();
         } while (customers.putIfAbsent(uuid, customer) != null);
 
-        return Map.of(uuid, customer);
+        return uuid;
     }
 
     @Override
