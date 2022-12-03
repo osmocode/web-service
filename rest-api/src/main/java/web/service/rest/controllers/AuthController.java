@@ -23,7 +23,6 @@ public class AuthController {
     @PostMapping("/api/v1/auth/login")
     TokenForm auth(@Valid @RequestBody LoginForm form) throws RemoteException {
         var token = this.service.login(form.username, form.password);
-        System.out.println(token);
         if (token == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
         }
