@@ -14,7 +14,7 @@ import { TokenService } from "src/app/services/token.service";
 export class ShopCartComponent implements OnInit {
 
 
-  @Input() currency!: 'USD' | 'EURO' | 'YEN';
+  @Input() currency!: 'USD' | 'EURO' | 'CNY';
   articles?: Article[];
 
   constructor(

@@ -18,13 +18,13 @@ export class ShopComponent implements OnInit, OnDestroy {
 
   private readonly subscriptions: Subscription[] = [];
   articles?: Article[];
-  _currency: 'EURO' | 'USD' | 'YEN' = 'EURO';
+  _currency: 'EURO' | 'USD' | 'CNY' = 'EURO';
 
-  get currency(): 'EURO' | 'USD' | 'YEN' {
+  get currency(): 'EURO' | 'USD' | 'CNY' {
     return this._currency;
   }
 
-  set currency(value: 'EURO' | 'USD' | 'YEN') {
+  set currency(value: 'EURO' | 'USD' | 'CNY') {
     this._currency = value;
     this.refresh();
   }
