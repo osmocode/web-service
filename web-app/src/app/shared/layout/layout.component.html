@@ -4,7 +4,7 @@
     <ul nz-menu nzTheme="dark" nzMode="horizontal">
       <ng-container *ngIf="user; else: empty">
         <li nz-menu-item [nzMatchRouter]="true" routerLink="/rental" >Rental</li>
-        <li nz-menu-item [nzMatchRouter]="true">Shop</li>
+        <li nz-menu-item [nzMatchRouter]="true" routerLink="/shop">Shop</li>
         <li nz-menu-item [nzMatchRouter]="true">Bank</li>
 
         <li nz-dropdown [nzDropdownMenu]="profile" nzPlacement="bottomRight" nzTrigger="click" nz-menu-item [nzMatchRouter]="true" class="right"><nz-avatar [nzText]="initial(user)"></nz-avatar></li>
