@@ -1,0 +1,35 @@
+<ng-container *ngIf="article; else: loading">
+  <nz-card nzHoverable [nzCover]="coverTemplate" (click)="didClick.emit(article.uuid)">
+    <nz-row [nzGutter]="[16, 16]">
+      <nz-col nzSpan="8" *ngIf="!inCart">
+        <img
+          alt="article"
+          style="display: flex; width: 100%;"
+          src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fep1.pinkbike.org%2Fp5pb19584297%2Fp5pb19584297.jpg&f=1&nofb=1&ipt=a56b4b0523e960c22ae6c6905675b778e4b272de7639ecdbc3d546b5d9532fcd&ipo=images" />
+      </nz-col>
+      <nz-col [nzSpan]="inCart ? 12 : 8">
+        <h4>{{article.label}}</h4>
+        <p>{{article.description}}</p>
+      </nz-col>
+      <nz-col [nzSpan]="inCart ? 12 : 8">
+        <nz-statistic [nzValue]="article.price" [nzTitle]="'Price'" [nzPrefix]="article.currency"></nz-statistic>
+      </nz-col>
+      <nz-col [nzSpan]="24" *ngIf="inCart">
+        <button nz-button nzBlock (click)="didClickAddCart.emit(article.uuid)">
+          <i nz-icon nzType="shopping-cart" nzTheme="outline"></i>
+          Add card
+        </button>
+      </nz-col>
+    </nz-row>
+
+  </nz-card>
+  <ng-template #coverTemplate>
+    <ng-container *ngIf="inCart">
+      <img alt="article" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fep1.pinkbike.org%2Fp5pb19584297%2Fp5pb19584297.jpg&f=1&nofb=1&ipt=a56b4b0523e960c22ae6c6905675b778e4b272de7639ecdbc3d546b5d9532fcd&ipo=images" />
+    </ng-container>
+  </ng-template>
+</ng-container>
+
+<ng-template #loading>
+
+</ng-template>

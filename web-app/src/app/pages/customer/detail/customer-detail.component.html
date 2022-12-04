@@ -4,14 +4,20 @@
       <nz-col nzSpan="6">
         <nz-avatar [nzSize]="64" nzIcon="user"></nz-avatar>
         <nz-divider></nz-divider>
-        <h1>{{customer?.last_name?.toLocaleUpperCase()}} {{customer?.first_name?.toLocaleUpperCase()}}</h1>
-        <p><b>Pseudo : </b>{{customer?.username}}</p>
+        <h2
+          nz-typography
+          nzCopyable
+          [nzCopyText]="token?.token"
+          [nzCopyTooltips]="['Click to copy token','Copied']"
+        >{{customer?.last_name}} {{customer?.first_name}}</h2>
+        <!-- <h1>{{customer?.last_name?.toLocaleUpperCase()}} {{customer?.first_name?.toLocaleUpperCase()}}</h1> -->
+        <p><b>Username : </b>{{customer?.username}}</p>
       </nz-col>
       <nz-col nzSpan="18">
 
         <nz-row nzType="flex">
           <nz-statistic nzTitle="Number of bike" [nzValue]="customer?.bikes?.length"></nz-statistic>
-          <nz-statistic nzTitle="Number of reviews" [nzValue]="12" style="margin: 0 32px;"></nz-statistic>
+          <!-- <nz-statistic nzTitle="Number of reviews" [nzValue]="12" style="margin: 0 32px;"></nz-statistic> -->
         </nz-row>
 
         <nz-divider nzText="Owned bike" nzOrientation="center"></nz-divider>

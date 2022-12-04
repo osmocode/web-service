@@ -2,7 +2,7 @@ package web.service.sell;
 
 
 import rmi.bike.interfaces.bike.BikeService;
-import web.service.wsdl.sell.*;
+import web.service.wsdl.bike.*;
 
 import java.rmi.RemoteException;
 

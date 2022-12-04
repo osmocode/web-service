@@ -9,7 +9,7 @@ import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 import org.springframework.ws.soap.client.core.SoapActionCallback;
 import rmi.bike.interfaces.bike.BikeListService;
-import web.service.wsdl.sell.*;
+import web.service.wsdl.bike.*;
 
 
 import java.io.UncheckedIOException;
@@ -57,7 +57,7 @@ public class BikeEndpoint {
     @ResponsePayload
     public GetConvertResponse getConvertResponse(@RequestPayload GetConvertRequest request) {
         var template = new WebServiceTemplate(marshaller);
-        var response = (web.service.wsdl.convertor.GetConvertResponse) template.marshalSendAndReceive("http://ws-convertor:8080/ws/convertor", Providers.GetConvertRequest(request),
+        var response = (web.service.wsdl.convertor.GetConvertResponse) template.marshalSendAndReceive("http://ws-convertor:8080/ws/convertor/convertor", Providers.GetConvertRequest(request),
                 new SoapActionCallback(NAMESPACE));
         return Providers.GetConvertResponse(response);
     }

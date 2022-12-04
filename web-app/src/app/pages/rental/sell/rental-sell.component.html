@@ -1,0 +1,35 @@
+<form nz-form [formGroup]="form" (ngSubmit)="submitModal()" nzLayout="inline">
+  <!-- CURRENCY INPUT -->
+  <nz-form-item>
+    <nz-form-label nzFor="currency" nzRequired>Type</nz-form-label>
+    <nz-form-control>
+      <nz-select
+        id="currency"
+        formControlName="currency"
+        nzPlaceHolder="Currency"
+      >
+        <nz-option nzValue="EURO" nzLabel="EURO"></nz-option>
+        <nz-option nzValue="USD" nzLabel="USD"></nz-option>
+        <nz-option nzValue="YEN" nzLabel="YEN"></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+
+  <!-- PRICE INPUT -->
+  <nz-form-item>
+    <nz-form-label nzRequired>Price</nz-form-label>
+    <nz-form-control nzErrorTip="Please input valid price!">
+      <nz-input-number
+        id="price"
+        formControlName="price"
+        [nzMin]="1"
+        [nzMax]="999"
+    ></nz-input-number>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+
+<div *nzModalFooter>
+  <button nz-button nzType="default" (click)="destroyModal()">Cancel</button>
+  <button nz-button nzType="primary" (click)="submitModal()" [nzLoading]="submiting">Add for sell</button>
+</div>

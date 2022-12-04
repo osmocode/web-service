@@ -21,14 +21,14 @@ public class Config extends WsConfigurerAdapter {
         MessageDispatcherServlet servlet = new MessageDispatcherServlet();
         servlet.setApplicationContext(applicationContext);
         servlet.setTransformWsdlLocations(true);
-        return new ServletRegistrationBean(servlet, "/ws/*");
+        return new ServletRegistrationBean(servlet, "/ws/convertor/*");
     }
 
     @Bean(name = "convertor")
     public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema bikeSchema) {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("ConvertorPort");
-        wsdl11Definition.setLocationUri("/ws/convertor");
+        wsdl11Definition.setLocationUri("/ws/convertor/convertor");
         wsdl11Definition.setTargetNamespace("http://www.springframework.org/schema/web-services");
         wsdl11Definition.setSchema(bikeSchema);
         return wsdl11Definition;

@@ -5,7 +5,7 @@
   </ng-container>
 
   <ng-container *ngFor="let feedback of feedbacks">
-    <app-feedback-card [feedback]="feedback"></app-feedback-card>
+    <app-feedback-card *ngIf="feedback.note" [feedback]="feedback"></app-feedback-card>
   </ng-container>
 
 </ng-container>

@@ -5,6 +5,7 @@ import rmi.bike.interfaces.bike.BikeListService;
 import rmi.bike.interfaces.bike.BikeService;
 import rmi.bike.models.BikeState;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.*;
@@ -51,7 +52,6 @@ public class BikeList extends UnicastRemoteObject implements BikeListService {
             return null;
         }
         customer.addBike(uuid);
-
         return Map.of(uuid, bike);
     }
 
