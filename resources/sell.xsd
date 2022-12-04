@@ -105,7 +105,6 @@
             <xs:sequence>
                 <xs:element name="token" type="xs:string"></xs:element>
                 <xs:element name="bikeUuid" type="xs:string"></xs:element>
-                <xs:element name="currency" type="xs:string"></xs:element>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
