@@ -115,9 +115,9 @@ services:
     command: npm start -- --host 0.0.0.0 --disable-host-check
     ports:
       - 4200
-    volumes:
-      - ../web-app/:/web-app
-      - node_modules:/web-app/node_modules
+    #volumes:
+    #  - ../web-app/:/web-app
+    #  - node_modules:/web-app/node_modules
     networks:
       - web-service-networks
   
