@@ -13,7 +13,6 @@ import web.service.rest.session.Authenticated;
 
 import javax.validation.Valid;
 import java.rmi.RemoteException;
-import java.util.Optional;
 import java.util.UUID;
 
 

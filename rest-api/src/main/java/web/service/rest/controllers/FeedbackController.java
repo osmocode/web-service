@@ -4,6 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import rmi.bike.interfaces.feedback.FeedbackListService;
 import rmi.bike.interfaces.rent.RentListService;
 import rmi.bike.models.BikeState;
@@ -40,6 +43,12 @@ public class FeedbackController {
         return new FeedbackProvider(UUID.fromString(uuid), feedback);
     }
 
+    @GetMapping("/api/v1/feedback/stats")
+    public FeedbackStats getFeedbackStats(
+            @RequestHeader(value = "X-Auth-Token") String token) throws RemoteException {
+        return new FeedbackStats();
+    }
+
     @Authenticated
     @PostMapping("/api/v1/feedback/{id}")
     public FeedbackProvider postFeedback(
@@ -61,6 +70,17 @@ public class FeedbackController {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Feedback creation error");
         }
         return new FeedbackProvider(UUID.fromString(uuid), feed);
+    }
+
+    class FeedbackStats{
+        @JsonProperty(
+        value = "num_feedback",
+        access = JsonProperty.Access.READ_ONLY
+    )
+    public final long totalFeedbacks ;
+    public FeedbackStats() throws RemoteException{
+        totalFeedbacks = feedbackService.getAll().size();
+    }
     }
 
 }
