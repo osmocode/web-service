@@ -38,7 +38,16 @@ cd web-service
 
 
 ## Project architecture
-<p align="middle">
+<p>
     <img src="./assets/images/Organigram-projet-v3.png" alt="project structure" width="100%" />
 </p>
 
+
+## Services
+* [rest-api](./rest-api/README.md)
+* [rmi-bike](./rmi-bike/README.md)
+* [rmi-customer](./rmi-customer/README.md)
+* [web-app](./web-app/README.md)
+* [web-service-bank](./web-service-bank/README.md)
+* [web-service-convertor](./web-service-convertor/README.md)
+* [web-service-sell](./web-service-sell/README.md)
