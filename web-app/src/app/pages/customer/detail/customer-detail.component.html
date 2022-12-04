@@ -4,9 +4,14 @@
       <nz-col nzSpan="6">
         <nz-avatar [nzSize]="64" nzIcon="user"></nz-avatar>
         <nz-divider></nz-divider>
-        <h1>{{customer?.last_name?.toLocaleUpperCase()}} {{customer?.first_name?.toLocaleUpperCase()}}</h1>
-        <p><b>Pseudo : </b>{{customer?.username}}</p>
-        <p nz-typography nzCopyable [nzCopyText]="token?.token">Click to get your token</p>
+        <h2
+          nz-typography
+          nzCopyable
+          [nzCopyText]="token?.token"
+          [nzCopyTooltips]="['Click to copy token','Copied']"
+        >{{customer?.last_name}} {{customer?.first_name}}</h2>
+        <!-- <h1>{{customer?.last_name?.toLocaleUpperCase()}} {{customer?.first_name?.toLocaleUpperCase()}}</h1> -->
+        <p><b>Username : </b>{{customer?.username}}</p>
       </nz-col>
       <nz-col nzSpan="18">
 

@@ -14,6 +14,7 @@ import { FeedbackService } from "src/app/services/feedback.service";
 import { RentalService } from "src/app/services/rental.service";
 import { RentalFeedbackComponent } from "../feedback/rental-feedback.component";
 import { RentalRentComponent } from "../rent/rental-rent.component";
+import { RentalSellComponent } from "../sell/rental-sell.component";
 
 
 @Component({
@@ -50,6 +51,21 @@ export class RentalDetailComponent implements OnInit {
     );
   }
 
+  createSellModal() {
+    this.subscriptions.push(
+      this.modalService.create({
+        nzTitle: 'Add to sell',
+        nzContent: RentalSellComponent,
+        nzWidth: '60%',
+        nzComponentParams: {
+          bike: this.bike
+        }
+      }).afterClose.subscribe(() => {
+        this.onChangeRoute(this.id)
+      })
+    );
+  }
+
   createFeedbackModal(rental: Rent) {
     this.subscriptions.push(
       this.modalService.create({
@@ -62,22 +78,23 @@ export class RentalDetailComponent implements OnInit {
       }).afterClose.subscribe(() => {
         this.onChangeRoute(this.id);
       })
-    )
-
+    );
   }
 
   createRentModal() {
-    this.modalService.create({
-      nzTitle: 'Rent bike',
-      nzContent: RentalRentComponent,
-      nzWidth: '60%',
-      nzComponentParams: {
-        bike: this.bike,
-        rentals: this.rentals
-      }
-    }).afterClose.subscribe(() => {
-      this.onChangeRoute(this.id);
-    });
+    this.subscriptions.push(
+      this.modalService.create({
+        nzTitle: 'Rent bike',
+        nzContent: RentalRentComponent,
+        nzWidth: '60%',
+        nzComponentParams: {
+          bike: this.bike,
+          rentals: this.rentals
+        }
+      }).afterClose.subscribe(() => {
+        this.onChangeRoute(this.id);
+      })
+    );
   }
 
   async ngOnInit(): Promise<void> {
