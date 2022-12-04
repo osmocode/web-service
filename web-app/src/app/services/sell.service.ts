@@ -14,23 +14,23 @@ export class SellService {
   ) { }
 
   getArticleList(form: ArticlesGet): Observable<ArticleList> {
-    return this.http.post<ArticleList>(`/api/v2/getArticleList`, form);
+    return this.http.post<ArticleList>(`/api/v2/sell/getArticleList`, form);
   }
 
   getArticle(form: ArticleGet): Observable<Article> {
-    return this.http.post<Article>(`/api/v2/getArticle`, form);
+    return this.http.post<Article>(`/api/v2/sell/getArticle`, form);
   }
 
   postArticle(form: ArticlePost): Observable<Article> {
-    return this.http.post<Article>(`/api/v2/postArticle`, form);
+    return this.http.post<Article>(`/api/v2/sell/postArticle`, form);
   }
 
   getBasket(form: BasketGet): Observable<ArticleList> {
-    return this.http.post<ArticleList>(`/api/v2/getBasket`, form);
+    return this.http.post<ArticleList>(`/api/v2/sell/getBasket`, form);
   }
 
   postBasket(form: BasketPost): Observable<Article> {
-    return this.http.post<Article>(`/api/v2/postBasket`, form);
+    return this.http.post<Article>(`/api/v2/sell/postBasket`, form);
   }
 
 }

@@ -15,7 +15,7 @@ public class Controller {
     @Autowired
     private SellRepository repo;
 
-    @PostMapping("/api/v2/getArticleList")
+    @PostMapping("/api/v2/sell/getArticleList")
     public GetArticleListResponse getArticleList(@RequestBody GetArticleListRequest request) throws RemoteException {
         GetArticleListResponse response = new GetArticleListResponse();
         var articles = repo.getArticleListBike(request);
@@ -23,7 +23,7 @@ public class Controller {
         return response;
     }
 
-    @PostMapping("/api/v2/getArticle")
+    @PostMapping("/api/v2/sell/getArticle")
     public GetArticleResponse getArticle(@RequestBody GetArticleRequest request) throws RemoteException {
         GetArticleResponse response = new GetArticleResponse();
         var article = repo.getArticleBike(request);
@@ -31,7 +31,7 @@ public class Controller {
         return response;
     }
 
-    @PostMapping("/api/v2/postArticle")
+    @PostMapping("/api/v2/sell/postArticle")
     public PostArticleResponse postArticle(@RequestBody PostArticleRequest request) throws RemoteException {
         PostArticleResponse response = new PostArticleResponse();
         var article = repo.postArticleBike(request);
@@ -39,7 +39,7 @@ public class Controller {
         return response;
     }
 
-    @PostMapping("/api/v2/getBasket")
+    @PostMapping("/api/v2/sell/getBasket")
     public GetBasketResponse getBasket(@RequestBody GetBasketRequest request) throws RemoteException {
         GetBasketResponse response = new GetBasketResponse();
         var basket = repo.getBasket(request);
@@ -47,7 +47,7 @@ public class Controller {
         return response;
     }
 
-    @PostMapping("/api/v2/postBasket")
+    @PostMapping("/api/v2/sell/postBasket")
     public PostArticleBasketResponse postBasket(@RequestBody PostArticleBasketRequest request) throws RemoteException {
         PostArticleBasketResponse response = new PostArticleBasketResponse();
         var article = repo.addInBasket(request);
