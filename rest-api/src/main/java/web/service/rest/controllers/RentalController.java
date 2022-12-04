@@ -4,7 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import rmi.bike.interfaces.rent.RentListService;
+import rmi.bike.interfaces.rent.RentService;
 import rmi.customer.interfaces.CustomerListService;
 import web.service.rest.providers.RentalListProvider;
 import web.service.rest.providers.RentalProvider;
@@ -29,6 +33,11 @@ public class RentalController {
     @GetMapping("/api/v1/rent")
     public RentalListProvider getRent() throws RemoteException {
         return new RentalListProvider(this.rentService.getAll());
+    }
+
+    @GetMapping("/api/v1/rent/stats")
+    public RentStats getRentStats() throws RemoteException {
+        return new RentStats();
     }
 
     @GetMapping("/api/v1/rent/{id}")
@@ -62,5 +71,30 @@ public class RentalController {
         return new RentalProvider(response.get().getKey(), response.get().getValue());
     }
 
+    class RentStats{
+        @JsonProperty(
+            value = "num_rental",
+            access = JsonProperty.Access.READ_ONLY
+        )
+        public final long totalRental;
+
+        @JsonProperty(
+            value = "num_rental_current",
+            access = JsonProperty.Access.READ_ONLY
+        )
+        public final long currentRental;
+
+        @JsonProperty(
+            value = "num_rental_soon",
+            access = JsonProperty.Access.READ_ONLY
+        )
+        public final long futureRentals;
+        
+        RentStats() throws RemoteException{
+            totalRental = rentService.getAll().size();
+            currentRental = rentService.getNumberOfOnGoingRents();
+            futureRentals = rentService.getNumberOfRentsPlanned();
+        }   
+    }
 
 }

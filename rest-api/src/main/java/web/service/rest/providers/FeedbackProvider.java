@@ -3,8 +3,6 @@ package web.service.rest.providers;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import rmi.bike.interfaces.feedback.FeedbackService;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.rmi.RemoteException;
 import java.util.UUID;
 
@@ -27,7 +25,6 @@ public class FeedbackProvider {
         access = JsonProperty.Access.READ_WRITE
     )
     public int note;
-
     @JsonProperty(
         value = "comment",
         access = JsonProperty.Access.READ_WRITE
