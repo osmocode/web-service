@@ -126,7 +126,7 @@ public class SellRepository {
             return ;
         }
 
-        baskets.get(uuid).removeAll(baskets.get(uuid).stream().filter(this::isSold).toList());
+        baskets.get(uuid).removeAll(baskets.get(uuid).stream().distinct().filter(this::isSold).toList());
     }
 
     public List<Article> getBasket(GetBasketRequest request) throws RemoteException {
