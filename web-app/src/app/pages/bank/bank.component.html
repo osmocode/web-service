@@ -11,6 +11,8 @@
 
     <app-wallet-list
       [wallets]="wallets"
+      (didClickAdd)="addMoney($event)"
+      (didClickRemove)="removeMoney($event)"
     >
     </app-wallet-list>
 

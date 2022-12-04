@@ -10,6 +10,12 @@
       <nz-col [nzSpan]="inCart ? 12 : 8">
         <h4>{{article.label}}</h4>
         <p>{{article.description}}</p>
+        <ng-container *ngIf="article.available">
+          <nz-tag [nzColor]="'green'">Available for buy</nz-tag>
+        </ng-container>
+        <ng-container *ngIf="!article.available">
+          <nz-tag [nzColor]="'red'">Not available: in use</nz-tag>
+        </ng-container>
       </nz-col>
       <nz-col [nzSpan]="inCart ? 12 : 8">
         <nz-statistic [nzValue]="article.price" [nzTitle]="'Price'" [nzPrefix]="article.currency"></nz-statistic>

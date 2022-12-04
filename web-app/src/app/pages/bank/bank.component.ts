@@ -33,6 +33,44 @@ export class BankComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 
+  async addMoney(currency: string) {
+    try {
+      const user = await this.authService.current();
+      if (user) {
+        const wallet = await firstValueFrom(this.bankService.postBalance({
+          uuid: user.id,
+          currency: currency,
+          value: 100
+        }));
+        this.messageService.info('Balance updated');
+        this.refresh();
+      } else {
+        this.messageService.warning('Your session expired');
+      }
+    } catch (error) {
+      this.messageService.error('Something get wrong');
+    }
+  }
+
+  async removeMoney(currency: string) {
+    try {
+      const user = await this.authService.current();
+      if (user) {
+        const wallet = await firstValueFrom(this.bankService.removeBalance({
+          uuid: user.id,
+          currency: currency,
+          value: 100
+        }));
+        this.messageService.info('Balance updated');
+        this.refresh();
+      } else {
+        this.messageService.warning('Your session expired');
+      }
+    } catch (error) {
+      this.messageService.error('Something get wrong');
+    }
+  }
+
   createWalletModal(): void {
     this.subscriptions.push(
       this.modalService.create({

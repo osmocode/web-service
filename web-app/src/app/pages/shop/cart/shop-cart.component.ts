@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { NzMessageService } from "ng-zorro-antd/message";
 import { firstValueFrom } from "rxjs";
 import { Article } from "src/app/models/sell";
@@ -13,7 +13,8 @@ import { TokenService } from "src/app/services/token.service";
 })
 export class ShopCartComponent implements OnInit {
 
-  currency: 'USD' | 'EURO' | 'YEN' = 'EURO';
+
+  @Input() currency!: 'USD' | 'EURO' | 'YEN';
   articles?: Article[];
 
   constructor(
