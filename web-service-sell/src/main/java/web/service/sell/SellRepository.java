@@ -52,7 +52,6 @@ public class SellRepository {
 
     private Article bikeIntoArticle(String uuid, String currency) throws RemoteException {
         Objects.requireNonNull(uuid);
-        Objects.requireNonNull(currency);
 
         var price = sell.get(uuid);
         if (price == null) { return null; }
@@ -68,7 +67,7 @@ public class SellRepository {
         article.setOwner(bike.getOwnerId().toString());
         article.setState(bike.getBikeState().toString());
         article.setPrice(price.value()); // TODO convert into currency
-        article.setCurrency(currency);
+        article.setCurrency(currency == null ? price.currency() : currency);
         article.setAvailable(bike.getRentQueue().isEmpty());
 
         return article;
@@ -165,7 +164,8 @@ public class SellRepository {
 
         filterBasket(customerUuid);
 
-        var article = bikeIntoArticle(bikeUuid, request.getCurrency());
+        var article = bikeIntoArticle(bikeUuid, null);
+
 
         if (!getBike(bikeUuid).getRentQueue().isEmpty()) {
             return null;
@@ -187,7 +187,18 @@ public class SellRepository {
 
         filterBasket(customerUuid);
 
-        return baskets.get(customerUuid).stream().map(article -> {
+        if (baskets.get(customerUuid) == null) {
+            return new ArrayList<>();
+        }
+
+        return baskets.get(customerUuid).stream().filter(article -> {
+            try {
+                return bikeService.getBikeByUUID(article).getRentQueue().isEmpty();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+                throw new IllegalStateException(); // TODO other exception ?
+            }
+        }).map(article -> {
             try {
                 var bike = bikeIntoArticle(article, request.getCurrency());
 
