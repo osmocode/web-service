@@ -1,0 +1,26 @@
+<ng-container *ngIf="articles; else: loading">
+
+  <ng-container *ngIf="articles.length === 0">
+    <nz-empty nzNotFoundContent="Empty"></nz-empty>
+  </ng-container>
+
+  <nz-row [nzGutter]="[16, 16]">
+    <ng-container *ngFor="let article of articles">
+      <nz-col [nzSpan]="24" [nzSm]="inCart ? 12 : 24" [nzMd]="inCart ? 8 : 24" [nzLg]="inCart ? 6 : 24">
+        <app-article-card
+          [inCart]="inCart"
+          [article]="article"
+          (didClick)="didClickItem.emit($event)"
+          (didClickAddCart)="didClickAddCartItem.emit($event)"
+        ></app-article-card>
+      </nz-col>
+    </ng-container>
+  </nz-row>
+
+</ng-container>
+
+<ng-template #loading>
+  <div class="spin">
+    <nz-spin nzSimple nzSize="large"></nz-spin>
+  </div>
+</ng-template>

@@ -1,0 +1,29 @@
+<ng-container *ngIf="wallet; else: loading">
+  <nz-card nzHoverable (click)="didClick.emit(wallet.currency)">
+    <h1>Wallet</h1>
+    <nz-row [nzGutter]="[16, 16]">
+      <nz-col [nzSpan]="12">
+        <nz-statistic [nzValue]="wallet.currency" [nzTitle]="'Currency'"></nz-statistic>
+      </nz-col>
+      <nz-col [nzSpan]="12">
+        <nz-statistic [nzValue]="wallet.balance" [nzTitle]="'Account Balance'"></nz-statistic>
+      </nz-col>
+      <nz-col [nzSpan]="12">
+        <button nz-button nzBlock (click)="didClickRemove.emit(wallet.currency)">
+          <i nz-icon nzType="minus-square" nzTheme="outline"></i>
+          100
+        </button>
+      </nz-col>
+      <nz-col [nzSpan]="12">
+        <button nz-button nzType="primary" nzBlock (click)="didClickAdd.emit(wallet.currency)">
+          <i nz-icon nzType="plus-square" nzTheme="outline"></i>
+          100
+        </button>
+      </nz-col>
+    </nz-row>
+  </nz-card>
+</ng-container>
+
+<ng-template #loading>
+
+</ng-template>

@@ -13,6 +13,10 @@ import { FeedbackCardComponent } from "./feedback-card/feedback-card.component";
 import { FeedbackListComponent } from "./feedback-list/feedback-list.component";
 import { RentalListComponent } from "./rental-list/rental-list.component";
 import { RentalCardComponent } from "./rental-card/rental-card.component";
+import { ArticleListComponent } from "./article-list/article-list.component";
+import { ArticleCardComponent } from "./article-card/article-card.component";
+import { WalletListComponent } from "./wallet-list/wallet-list.component";
+import { WalletCardComponent } from "./wallet-card/wallet-card.component";
 
 // NZ-Modules
 import { NzLayoutModule } from "ng-zorro-antd/layout";
@@ -33,6 +37,7 @@ import { NzStatisticModule } from 'ng-zorro-antd/statistic';
 import { NzSelectModule } from "ng-zorro-antd/select";
 import { NzFormModule } from "ng-zorro-antd/form";
 import { NzInputModule } from "ng-zorro-antd/input";
+import { NzTagModule } from 'ng-zorro-antd/tag';
 
 
 const SHARED_COMPONENTS = [
@@ -44,7 +49,11 @@ const SHARED_COMPONENTS = [
   FeedbackListComponent,
   FeedbackCardComponent,
   RentalListComponent,
-  RentalCardComponent
+  RentalCardComponent,
+  ArticleListComponent,
+  ArticleCardComponent,
+  WalletListComponent,
+  WalletCardComponent
 ]
 
 @NgModule({
@@ -72,6 +81,7 @@ const SHARED_COMPONENTS = [
     NzSelectModule,
     NzFormModule,
     NzInputModule,
+    NzTagModule,
   ],
   declarations: [
     ...SHARED_COMPONENTS
