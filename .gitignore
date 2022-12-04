@@ -12,7 +12,7 @@
 
 # IntelliJ
 .idea
-.iml
+*.iml
 
 # MacOS
 
