@@ -1,8 +1,7 @@
-<nz-comment [nzAuthor]="'User'" [nzDatetime]="'now'">
-  <nz-avatar nz-comment-avatar nzIcon="user"></nz-avatar>
+<nz-comment [nzAuthor]="customer?.username || 'anonymous'" [nzDatetime]="(feedback.date | date) || ''">
+  <nz-avatar nz-comment-avatar [nzText]="initial(customer)"></nz-avatar>
   <nz-comment-content>
-    <nz-rate [ngModel]="3.5" nzAllowHalf nzDisabled></nz-rate>
+    <nz-rate [ngModel]="feedback.note" nzAllowHalf nzDisabled></nz-rate>
     <p><b>{{feedback.comment}}</b></p>
-    <p>{{feedback.comment}}</p>
   </nz-comment-content>
 </nz-comment>

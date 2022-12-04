@@ -42,8 +42,12 @@ public class Config extends WsConfigurerAdapter {
     @Bean
     public Convertor getService() {
         var service = new Convertor();
-        service.addCurrency(new Convertor.Currency("USD", "EURO", 0.5));
-        service.addCurrency(new Convertor.Currency("EURO", "USD", 2.0));
+        service.addCurrency(new Convertor.Currency("USD", "EURO", 0.9498));
+        service.addCurrency(new Convertor.Currency("USD", "CNY", 7.0189));
+        service.addCurrency(new Convertor.Currency("EURO", "USD", 1.0528532323));
+        service.addCurrency(new Convertor.Currency("EURO", "CNY", 7.3898715519));
+        service.addCurrency(new Convertor.Currency("CNY", "EURO", 0.1353203493));
+        service.addCurrency(new Convertor.Currency("CNY", "USD", 0.1424724672));
         return service;
     }
 

@@ -1,0 +1,29 @@
+<app-layout>
+  <app-container>
+    <nz-page-header nzTitle="Bike Shop" nzSubtitle="Choice the bike you wan't to buy">
+      <nz-page-header-extra>
+        <nz-select [(ngModel)]="currency" style="margin-right: 16px;">
+          <nz-option nzValue="EURO" nzLabel="EURO"></nz-option>
+          <nz-option nzValue="USD" nzLabel="USD"></nz-option>
+          <nz-option nzValue="CNY" nzLabel="CNY"></nz-option>
+        </nz-select>
+        <button nz-button nzType="primary" (click)="createCartDrawer()">
+          <i nz-icon nzType="shopping-cart" nzTheme="outline"></i>
+          Show your cart
+        </button>
+      </nz-page-header-extra>
+      <nz-page-header-content>
+        <nz-divider></nz-divider>
+        <nz-row nzType="flex" style="float: left;">
+          <nz-statistic nzTitle="Total bikes" [nzValue]="articles?.length || 0"></nz-statistic>
+        </nz-row>
+      </nz-page-header-content>
+    </nz-page-header>
+
+    <app-article-list
+      [inCart]="true"
+      [articles]="articles"
+      (didClickAddCartItem)="addToCart($event)"
+    ></app-article-list>
+  </app-container>
+</app-layout>

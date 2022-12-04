@@ -1,0 +1,26 @@
+<ng-container *ngIf="wallets; else: loading">
+
+  <ng-container *ngIf="wallets.length === 0">
+    <nz-empty nzNotFoundContent="Empty"></nz-empty>
+  </ng-container>
+
+  <nz-row [nzGutter]="[16, 16]">
+    <ng-container *ngFor="let wallet of wallets">
+      <nz-col [nzSpan]="24" [nzSm]="12" [nzMd]="8" [nzLg]="6">
+        <app-wallet-card
+          [wallet]="wallet"
+          (didClick)="didClickItem.emit($event)"
+          (didClickAdd)="didClickAdd.emit($event)"
+          (didClickRemove)="didClickRemove.emit($event)"
+        ></app-wallet-card>
+      </nz-col>
+    </ng-container>
+  </nz-row>
+
+</ng-container>
+
+<ng-template #loading>
+  <div class="spin">
+    <nz-spin nzSimple nzSize="large"></nz-spin>
+  </div>
+</ng-template>
