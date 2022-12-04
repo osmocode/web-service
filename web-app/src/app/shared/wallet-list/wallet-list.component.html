@@ -1,13 +1,13 @@
-<ng-container *ngIf="bikes; else: loading">
+<ng-container *ngIf="wallets; else: loading">
 
-  <ng-container *ngIf="bikes.length === 0">
+  <ng-container *ngIf="wallets.length === 0">
     <nz-empty nzNotFoundContent="Empty"></nz-empty>
   </ng-container>
 
   <nz-row [nzGutter]="[16, 16]">
-    <ng-container *ngFor="let bike of bikes">
+    <ng-container *ngFor="let wallet of wallets">
       <nz-col [nzSpan]="24" [nzSm]="12" [nzMd]="8" [nzLg]="6">
-        <app-bike-card [bike]="bike" (didClick)="didClickItem.emit($event)"></app-bike-card>
+        <app-wallet-card [wallet]="wallet" (didClick)="didClickItem.emit($event)"></app-wallet-card>
       </nz-col>
     </ng-container>
   </nz-row>

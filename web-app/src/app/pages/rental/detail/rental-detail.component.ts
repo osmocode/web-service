@@ -56,7 +56,6 @@ export class RentalDetailComponent implements OnInit {
       this.modalService.create({
         nzTitle: 'Add to sell',
         nzContent: RentalSellComponent,
-        nzWidth: '60%',
         nzComponentParams: {
           bike: this.bike
         }

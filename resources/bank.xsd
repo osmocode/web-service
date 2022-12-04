@@ -80,8 +80,7 @@
     <xs:element name="removeMoneyWalletResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="success" type="xs:boolean"></xs:element>
-                <xs:element name="message" type="xs:string"></xs:element>
+                <xs:element name="wallet" type="tns:wallet"></xs:element>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
