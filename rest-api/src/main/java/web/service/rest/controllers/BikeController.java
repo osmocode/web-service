@@ -8,6 +8,8 @@ import org.springframework.web.server.ResponseStatusException;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import rmi.bike.interfaces.bike.BikeListService;
+import rmi.bike.interfaces.bike.BikeService;
+import rmi.bike.interfaces.feedback.FeedbackListService;
 import rmi.bike.interfaces.rent.RentListService;
 import rmi.bike.models.BikeState;
 import rmi.customer.interfaces.CustomerListService;
@@ -30,6 +32,9 @@ public class BikeController {
     RentListService rentService;
 
     @Autowired
+    FeedbackListService feedbackService;
+
+    @Autowired
     CustomerListService authService;
 
     @GetMapping("/api/v1/bike")
@@ -44,6 +49,15 @@ public class BikeController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Bike not found");
         }
         return new BikeProvider(UUID.fromString(uuid), bike);
+    }
+
+    @GetMapping("api/v1/bike/{id}/stats")
+    public BikeStatsById getBikeStatsById(@PathVariable("id") String uuid) throws RemoteException {
+        var bike = service.getBikeByUUID(uuid);
+        if (bike == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Bike not found");
+        }
+        return new BikeStatsById(bike);
     }
 
     @Authenticated
@@ -89,6 +103,39 @@ public class BikeController {
             totalRentals = rentService.getNumberOfOnGoingRents();
             totalBikes = service.getAll().size();
             totalFreeBikes = totalBikes - totalRentals;
+        }
+    }
+
+    class BikeStatsById{
+        @JsonProperty(
+        value = "average",
+        access = JsonProperty.Access.READ_ONLY
+        )
+        public final double averageRate;
+        
+        @JsonProperty(
+        value = "num_review",
+        access = JsonProperty.Access.READ_ONLY
+        )
+        public final long totalReviews;
+        
+        @JsonProperty(
+        value = "num_rental",
+        access = JsonProperty.Access.READ_ONLY
+        )
+        public final long totalRentals;
+
+        public BikeStatsById(BikeService bike) throws RemoteException{
+            averageRate = bike.getFeedbackHistory().stream().mapToInt(feedback -> {
+                try {
+                    var uuid = feedback.toString();
+                    return feedbackService.getFeedbackByUUID(uuid).getNote();
+                } catch (RemoteException e) {
+                    throw new RuntimeException(e.getCause());
+            }}).filter(integer -> integer != 0).average().orElse(Double.NaN);;
+            
+            totalReviews = bike.getFeedbackHistory().size();
+            totalRentals = totalReviews + bike.getRentQueue().size();
         }
     }
 
