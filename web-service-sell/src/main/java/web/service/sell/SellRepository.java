@@ -133,10 +133,11 @@ public class SellRepository {
         Objects.requireNonNull(uuid);
 
         if (baskets.get(uuid) == null) {
-            return ;
+            return;
         }
 
-        baskets.get(uuid).removeAll(baskets.get(uuid).stream().filter(this::isSold).toList());
+
+        baskets.put(uuid, baskets.get(uuid).stream().distinct().filter(s -> !isSold(s)).toList());
     }
 
     public List<Article> getBasket(GetBasketRequest request) throws RemoteException {
@@ -185,7 +186,7 @@ public class SellRepository {
             return null;
         }
 
-        if (article.getOwner().equals(authService.isLogged(UUID.fromString(request.getToken())).toString())) {
+        if (article.getOwner().equals(customerUuid)) {
             return null;
         }
 
