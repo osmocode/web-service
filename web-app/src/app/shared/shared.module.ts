@@ -13,6 +13,8 @@ import { FeedbackCardComponent } from "./feedback-card/feedback-card.component";
 import { FeedbackListComponent } from "./feedback-list/feedback-list.component";
 import { RentalListComponent } from "./rental-list/rental-list.component";
 import { RentalCardComponent } from "./rental-card/rental-card.component";
+import { ArticleListComponent } from "./article-list/article-list.component";
+import { ArticleCardComponent } from "./article-card/article-card.component";
 
 // NZ-Modules
 import { NzLayoutModule } from "ng-zorro-antd/layout";
@@ -44,7 +46,9 @@ const SHARED_COMPONENTS = [
   FeedbackListComponent,
   FeedbackCardComponent,
   RentalListComponent,
-  RentalCardComponent
+  RentalCardComponent,
+  ArticleListComponent,
+  ArticleCardComponent
 ]
 
 @NgModule({

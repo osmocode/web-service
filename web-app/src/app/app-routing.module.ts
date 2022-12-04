@@ -41,6 +41,14 @@ const routes: Routes = [
     ).then(m => m.RentalModule)
   },
   {
+    path: 'shop',
+    canActivate: [CustomerGuard],
+    data: { rules: ['all'] },
+    loadChildren: () => import(
+      './pages/shop/shop.module'
+    ).then(m => m.ShopModule)
+  },
+  {
     path: 'error',
     loadChildren: () => import(
       './pages/error/error.module'
