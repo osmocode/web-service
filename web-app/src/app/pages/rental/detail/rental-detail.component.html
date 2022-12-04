@@ -12,7 +12,7 @@
         </ng-container>
         <ng-template #owner>
           <nz-divider nzText="Actions" nzOrientation="left"></nz-divider>
-          <button nz-button nzBlock>Publish for sell</button>
+          <button nz-button nzBlock (click)="createSellModal()">Publish for sell</button>
         </ng-template>
 
         <ng-container *ngIf="rentals && rentals.length !== 0">
@@ -25,7 +25,7 @@
 
         <nz-row [nzGutter]="32">
           <nz-col nzSpan="12">
-            <h1>{{bike?.label}}</h1>
+            <h2 nz-typography nzCopyable [nzCopyText]="bike?.id" [nzCopyTooltips]="['Click to copy id','Copied']">{{bike?.label}}</h2>
             <p>{{bike?.desc}}</p>
             <b style="margin-right: 15px;">Rate :</b>
             <nz-rate [ngModel]="averageStars(average)" nzAllowHalf nzDisabled></nz-rate>
