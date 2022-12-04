@@ -67,8 +67,18 @@ public class SellRepository {
         article.setDescription(bike.getDescription());
         article.setOwner(bike.getOwnerId().toString());
         article.setState(bike.getBikeState().toString());
-        article.setPrice(price.value()); // TODO convert into currency
-        article.setCurrency(currency == null ? price.currency() : currency);
+        if (currency == null) {
+            article.setCurrency(price.currency());
+            article.setPrice(price.value());
+        } else {
+            article.setCurrency(currency);
+            if (currency.equals(price.currency())) {
+                article.setPrice(price.value());
+            } else {
+                var r = currencyService.convertCurrency(price.currency(), currency, price.value());
+                article.setPrice(r.getResult());
+            }
+        }
         article.setAvailable(bike.getRentQueue().isEmpty());
 
         return article;
