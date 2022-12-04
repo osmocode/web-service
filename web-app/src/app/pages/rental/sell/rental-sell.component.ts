@@ -49,9 +49,12 @@ export class RentalSellComponent {
             price: this.form.value.price,
             currency: this.form.value.currency
           }));
-          console.log(article);
+          if (article) {
+            this.messageService.success(`Your bike is added for sell!`);
+          } else {
+            this.messageService.warning(`Impossible to sell this bike`);
+          }
           this.modal.destroy();
-          this.messageService.success(`Your bike is added for sell!`);
         } else {
           this.messageService.error(`Something get wrong...`);
         }

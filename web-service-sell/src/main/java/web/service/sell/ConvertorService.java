@@ -2,12 +2,13 @@ package web.service.sell;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.ws.client.core.WebServiceTemplate;
 import web.service.wsdl.convertor.GetConvertRequest;
 import web.service.wsdl.convertor.GetConvertResponse;
 
-@Service
+@Component
 public class ConvertorService {
 
     @Autowired
@@ -16,7 +17,7 @@ public class ConvertorService {
     private WebServiceTemplate template;
 
     public GetConvertResponse convertCurrency(String from, String to, Double value) {
-        template = new WebServiceTemplate();
+        template = new WebServiceTemplate(marshaller);
         var request = new GetConvertRequest();
         request.setFrom(from);
         request.setTo(to);
