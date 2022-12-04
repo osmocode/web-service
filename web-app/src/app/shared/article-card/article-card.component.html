@@ -18,7 +18,7 @@
         </ng-container>
       </nz-col>
       <nz-col [nzSpan]="inCart ? 12 : 8">
-        <nz-statistic [nzValue]="article.price" [nzTitle]="'Price'" [nzPrefix]="article.currency"></nz-statistic>
+        <nz-statistic [nzValue]="article.price.toFixed(2)" [nzTitle]="'Price'" [nzPrefix]="article.currency"></nz-statistic>
       </nz-col>
       <nz-col [nzSpan]="24" *ngIf="inCart">
         <button nz-button nzBlock (click)="didClickAddCart.emit(article.uuid)">
