@@ -15,13 +15,14 @@ import java.util.stream.Collectors;
 @Component
 public class SellRepository {
 
-
     @Autowired
     private BikeListService bikeService;
 
     @Autowired
     private CustomerListService authService;
 
+    @Autowired
+    private ConvertorService currencyService;
 
     private final HashMap<String, SellPrice> sell = new HashMap<>();
     private final HashMap<String, List<String>> baskets = new HashMap<>();
