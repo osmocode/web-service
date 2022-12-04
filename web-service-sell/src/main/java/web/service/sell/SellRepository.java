@@ -88,9 +88,9 @@ public class SellRepository {
 
         if (!tokenIsValid(request.getToken())) { return null; }
 
-        return sell.entrySet().stream().map(stringSellPriceEntry -> {
+        return sell.keySet().stream().map(sellPrice -> {
             try {
-                return bikeIntoArticle(stringSellPriceEntry.getKey(), request.getCurrency());
+                return bikeIntoArticle(sellPrice, request.getCurrency());
             } catch (RemoteException e) {
                 e.printStackTrace();
                 throw new IllegalStateException(); // TODO other exception ?
@@ -125,7 +125,7 @@ public class SellRepository {
             return ;
         }
 
-        baskets.get(uuid).removeAll(baskets.get(uuid).stream().filter(s -> isSold(s)).toList());
+        baskets.get(uuid).removeAll(baskets.get(uuid).stream().filter(this::isSold).toList());
     }
 
     public List<Article> getBasket(GetBasketRequest request) throws RemoteException {
@@ -166,6 +166,9 @@ public class SellRepository {
 
         var article = bikeIntoArticle(bikeUuid, null);
 
+        if (article == null) {
+            return null;
+        }
 
         if (!getBike(bikeUuid).getRentQueue().isEmpty()) {
             return null;
