@@ -18,6 +18,16 @@ export class ShopComponent implements OnInit, OnDestroy {
 
   private readonly subscriptions: Subscription[] = [];
   articles?: Article[];
+  _currency: 'EURO' | 'USD' | 'YEN' = 'EURO';
+
+  get currency(): 'EURO' | 'USD' | 'YEN' {
+    return this._currency;
+  }
+
+  set currency(value: 'EURO' | 'USD' | 'YEN') {
+    this._currency = value;
+    this.refresh();
+  }
 
   constructor(
     private readonly tokenService: TokenService,
@@ -39,7 +49,10 @@ export class ShopComponent implements OnInit, OnDestroy {
       this.drawerService.create({
         nzTitle: 'Your cart',
         nzContent: ShopCartComponent,
-        nzSize: 'large'
+        nzSize: 'large',
+        nzContentParams: {
+          currency: this._currency
+        }
       }).afterClose.subscribe(() => {
         this.refresh();
       })
@@ -70,7 +83,7 @@ export class ShopComponent implements OnInit, OnDestroy {
       if (token) {
         const articles = await firstValueFrom(this.sellService.getArticleList({
           token: token.token,
-          currency: "EURO"
+          currency: this._currency
         }));
         this.articles = articles.articles;
       } else {

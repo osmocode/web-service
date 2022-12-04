@@ -11,5 +11,7 @@ export class WalletListComponent {
 
   @Input() wallets?: Wallet[];
   @Output() didClickItem = new EventEmitter<string>();
+  @Output() didClickAdd = new EventEmitter<string>();
+  @Output() didClickRemove = new EventEmitter<string>();
 
 }

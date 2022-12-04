@@ -11,4 +11,6 @@ export class WalletCardComponent {
 
   @Input() wallet?: Wallet;
   @Output() didClick= new EventEmitter<string>();
+  @Output() didClickAdd = new EventEmitter<string>();
+  @Output() didClickRemove = new EventEmitter<string>();
 }

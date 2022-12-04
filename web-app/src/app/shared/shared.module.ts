@@ -37,6 +37,7 @@ import { NzStatisticModule } from 'ng-zorro-antd/statistic';
 import { NzSelectModule } from "ng-zorro-antd/select";
 import { NzFormModule } from "ng-zorro-antd/form";
 import { NzInputModule } from "ng-zorro-antd/input";
+import { NzTagModule } from 'ng-zorro-antd/tag';
 
 
 const SHARED_COMPONENTS = [
@@ -80,6 +81,7 @@ const SHARED_COMPONENTS = [
     NzSelectModule,
     NzFormModule,
     NzInputModule,
+    NzTagModule,
   ],
   declarations: [
     ...SHARED_COMPONENTS
