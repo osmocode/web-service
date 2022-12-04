@@ -67,3 +67,4 @@ META-INF/
 **/web/service/wsdl/
 web-service-convertor/**/resources/
 web-service-sell/**/resources/
+web-service-bank/**/resources/
